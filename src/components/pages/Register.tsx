@@ -1,11 +1,16 @@
-const Login = () => {
+const Register = () => {
   return (
     <>
-      <div className="reg-containt">
+      <div className="reg-contain">
         <form action="">
           <div>
-            <h1 className="reg-head">Login</h1>
+            <h1 className="reg-head">Signup</h1>
             <hr />
+          </div>
+
+          <div>
+            <label htmlFor="name">Full Name:</label>
+            <input type="text" id="name" placeholder="Enter User" name="name" />
           </div>
 
           <div>
@@ -28,13 +33,22 @@ const Login = () => {
                 name="password"
               />
             </div>
+            <div>
+              <label htmlFor="password1">Repeat Password:</label>
+              <input
+                type="password"
+                placeholder="Repeat password"
+                id="password1"
+                name="password1"
+              />
+            </div>
           </div>
-          <div><a href="">Forget Password</a></div>
-          <button type="button">Login</button>
+          <div><a href="">Login</a></div>
+          <button type="button">Submit</button>
         </form>
       </div>
     </>
   );
 };
 
-export default Login;
+export default Register;

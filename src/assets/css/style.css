@@ -5,7 +5,33 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
-.reg-containt {
+
+/*----------------- Navbar Styling -----------*/
+.navbar-head{
+  background-color: blue;
+  background-color: #ffffff;
+  padding: 10px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+.main-container{
+  width: 90%;
+  margin: auto;
+}
+.nav-buttons{
+  border: solid;
+}
+.nav-elements , a{
+  text-decoration: none;
+  color: #476a8d;
+
+}
+/* End Navbar Styling */
+
+
+
+
+.reg-contain {
   position: absolute;
   /* or absolute */
   top: 50%;
@@ -27,6 +53,7 @@ form {
 }
 
 input[type="text"],
+input[type="email"],
 input[type="password"] {
   width: 100%;
   padding: 12px 20px;
