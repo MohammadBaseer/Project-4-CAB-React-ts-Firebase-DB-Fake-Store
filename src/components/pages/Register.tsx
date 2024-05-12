@@ -1,6 +1,7 @@
 const Register = () => {
   return (
     <>
+    <div className="main-box">
       <div className="reg-contain">
         <form action="">
           <div>
@@ -46,6 +47,7 @@ const Register = () => {
           <div><a href="">Login</a></div>
           <button type="button">Submit</button>
         </form>
+      </div>
       </div>
     </>
   );

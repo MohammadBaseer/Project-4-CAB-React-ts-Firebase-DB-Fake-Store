@@ -2,7 +2,7 @@
 
 const Details = () => {
   return (
-    <div>
+    <div className="main-box">
       <h1>This is Detail Page</h1>
     </div>
   )

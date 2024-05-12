@@ -2,7 +2,7 @@
 
 const List = () => {
   return (
-    <div>
+    <div className="main-box">
       <h1>This is Lis Page</h1>
     </div>
   )

@@ -23,6 +23,7 @@ console.log(loginDetails)
 }
   return (
     <>
+    <div className="main-box">
     <div className="login-layout">
       <div className="reg-contain">
         <form action="" onSubmit={handelForm}>
@@ -46,6 +47,7 @@ console.log(loginDetails)
           <div><Link rel="stylesheet" to="/Register" >New User</Link></div>
           <button type="submit" >Login</button>
         </form>
+      </div>
       </div>
       </div>
     </>
