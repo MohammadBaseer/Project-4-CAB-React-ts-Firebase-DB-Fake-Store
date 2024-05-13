@@ -19,7 +19,7 @@ const ChatSMSElements = () => {
             className="chat-image"
             src="https://i.pinimg.com/564x/76/ef/b9/76efb9495d394564fd5aa8466c397ff3.jpg"
             alt=""
-            style={{ width: "32px", height: "32px" }}
+            style={{ width: "27px", height: "27px" }}
           />
         </div>
       </div>

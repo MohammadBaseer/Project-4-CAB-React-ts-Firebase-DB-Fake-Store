@@ -1,6 +1,7 @@
 * {
   padding: 0px;
   margin: 0px;
+  /* border:solid 1px #1b1b1b */
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -122,10 +123,13 @@ button:hover {
   padding: 0px 8px 12px 8px;
 }
 .chat-elements {
+  background-color: #ffffff;
   display: flex;
   justify-content: space-between;
   padding: 10px;
-  font-size: 25px;
+  padding-left: 13px;
+  padding-right: 13px;
+  font-size: 21px;
   align-items: center;
   box-shadow: 0px 0px 5px rgb(122 151 181);
 }
@@ -140,34 +144,35 @@ button:hover {
 .chat-sms-elements, .sms-container {
   /* border: solid yellow; */
   padding: 0px !important;
-  height: 100vh;
-  background-color: #f0f8f8;
+  height: 98vh;
+  background-color: #f9f9f9;
 }
 .pi-plus{
-  background-color: #708192; 
+  background-color: #f5f5f5; 
   padding: 10px;
   border-radius: 50%;
   font-size: 8px;
   cursor: pointer;
   font-weight: bold;
-  box-shadow: 0 0 10px rgba(61, 61, 61, 0.1);
+  box-shadow: 0px 0px 5px rgb(122 151 181);
 }
 .pi-plus:hover{
-  background-color: #476a8d; 
+  background-color: #313131; 
+  color: #fff;
 }
-.search-input {
+.search-input, .sms-input {
   border-radius: 15px;
   box-shadow: 0px 0px 5px rgb(122 151 181);
 }
 .search-container {
   position: relative;
 }
-.pi-search {
+.pi-search, .pi-send {
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  color: #888; /* Adjust color as needed */
+  color: #888; 
 }
 
 .users {
@@ -225,8 +230,79 @@ button:hover {
   /* border: solid */
   box-shadow: 0px 1px 5px rgb(219 219 219);
   background-color: #f3f3f3;
+  position: relative;
+  
 }
 .chat-room-element-2 i{
 margin-right: 10px;
 margin-left: 20px;
+}
+.chat-room-element-1{
+display: flex;
+justify-items: center;
+}
+.chat-room-element-1 div{
+  display: flex;
+  font-size: 12px;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.chat-room-element-1 div p:first-child {
+  font-weight: bold;
+}
+.chat-room-element-1 div p:last-child {
+  opacity: 0.8;
+}
+.sms-input{
+  margin: auto;
+}
+.pi-send {
+  cursor: pointer;
+  top: 50%;
+  right: 20px;
+}
+.pi-send:hover{
+  color: #1b1b1b;
+  font-weight:bold;
+}
+.sms-typing-input{
+  background-color: #f9f9f9;
+  /* border: solid; */
+  margin: auto;
+  position: absolute ;
+  bottom: 0px;
+  width: 100%;
+  /* padding: 20px; */
+  box-shadow: 0px 1px 5px rgb(219 219 219);
+}
+.sms-container-elements{
+ 
+  /* border: solid; */
+  margin: auto;
+  position: relative;
+}
+.sms-input{
+  margin:  20px 0px !important;
+}
+.m-0{
+  margin: 0 !important;
+}
+.sms {
+  border: solid;
+  padding: 20px;
+ 
+}
+
+.income-sms, .going-sms{
+  background-color: rgb(97, 103, 97);
+ margin: 3px;
+  /* border: solid; */
+  display: inline-block;
+  padding: 13px;
+  border-radius: 4px 16px 16px 16px ;
+  color: #fff;
+}
+.going-sms{
+  border-radius: 16px 16px 4px 16px ;
 }
