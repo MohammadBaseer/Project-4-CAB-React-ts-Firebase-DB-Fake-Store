@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink  } from "react-router-dom";
 import HeadTop from "./HeadTop";
 
 
@@ -13,16 +13,16 @@ function Header() {
           <ul>
             <div className="flex">
               <li className="nav-elements">
-                <Link className="active" to="/">Home</Link>
+                <NavLink to="/">Home</NavLink >
               </li>
               <li className="nav-elements">
-                <Link to="List">Products</Link>
+                <NavLink to="products">Products</NavLink >
               </li>
               <li className="nav-elements">
-                <Link to="Contact">Contact</Link>
+                <NavLink to="contact">Contact</NavLink >
               </li>
               <li className="nav-elements">
-                <Link to="Chat">Chat</Link>
+                <NavLink to="chat">Chat</NavLink >
               </li>
             </div>
           </ul>

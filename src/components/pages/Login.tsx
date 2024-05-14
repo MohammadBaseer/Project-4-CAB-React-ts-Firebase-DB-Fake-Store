@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
@@ -7,7 +7,7 @@ const Login = () => {
     password: ""
   })
 
-const handelChanges =(e: any)=>{
+const handelChanges =(e: ChangeEvent<HTMLInputElement>)=>{
   const {name, value} = e.target
 
 setLoginDetails((prev) =>{
@@ -44,7 +44,7 @@ console.log(loginDetails)
               <input type="password" placeholder="Enter password" id="password" name="password" onChange={handelChanges} />
             </div>
           </div>
-          <div><Link rel="stylesheet" to="/Register" >New User</Link></div>
+          <div>Not a member yet? <Link to="/register" >Sign up.</Link></div>
           <button type="submit" >Login</button>
         </form>
       </div>
