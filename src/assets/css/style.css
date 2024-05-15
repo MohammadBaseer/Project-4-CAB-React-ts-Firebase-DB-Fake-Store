@@ -1,7 +1,6 @@
-* {
+*{
   padding: 0px;
   margin: 0px;
-  /* border:solid 1px #1b1b1b */
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -391,4 +390,71 @@ strong{
 }
 .product-details-btn:hover{
   background-color: #6689ac;
+}
+
+/* Details OAge Styling */
+.product-detail-container, .product-detail-box, .detail-boxes{
+  padding: 0px !important;
+  margin: 0px !important;
+}
+
+.product-detail-container{
+  /* border: solid red; */
+  height: 90vh;
+  position: relative;
+}
+.detail-boxes{
+/* border: solid yellow; */
+width: 100%;
+align-content: center;
+    text-align: -webkit-center;
+}
+.product-detail-box{
+/* border:solid; */
+  box-shadow: 0px 0px 5px rgb(122 151 181);
+display: flex;
+flex-wrap: wrap;
+    justify-content: center;
+}
+
+.image-box {
+  /* border: solid; */
+  margin: 5px;
+  padding: 30px;
+  background-color: #e6dbdb00;
+  border-radius: 10px;
+
+}
+.image-box:first-child{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.image-box:last-child{
+text-align: left;
+/* padding: 30px !important; */
+}
+/* .image-box:last-child {
+  text-align: left;
+  } */
+.image-box img{
+  width: 90%;
+  outline: solid 1px #476a8d;
+  border-radius: 20px;
+}
+.product-info p{
+  margin: 15px;
+}
+
+
+/* Footer Styling */
+.footer{
+  min-height: 200px;
+  background-color: #313131;
+  color: #ccc;
+  box-shadow: 0px -2px 5px rgb(96 96 96);
+}
+.footer:not(:first-child){
+  text-align: center;
+  align-content: center;
 }
