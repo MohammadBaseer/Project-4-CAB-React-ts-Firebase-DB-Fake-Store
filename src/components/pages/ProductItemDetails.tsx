@@ -6,23 +6,25 @@ import { Product } from "../@types/Types";
 
 const ProductItemDetail = () => {
   let { id } = useParams();
+  console.log('id', id)
 
   // console.log("ID of single page ======== >",typeof id)
 
 // const id = Number(id)
 
   // const [idOfSinglePage, SetIdOfSignlePage] = useState(id);
-  const [data, setData] = useState<Product[] | null>(null);
-  const apiUrl = `https://api.escuelajs.co/api/v1/products/${Number(id)}`;
-  const getCharacters = async () => {
+  const [product, setProduct] = useState<Product | null>(null);
+  const apiUrl = `https://api.escuelajs.co/api/v1/products/${id}`;
+  const getSingleProduct = async () => {
     try {
       const response = await fetch(apiUrl);
       // console.log("response", response);
       if (!response.ok) {
         throw new Error("...something went wrong..");
       }
-      const dataFromApi = (await response.json()) as Product[];
-      setData(dataFromApi);
+      const dataFromApi = (await response.json()) as Product;
+      console.log('dataFromApi', dataFromApi)
+      setProduct(dataFromApi);
 
       // console.log("dataFromApi :>> ", dataFromApi);
     } catch (error) {
@@ -31,10 +33,19 @@ const ProductItemDetail = () => {
   };
 
   useEffect(() => {
-    getCharacters();
+    getSingleProduct();
   }, []);
 
-  console.log("data ======>", data)
+  console.log("product ======>", product)
+
+  const cleanImageUrl = (imageURL:string):string => {
+    console.log('imageUrl', imageURL)
+    //use regex to cleant the url from the initial and final "" and []
+const cleanUrl = imageURL?.replace(/[[\]]/g,'')
+
+
+    return cleanUrl
+  }
 
   // console.log(" Single Page Data From API ====> ", typeof data)
 
@@ -50,26 +61,20 @@ const ProductItemDetail = () => {
 
               <div className="image-box col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4">
                 <img
-                  src="https://dc-mkt-prod.cloud.bosch.tech/xrm/media/global/campaigns/smart_item_picking/smart-item-picking-renningen_klein4-blurry-20x9_960x432.jpg"
+                  // src={product?.images[0] ? product?.images[0]:"https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
+                  src={cleanImageUrl(product?.images[0]!) ? cleanImageUrl(product?.images[0]!): "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" }
                   alt=""
                 />
               </div>
 
               <div className="image-box col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4">
                 <div className="product-info" style={{ padding: "30px" }}>
-                  <h1>Robotic Gadgets</h1>
-                  <p> <strong>Category:</strong> Electronics </p>
+                  <h1>{product?.title}</h1>
+                  <p> <strong>Category:</strong> {product?.category.name} </p>
                   <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Error cumque ipsa harum aut quos quam praesentium eos? Amet
-                    ea quibusdam doloribus ullam ducimus, minus itaque
-                    temporibus non cupiditate sapiente sed. Lorem ipsum dolor
-                    sit amet, consectetur adipisicing elit. Vel nihil explicabo
-                    dolor suscipit, incidunt dicta quos dolores laborum earum
-                    laboriosam vero perspiciatis delectus sapiente cupiditate
-                    voluptatum dolorum non ad neque!
+                   {product?.description}
                   </p>
-                  <p> <strong>Price:</strong> 660 </p>
+                  <p> <strong>Price:</strong> {product?.price} </p>
                   <button> <i className="pi pi-shopping-cart">&nbsp;</i>Add To Card </button>
                 </div>
               </div>

@@ -392,7 +392,20 @@ strong{
   background-color: #6689ac;
 }
 
-/* Details OAge Styling */
+.filter-container .filter-button{
+background-color: #ffffff;
+color: #313131;
+margin: 1px 0 0 0;
+text-align: left;
+border-left: 1px solid #476a8d;
+}
+.filter-head{
+  font-weight: bold;
+  background-color:  #476a8d !important;
+  color: #f3f3f3 !important;
+}
+
+/* Details Page Styling */
 .product-detail-container, .product-detail-box, .detail-boxes{
   padding: 0px !important;
   margin: 0px !important;

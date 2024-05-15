@@ -1,12 +1,14 @@
 import { Product } from "../@types/Types";
 import { useEffect, useState } from "react";
 import ProductItems from "./ProductItems";
-
+import { Link, NavLink } from "react-router-dom";
+import "primeicons/primeicons.css";
 
 const Products = () => {
 
   const [data, setData] = useState<Product[] | null>(null);
-  const apiUrl = "https://api.escuelajs.co/api/v1/products";
+  // const apiUrl = "https://api.escuelajs.co/api/v1/products"; //Public Api -- It have some issue with images
+  const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API
   const getCharacters = async () => {
     try {
       const response = await fetch(apiUrl);
@@ -37,7 +39,20 @@ console.log(" All Data From API ====> ",typeof data)
     <div className="main-box ">
       <div className="main-container ">
         <div className="p-container  ">
-          <div className="p-box col-12 sm:col-12 md:col-2"></div>
+          <div className="p-box col-12 sm:col-12 md:col-2">
+            <div className="search">
+            <div className="field">
+            <input  type="text" className="text-base text-color surface-overlay p-2 border-1 border-solid surface-border border-round appearance-none outline-none focus:border-primary w-full" placeholder="Search"/>
+            </div>
+            </div>
+            <div className="filter-container">
+              <NavLink to="#"><button className="filter-button filter-head"><i className="pi pi-sort-amount-down">&nbsp;</i>Categories</button></NavLink>
+              <NavLink to="#"><button className="filter-button">All Categories</button></NavLink>
+              <NavLink to="#"><button className="filter-button">All Categories</button></NavLink>
+              <NavLink to="#"><button className="filter-button">All Categories</button></NavLink>
+              <NavLink to="#"><button className="filter-button">All Categories</button></NavLink>
+            </div>
+          </div>
 
           <div className="p-box p-box-item col-12 sm:col-12 md:col-9">
 

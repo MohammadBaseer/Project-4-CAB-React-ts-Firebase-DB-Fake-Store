@@ -27,7 +27,7 @@ const ProductItems = ({id, image, title, category, description, price }: itemPro
                       <p>{title}...</p>
                       <p> <strong>Category:</strong> {category} </p>
                       <p>{description}...</p>
-                      <p>v<strong>Price:</strong> {price} £ </p>
+                      <p><strong>Price:</strong> {price} £ </p>
                     </div>
                     <div className="item-elements">
                       <div className="item-sub-elements">
