@@ -37,15 +37,23 @@ const ProductItemDetail = () => {
   }, []);
 
   console.log("product ======>", product)
-
-  const cleanImageUrl = (imageURL:string):string => {
-    console.log('imageUrl', imageURL)
-    //use regex to cleant the url from the initial and final "" and []
-const cleanUrl = imageURL?.replace(/[[\]]/g,'')
+// 
 
 
-    return cleanUrl
-  }
+
+
+  const cleanImageUrl = (imageURL: string): string => {
+    const alternativeImage =
+      "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
+    console.log("imageUrl", imageURL);
+    const cleanUrl = imageURL?.replace(/^\["|"\]$/g, "");
+    // return cleanUrl
+    if (/\.[a-z]{3,4}$/i.test(cleanUrl)) {
+      return cleanUrl; // Return original URL if it has a file extension
+    } else {
+      return alternativeImage; // Return alternative image URL if no file extension
+    }
+  };
 
   // console.log(" Single Page Data From API ====> ", typeof data)
 
@@ -61,7 +69,6 @@ const cleanUrl = imageURL?.replace(/[[\]]/g,'')
 
               <div className="image-box col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4">
                 <img
-                  // src={product?.images[0] ? product?.images[0]:"https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
                   src={cleanImageUrl(product?.images[0]!) ? cleanImageUrl(product?.images[0]!): "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" }
                   alt=""
                 />

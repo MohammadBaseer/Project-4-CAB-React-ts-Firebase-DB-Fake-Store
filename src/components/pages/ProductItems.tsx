@@ -10,6 +10,20 @@ image: string,
  price: number 
 }
 
+
+const cleanImageUrl = (imageURL: string): string => {
+  const alternativeImage =
+    "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
+  console.log("imageUrl", imageURL);
+  const cleanUrl = imageURL?.replace(/^\["|"\]$/g, ""); // remote [" and "] from the url
+  // return cleanUrl
+  if (/\.[a-z]{3,4}$/i.test(cleanUrl)) { // if the url have no file Extension
+    return cleanUrl; 
+  } else {
+    return alternativeImage; 
+  }
+};
+
 const ProductItems = ({id, image, title, category, description, price }: itemPropsType) => {
   return (
     <div className="p-box product-elements col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3">
@@ -17,7 +31,10 @@ const ProductItems = ({id, image, title, category, description, price }: itemPro
                     <div className="image-slider">
                       {/* Start */}
 
-                      <img className="p-image" src={image} alt="" />
+                      <img className="p-image" 
+                      // src={image}
+                      src={cleanImageUrl(image) ? cleanImageUrl(image): "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" }
+                      alt="" />
 
                       {/* End */}
                     </div>
