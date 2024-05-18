@@ -6,6 +6,8 @@ import Chat from "./components/pages/chat-Pages/Chat";
 import Layout from "./components/layouts/Layout";
 import Products from "./components/pages/Products";
 import ProductItemDetail from "./components/pages/ProductItemDetails";
+import Contact from "./components/pages/Contact";
+import About from "./components/pages/About";
 
 function App() {
   const router = createBrowserRouter(
@@ -15,6 +17,8 @@ function App() {
           <Route index element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductItemDetail />} />
+          <Route path="/contact" element={<Contact/>}/>
+          <Route path="/about" element={<About/>} />
         </Route>
         <Route path="/chat" element={<Chat />} />
         <Route path="/register" element={<Register />} />

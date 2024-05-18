@@ -7,14 +7,13 @@ image: string,
  title: string, 
  category: string,  
  description: string, 
- price: number 
-}
+ price: number}
 
 
 const cleanImageUrl = (imageURL: string): string => {
   const alternativeImage =
     "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
-  console.log("imageUrl", imageURL);
+  // console.log("imageUrl", imageURL);
   const cleanUrl = imageURL?.replace(/^\["|"\]$/g, ""); // remote [" and "] from the url
   // return cleanUrl
   if (/\.[a-z]{3,4}$/i.test(cleanUrl)) { // if the url have no file Extension
@@ -51,9 +50,10 @@ const ProductItems = ({id, image, title, category, description, price }: itemPro
                         <Link className="product-details-btn" to={`${id}`}>
                           <i className="pi pi-window-maximize"></i>
                         </Link>
-                        <button> <i className="pi pi-shopping-cart">&nbsp;</i>Add To Card </button>
+                        <button> <i className="pi pi-shopping-cart" >&nbsp;</i>Add To Card </button>
                       </div>
                     </div>
+                   
                   </div>
   )
 }

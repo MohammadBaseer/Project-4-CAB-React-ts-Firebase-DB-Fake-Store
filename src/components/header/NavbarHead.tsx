@@ -3,7 +3,7 @@ import 'primeicons/primeicons.css';
 
 import { Link } from "react-router-dom";
 
-const HeadTop = () => {
+const NavbarHead = () => {
   return (
 <>
     <div className="navbar-head">
@@ -22,4 +22,4 @@ const HeadTop = () => {
   )
 }
 
-export default HeadTop
+export default NavbarHead

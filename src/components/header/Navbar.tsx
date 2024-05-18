@@ -1,11 +1,11 @@
 import { NavLink  } from "react-router-dom";
-import HeadTop from "./HeadTop";
+import NavbarHead from "./NavbarHead";
 
 
-function Header() {
+function Navbar() {
   return (
 <>
-<HeadTop/>
+<NavbarHead/>
     
     <div className="main-container navbar-box">
       <nav className="navbar">
@@ -22,7 +22,7 @@ function Header() {
                 <NavLink to="contact">Contact</NavLink >
               </li>
               <li className="nav-elements">
-                <NavLink to="chat">Chat</NavLink >
+                <NavLink to="/about">About us</NavLink >
               </li>
             </div>
           </ul>
@@ -34,4 +34,4 @@ function Header() {
   )
 }
 
-export default Header
+export default Navbar

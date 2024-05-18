@@ -18,6 +18,7 @@ body {
 
 /*----------------- Navbar Head Styling -----------*/
 .navbar-head {
+  direction: rtl;
   background-color: blue;
   background-color: #ffffff;
   padding: 10px;
@@ -454,6 +455,10 @@ text-align: left;
   width: 90%;
   outline: solid 1px #476a8d;
   border-radius: 20px;
+}
+.product-info{
+  padding: 30px !important;
+ overflow-wrap: anywhere;
 }
 .product-info p{
   margin: 15px;

@@ -75,7 +75,7 @@ const ProductItemDetail = () => {
               </div>
 
               <div className="image-box col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4">
-                <div className="product-info" style={{ padding: "30px" }}>
+                <div className="product-info" >
                   <h1>{product?.title}</h1>
                   <p> <strong>Category:</strong> {product?.category.name} </p>
                   <p>
