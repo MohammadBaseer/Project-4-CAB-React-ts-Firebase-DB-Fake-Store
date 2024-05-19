@@ -15,7 +15,7 @@ type productDataContextType ={
 
 }
 // NOTE Props Type
-type ProductsContextComponentType = {
+type ProductsContextComponentProps = {
     children: ReactNode;
 }
 // NOTE First Init Value of Context
@@ -34,7 +34,7 @@ const initContext = {
 export const ProductsDataContext = createContext<productDataContextType>(initContext);
 
 // REVIEW 2
-export const ProductsContextComponent = ({children}:ProductsContextComponentType) => {
+export const ProductsContextComponent = ({children}:ProductsContextComponentProps) => {
     const [data, setData] = useState(null);
     const [categoryFilter, setCategoryFilter] = useState("");
   const [searchFilter, setSearchFilter] = useState("");
