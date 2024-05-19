@@ -1,4 +1,4 @@
-import  {createContext, useState, ReactNode, Dispatch } from "react";
+import  {createContext, useState, ReactNode } from "react";
 import { Product } from "../@types/Types";
 
 
@@ -6,9 +6,9 @@ import { Product } from "../@types/Types";
 type productDataContextType ={
     data: Product[] | null;
     categoryFilter: string;
-    setCategoryFilter: Dispatch<React.SetStateAction<string>>;
+    setCategoryFilter: (categoryFilter: string) => void;
     searchFilter: string;
-    setSearchFilter: Dispatch<React.SetStateAction<string>>;
+    setSearchFilter: (searchFilter: string) => void;
     errorHandle: string;
     getProducts: () => Promise<void>;
 
