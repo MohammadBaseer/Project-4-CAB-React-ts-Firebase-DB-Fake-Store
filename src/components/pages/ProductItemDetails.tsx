@@ -8,17 +8,11 @@ const ProductItemDetail = () => {
   let { id } = useParams();
   console.log('id', id)
 
-  // console.log("ID of single page ======== >",typeof id)
-
-// const id = Number(id)
-
-  // const [idOfSinglePage, SetIdOfSignlePage] = useState(id);
   const [product, setProduct] = useState<Product | null>(null);
   const apiUrl = `https://api.escuelajs.co/api/v1/products/${id}`;
   const getSingleProduct = async () => {
     try {
       const response = await fetch(apiUrl);
-      // console.log("response", response);
       if (!response.ok) {
         throw new Error("...something went wrong..");
       }
@@ -26,7 +20,6 @@ const ProductItemDetail = () => {
       console.log('dataFromApi', dataFromApi)
       setProduct(dataFromApi);
 
-      // console.log("dataFromApi :>> ", dataFromApi);
     } catch (error) {
       console.log("error :>> ", error);
     }

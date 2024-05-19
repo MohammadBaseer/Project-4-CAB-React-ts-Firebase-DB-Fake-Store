@@ -1,4 +1,4 @@
-import { createRoutesFromElements, createBrowserRouter, Route, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
 import Register from "./components/pages/Register";
@@ -8,11 +8,14 @@ import Products from "./components/pages/Products";
 import ProductItemDetail from "./components/pages/ProductItemDetails";
 import Contact from "./components/pages/Contact";
 import About from "./components/pages/About";
+import { ProductsContextComponent } from "./components/context/ProductsContext";
+// 
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
+      
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="/products" element={<Products />} />
@@ -27,9 +30,23 @@ function App() {
     )
   );
 
+
+
+
   return (
     <>
+    
+
+<ProductsContextComponent>
+
       <RouterProvider router={router} />
+
+</ProductsContextComponent>
+
+
+ 
+
+
     </>
   );
 }
