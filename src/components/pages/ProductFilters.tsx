@@ -1,16 +1,12 @@
-import { ChangeEvent, Dispatch, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Product } from "../@types/Types";
-type  categoryPropsType ={
-  setCategoryFilter: Dispatch<React.SetStateAction<string>>
- setSearchFilter: Dispatch<React.SetStateAction<string>>
-}
+import { ProductsDataContext } from "../context/ProductsContext";
 
-const ProductFilters = ({setSearchFilter, setCategoryFilter}: categoryPropsType) => {
-
+const ProductFilters = () => {
+  const {setCategoryFilter, setSearchFilter } = useContext(ProductsDataContext)
   let option:string[] = [];
  
-
   const [data, setData] = useState<Product[] | null>(null);
 const apiUrl = `https://api.escuelajs.co/api/v1/products`; //Public Api -- It have some issue with images
   // const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API

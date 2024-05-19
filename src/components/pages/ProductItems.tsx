@@ -26,19 +26,10 @@ const cleanImageUrl = (imageURL: string): string => {
 const ProductItems = ({id, image, title, category, description, price }: itemPropsType) => {
   return (
     <div className="p-box product-elements col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3">
-                    {/*  */}
                     <div className="image-slider">
-                      {/* Start */}
-
-                      <img className="p-image" 
-                      // src={image}
-                      src={cleanImageUrl(image) ? cleanImageUrl(image): "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" }
+                      <img className="p-image" src={cleanImageUrl(image) ? cleanImageUrl(image): "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png" }
                       alt="" />
-
-                      {/* End */}
                     </div>
-                    {/*  */}
-
                     <div className="item-info">
                       <p>{title}...</p>
                       <p> <strong>Category:</strong> {category} </p>

@@ -1,4 +1,4 @@
-import  {createContext, useState, ReactNode } from "react";
+import  {createContext, useState, ReactNode, Dispatch } from "react";
 import { Product } from "../@types/Types";
 
 
@@ -6,12 +6,12 @@ import { Product } from "../@types/Types";
 type productDataContextType ={
     data: Product[] | null;
     categoryFilter: string;
-    setCategoryFilter:() => void;
+    setCategoryFilter: Dispatch<React.SetStateAction<string>>;
     searchFilter: string;
-    setSearchFilter:() => void;
+    setSearchFilter: Dispatch<React.SetStateAction<string>>;
     errorHandle: string;
-    setErrorHandle: () => void;
     getProducts: () => Promise<void>;
+
 
 }
 // NOTE Props Type
@@ -35,10 +35,10 @@ export const ProductsDataContext = createContext<productDataContextType>(initCon
 
 // REVIEW 2
 export const ProductsContextComponent = ({children}:ProductsContextComponentType) => {
-    const [data, setData] = useState<Product[] | null>(null);
-    const [categoryFilter, setCategoryFilter] = useState<string>("");
-  const [searchFilter, setSearchFilter] = useState<string>("");
-  const [errorHandle, setErrorHandle] = useState<string>("");
+    const [data, setData] = useState(null);
+    const [categoryFilter, setCategoryFilter] = useState("");
+  const [searchFilter, setSearchFilter] = useState("");
+  const [errorHandle, setErrorHandle] = useState("");
   const apiUrl = `https://api.escuelajs.co/api/v1/products?title=${searchFilter}&categoryId=${Number(categoryFilter)}`; //Public Api -- It have some issue with images
   // const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API
 

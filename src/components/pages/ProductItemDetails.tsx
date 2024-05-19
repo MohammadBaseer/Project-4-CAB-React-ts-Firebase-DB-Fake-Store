@@ -32,9 +32,6 @@ const ProductItemDetail = () => {
   console.log("product ======>", product)
 // 
 
-
-
-
   const cleanImageUrl = (imageURL: string): string => {
     const alternativeImage =
       "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
@@ -48,15 +45,11 @@ const ProductItemDetail = () => {
     }
   };
 
-  // console.log(" Single Page Data From API ====> ", typeof data)
-
   return (
     <div className="main-box">
       <div className="main-container ">
         <div className="product-detail-container p-container ">
-          {/* {data && data.map((element) => {
-                 return(<h1>{element.id}</h1> );
-              })} */}
+
           <div className="detail-boxes">
             <div className="product-detail-box col-12 sm:col-12 md:col-11 lg:col-11 xl:col-11">
 
