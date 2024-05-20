@@ -7,7 +7,8 @@ image: string,
  title: string, 
  category: string,  
  description: string, 
- price: number}
+ price: number,
+}
 
 
 const cleanImageUrl = (imageURL: string): string => {
@@ -41,7 +42,7 @@ const ProductItems = ({id, image, title, category, description, price }: itemPro
                         <Link className="product-details-btn" to={`${id}`}>
                           <i className="pi pi-window-maximize"></i>
                         </Link>
-                        <button> <i className="pi pi-shopping-cart" >&nbsp;</i>Add To Card </button>
+                        <button disabled> <i className="pi pi-shopping-cart" >&nbsp;</i>Add To Card </button>
                       </div>
                     </div>
                    

@@ -44,6 +44,7 @@ console.log(loginDetails)
               <input type="password" placeholder="Enter password" id="password" name="password" onChange={handelChanges} />
             </div>
           </div>
+          <div>Do you have a Local <Link to="/local-Login" >Account</Link>?</div>
           <div>Not a member yet? <Link to="/register" >Sign up.</Link></div>
           <button type="submit" >Login</button>
         </form>

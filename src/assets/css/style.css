@@ -1,4 +1,4 @@
-*{
+* {
   padding: 0px;
   margin: 0px;
 }
@@ -18,7 +18,6 @@ body {
 
 /*----------------- Navbar Head Styling -----------*/
 .navbar-head {
-  direction: rtl;
   background-color: blue;
   background-color: #ffffff;
   padding: 10px;
@@ -29,10 +28,12 @@ body {
   width: 90%;
   margin: auto !important;
   /* border: solid yellow; */
-
 }
 .nav-buttons {
   border: solid;
+}
+.nav-elements {
+  text-align: right;
 }
 .nav-elements,
 a {
@@ -118,7 +119,7 @@ button:hover {
 /* Chat Page Styling */
 .chat-container {
   display: flex;
-    justify-content: space-between;
+  justify-content: space-between;
   margin: auto;
 }
 .chat-list {
@@ -135,22 +136,23 @@ button:hover {
   align-items: center;
   box-shadow: 0px 0px 5px rgb(122 151 181);
 }
-.sub-element{
+.sub-element {
   display: flex;
   justify-content: space-between;
   align-items: baseline;
 }
-.sub-element-1{
+.sub-element-1 {
   padding: 11px 25px 0px 25px;
 }
-.chat-sms-elements, .sms-container {
+.chat-sms-elements,
+.sms-container {
   /* border: solid yellow; */
   padding: 0px !important;
   height: 98vh;
   background-color: #f9f9f9;
 }
-.pi-plus{
-  background-color: #f5f5f5; 
+.pi-plus {
+  background-color: #f5f5f5;
   padding: 10px;
   border-radius: 50%;
   font-size: 8px;
@@ -158,23 +160,25 @@ button:hover {
   font-weight: bold;
   box-shadow: 0px 0px 5px rgb(122 151 181);
 }
-.pi-plus:hover{
-  background-color: #313131; 
+.pi-plus:hover {
+  background-color: #313131;
   color: #fff;
 }
-.search-input, .sms-input {
+.search-input,
+.sms-input {
   border-radius: 15px;
   box-shadow: 0px 0px 5px rgb(122 151 181);
 }
 .search-container {
   position: relative;
 }
-.pi-search, .pi-send {
+.pi-search,
+.pi-send {
   position: absolute;
   top: 50%;
   right: 10px;
   transform: translateY(-50%);
-  color: #888; 
+  color: #888;
 }
 
 .users {
@@ -206,8 +210,8 @@ button:hover {
 .users:hover {
   background-color: #313131;
 }
-.users:hover .chat-info{
- color: #fff;
+.users:hover .chat-info {
+  color: #fff;
 }
 /* .users:hover .chat-image{
   border: solid 1px #fff;
@@ -228,22 +232,21 @@ button:hover {
   font-size: 8px;
   font-weight: bold;
 }
-.sms-container{
+.sms-container {
   /* border: solid */
   box-shadow: 0px 1px 5px rgb(219 219 219);
   background-color: #f3f3f3;
   position: relative;
-  
 }
-.chat-room-element-2 i{
-margin-right: 10px;
-margin-left: 20px;
+.chat-room-element-2 i {
+  margin-right: 10px;
+  margin-left: 20px;
 }
-.chat-room-element-1{
-display: flex;
-justify-items: center;
+.chat-room-element-1 {
+  display: flex;
+  justify-items: center;
 }
-.chat-room-element-1 div{
+.chat-room-element-1 div {
   display: flex;
   font-size: 12px;
   flex-direction: column;
@@ -256,7 +259,7 @@ justify-items: center;
 .chat-room-element-1 div p:last-child {
   opacity: 0.8;
 }
-.sms-input{
+.sms-input {
   margin: auto;
 }
 .pi-send {
@@ -264,66 +267,64 @@ justify-items: center;
   top: 50%;
   right: 20px;
 }
-.pi-send:hover{
+.pi-send:hover {
   color: #1b1b1b;
-  font-weight:bold;
+  font-weight: bold;
 }
-.sms-typing-input{
+.sms-typing-input {
   background-color: #f9f9f9;
   /* border: solid; */
   margin: auto;
-  position: absolute ;
+  position: absolute;
   bottom: 0px;
   width: 100%;
   /* padding: 20px; */
   box-shadow: 0px 1px 5px rgb(219 219 219);
 }
-.sms-container-elements{
- 
+.sms-container-elements {
   /* border: solid; */
   margin: auto;
   position: relative;
 }
-.sms-input{
-  margin:  20px 0px !important;
+.sms-input {
+  margin: 20px 0px !important;
 }
-.m-0{
+.m-0 {
   margin: 0 !important;
 }
 .sms {
   border: solid;
   padding: 20px;
- 
 }
 
-.income-sms, .going-sms{
+.income-sms,
+.going-sms {
   background-color: rgb(97, 103, 97);
- margin: 3px;
+  margin: 3px;
   /* border: solid; */
   display: inline-block;
   padding: 13px;
-  border-radius: 4px 16px 16px 16px ;
+  border-radius: 4px 16px 16px 16px;
   color: #fff;
 }
-.going-sms{
-  border-radius: 16px 16px 4px 16px ;
+.going-sms {
+  border-radius: 16px 16px 4px 16px;
 }
 
-
 /* Products Page */
-.p-container{
+.p-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   /* border: solid red; */
 }
-.p-box{
+.p-box {
   padding: 0px !important;
   margin: 0px !important;
   /* border: solid; */
   margin: 0px;
 }
-.p-box-item{
+.p-box-item {
   display: flex;
   justify-content: space-evenly;
   align-content: center;
@@ -332,19 +333,19 @@ justify-items: center;
 .product-elements {
   margin: 10px !important;
   border: solid 1px #f0f0f0;
-  border-radius: 10px 10px 0px 0px ;
+  border-radius: 10px 10px 0px 0px;
   overflow: hidden;
 }
-.p-image{
+.p-image {
   /* border-radius: 10px; */
-   display: block; 
-   flex: 0; 
+  display: block;
+  flex: 0;
   object-fit: var(--image-object-fit, cover);
   width: 100%;
   height: 220px;
 }
-.item-info{
-padding: 15px;
+.item-info {
+  padding: 15px;
 }
 .item-info p {
   margin: 5px;
@@ -362,73 +363,75 @@ padding: 15px;
 /* .item-elements{
   position: relative;
 } */
-.item-elements div button{
- background-color: #476a8d;;
- color: #f0f0f0;
- width: auto;
- padding: 10px;
- border-radius: 10px;
- margin: 3px;
+.item-elements div button {
+  background-color: #476a8d;
+  color: #f0f0f0;
+  width: auto;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 3px;
 }
-.item-sub-elements{
+.item-sub-elements {
   /* position: absolute; */
   text-align: center;
-  margin-bottom: 15px ;
+  margin-bottom: 15px;
   display: flex;
-    flex-wrap: nowrap;
-    justify-content: center;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
-strong{
+strong {
   margin: 10px 0px !important;
 }
-.product-details-btn{
-  background-color: #476a8d;;
+.product-details-btn {
+  background-color: #476a8d;
   color: #f0f0f0;
   width: auto;
   padding: 9px;
   border-radius: 10px;
   margin: 3px;
 }
-.product-details-btn:hover{
+.product-details-btn:hover {
   background-color: #6689ac;
 }
 
-.filter-container .filter-button{
-background-color: #ffffff;
-color: #313131;
-margin: 1px 0 0 0;
-text-align: left;
-border-left: 1px solid #476a8d;
+.filter-container .filter-button {
+  background-color: #ffffff;
+  color: #313131;
+  margin: 1px 0 0 0;
+  text-align: left;
+  border-left: 1px solid #476a8d;
 }
-.filter-head{
+.filter-head {
   font-weight: bold;
-  background-color:  #476a8d !important;
+  background-color: #476a8d !important;
   color: #f3f3f3 !important;
 }
 
 /* Details Page Styling */
-.product-detail-container, .product-detail-box, .detail-boxes{
+.product-detail-container,
+.product-detail-box,
+.detail-boxes {
   padding: 0px !important;
   margin: 0px !important;
 }
 
-.product-detail-container{
+.product-detail-container {
   /* border: solid red; */
   height: 90vh;
   position: relative;
 }
-.detail-boxes{
-/* border: solid yellow; */
-width: 100%;
-align-content: center;
-    text-align: -webkit-center;
+.detail-boxes {
+  /* border: solid yellow; */
+  width: 100%;
+  align-content: center;
+  text-align: -webkit-center;
 }
-.product-detail-box{
-/* border:solid; */
+.product-detail-box {
+  /* border:solid; */
   box-shadow: 0px 0px 5px rgb(122 151 181);
-display: flex;
-flex-wrap: wrap;
-    justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .image-box {
@@ -437,42 +440,40 @@ flex-wrap: wrap;
   padding: 30px;
   background-color: #e6dbdb00;
   border-radius: 10px;
-
 }
-.image-box:first-child{
+.image-box:first-child {
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.image-box:last-child{
-text-align: left;
-/* padding: 30px !important; */
+.image-box:last-child {
+  text-align: left;
+  /* padding: 30px !important; */
 }
 /* .image-box:last-child {
   text-align: left;
   } */
-.image-box img{
+.image-box img {
   width: 90%;
   outline: solid 1px #476a8d;
   border-radius: 20px;
 }
-.product-info{
+.product-info {
   padding: 30px !important;
- overflow-wrap: anywhere;
+  overflow-wrap: anywhere;
 }
-.product-info p{
+.product-info p {
   margin: 15px;
 }
 
-
 /* Footer Styling */
-.footer{
+.footer {
   min-height: 200px;
   background-color: #313131;
   color: #ccc;
   box-shadow: 0px -2px 5px rgb(96 96 96);
 }
-.footer:not(:first-child){
+.footer:not(:first-child) {
   text-align: center;
   align-content: center;
 }
