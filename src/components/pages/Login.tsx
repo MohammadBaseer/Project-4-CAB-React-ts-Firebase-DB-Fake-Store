@@ -2,6 +2,7 @@ import { ChangeEvent, useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  
   const [loginDetails, setLoginDetails]= useState({
     email: "",
     password: ""
@@ -15,12 +16,17 @@ setLoginDetails((prev) =>{
 })
 }
 
-const handelForm = (e: any)=>{
+
+const handelForm = (e: React.FormEvent<HTMLFormElement> )=>{
 e.preventDefault();
 
 console.log(loginDetails)
 
 }
+
+
+
+
   return (
     <>
     <div className="main-box">
