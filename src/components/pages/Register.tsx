@@ -10,10 +10,10 @@ const [email, setEmail] = useState<string>("")
 const [password, setPassword] = useState<string>("")
 
 
-const handelForm = (e: React.FormEvent<HTMLFormElement> )=>{
+const handelForm = async (e: React.FormEvent<HTMLFormElement> )=>{
   e.preventDefault();
   
- createUserWithEmailAndPassword(auth, email, password)
+ await createUserWithEmailAndPassword(auth, email, password)
   .then((userCredential) => {
     
     const user = userCredential.user
