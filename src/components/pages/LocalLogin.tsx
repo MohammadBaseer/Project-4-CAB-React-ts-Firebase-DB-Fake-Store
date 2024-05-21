@@ -1,58 +1,51 @@
 import { ChangeEvent, useContext, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 
 const LocalLogin = () => {
-const {user, setUser}= useContext(AuthContext)
+  const navigate = useNavigate();
 
-const userInfo ={
+  const { user, setUser } = useContext(AuthContext);
+  const userInfo = {
     user: "Baseer",
     email: "admin@admin.com",
-    password: "123"
-}
+    password: "123",
+  };
 
   const [loginDetails, setLoginDetails] = useState({
     email: "",
     password: "",
   });
 
-// 
+  //
   const handelChanges = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
 
     setLoginDetails((prev) => {
       return { ...prev, [name]: value };
     });
-
   };
-
 
   const handelForm = (e: any) => {
     e.preventDefault();
     console.log(loginDetails);
-    if (userInfo.email === loginDetails.email && userInfo.password === loginDetails.password) {
-            setUser({
+    if (
+      userInfo.email === loginDetails.email &&
+      userInfo.password === loginDetails.password
+    ) {
+      setUser({
         user: "Baseer",
-        email: "admin@admin.com"
+        email: "admin@admin.com",
       });
 
-console.log(" true ");
-
-
-    }
-    else
-    {
-        console.log("Wrong Input =======>")
+      navigate("/products");
+    } else {
+      console.log("Wrong Input =======>");
     }
   };
 
-
-
-
-
   return (
     <>
-    {user === null? 
       <div className="main-box">
         <div className="login-layout">
           <div className="reg-contain">
@@ -94,7 +87,7 @@ console.log(" true ");
             </form>
           </div>
         </div>
-      </div>:  <Navigate to="/"/> }
+      </div>
     </>
   );
 };
