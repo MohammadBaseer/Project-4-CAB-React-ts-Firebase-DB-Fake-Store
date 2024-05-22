@@ -1,23 +1,15 @@
 import "primeicons/primeicons.css";
-import ChatSMSUser from "./ChatSMSUser";
-import ChatSearchInput from "./ChatSearchInput";
-import ChatSMSElements from "./ChatSMSElements";
+import ChatElements from "./ChatElements";
+import ChatList from "./ChatList";
 
 const Chat = () => {
   return (
     <div className="main-box">
       <div className="chat-container">
+        
         <div className="m-0 chat-sms-elements col-8 sm:col-5 md:col-4 lg:col-3 xl:col-2">
-          <ChatSMSElements />
-          <div className="chat-list">
-            <ChatSearchInput />
-            <ChatSMSUser />
-            <ChatSMSUser />
-            <ChatSMSUser />
-            <ChatSMSUser />
-            <ChatSMSUser />
-            <ChatSMSUser />
-          </div>
+          <ChatElements />
+         <ChatList/>
         </div>
 
 
@@ -70,6 +62,8 @@ const Chat = () => {
         <div className="m-0 col-8 sm:col-5 md:col-4 lg:col-3 xl:col-2">
           <h1>Profile Not Found</h1>
         </div>
+
+        
       </div>
     </div>
   );
