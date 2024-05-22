@@ -17,6 +17,7 @@ import { ProductsContextComponent } from "./components/context/ProductsContext";
 import { AuthContextProvider } from "./components/context/AuthContext";
 import ProtectedRout from "./components/pages/ProtectedRout";
 import LocalLogin from "./components/pages/LocalLogin";
+import { ChatRoomSectionToggleProvider } from "./components/context/ChatRoomSectionsContext";
 //
 
 function App() {
@@ -49,11 +50,13 @@ function App() {
 
   return (
     <>
-      <AuthContextProvider>
-        <ProductsContextComponent>
-          <RouterProvider router={router} />
-        </ProductsContextComponent>
-      </AuthContextProvider>
+      <ChatRoomSectionToggleProvider>
+        <AuthContextProvider>
+          <ProductsContextComponent>
+            <RouterProvider router={router} />
+          </ProductsContextComponent>
+        </AuthContextProvider>
+      </ChatRoomSectionToggleProvider>
     </>
   );
 }

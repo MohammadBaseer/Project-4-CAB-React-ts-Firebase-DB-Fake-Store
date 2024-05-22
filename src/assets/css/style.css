@@ -125,6 +125,14 @@ button:hover {
 .chat-list {
   padding: 0px 8px 12px 8px;
 }
+.scroll {
+  overflow-y: scroll;
+  height: 77vh;
+  direction: rtl;
+}
+.scroll-list {
+  direction: ltr;
+}
 .chat-elements {
   background-color: #ffffff;
   display: flex;
@@ -135,6 +143,12 @@ button:hover {
   font-size: 21px;
   align-items: center;
   box-shadow: 0px 0px 5px rgb(122 151 181);
+}
+.element i {
+  cursor: pointer;
+}
+i.active {
+  color: blue;
 }
 .sub-element {
   display: flex;
