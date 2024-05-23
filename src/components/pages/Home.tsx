@@ -38,25 +38,7 @@ const Home = () => {
 
 
 
-// Logout function
-const signOut = () => {
-  logOut();
-}
 
-
-
-
-// logout
-
-// const logout = () => {
-// signOut(auth).then(() => {
-
-// console.log(" Sign-out successful.")
-
-// }).catch((error) => {
-//   // An error happened.
-// });
-// }
 
 
 
@@ -102,9 +84,6 @@ if (user1) {
           ))}
 
 
-<div>
-  <button onClick={signOut}>logout</button>
-</div>
 
       </div>
     </div>

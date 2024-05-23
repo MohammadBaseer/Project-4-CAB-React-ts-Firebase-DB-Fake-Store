@@ -2,25 +2,14 @@ import "primeicons/primeicons.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { signOut } from "firebase/auth";
-import { auth } from "../firebase/Auth";
+
 
 const NavbarHead = () => {
-  const { user, setUser } = useContext(AuthContext);
+  const { logOut, userSession } = useContext(AuthContext);
 
-  const logout = () => {
-    // Local Logout/Set null
-    setUser(null);
-
-    // Firebase User Auth LogOut
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        // navigate("/");
-        console.log("Signed out successfully");
-      })
-      .catch((error) => {});
-  };
+  const signOut = () => {
+    logOut();
+  }
 
   return (
     <>
@@ -28,8 +17,8 @@ const NavbarHead = () => {
         <div className="main-container">
           <div className="nav-elements">
             <span className="">
-              {user ? (
-                <Link to="#" onClick={logout}>
+              {userSession ? (
+                <Link to="#" onClick={signOut}>
                   Logout
                 </Link>
               ) : (
