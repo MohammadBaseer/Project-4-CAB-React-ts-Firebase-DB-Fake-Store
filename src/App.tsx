@@ -16,26 +16,28 @@ import About from "./components/pages/About";
 import { ProductsContextComponent } from "./components/context/ProductsContext";
 import { AuthContextProvider } from "./components/context/AuthContext";
 import ProtectedRout from "./components/pages/ProtectedRout";
-import LocalLogin from "./components/pages/LocalLogin";
-import { ChatRoomSectionToggleProvider } from "./components/context/ChatRoomSectionsContext";
-//
+import {
+  ChatRoomSectionToggleProvider,
+  UsersContextProvider,
+} from "./components/context/chatContext/ChatRoomSectionsContext";
+
 
 function App() {
+
+
+
+
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-
-          <Route
-            path="/products"
-            element={
-              <ProtectedRout>
-                <Products />
-              </ProtectedRout>
-            }
-          />
-
+          <Route path="/products" element={
+          <ProtectedRout>
+          <Products />
+          </ProtectedRout>
+          }/>
           <Route path="/products/:id" element={<ProductItemDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
@@ -43,20 +45,23 @@ function App() {
         <Route path="/chat" element={<Chat />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/local-Login" element={<LocalLogin />}></Route>
       </>
     )
   );
 
   return (
     <>
-      <ChatRoomSectionToggleProvider>
-        <AuthContextProvider>
-          <ProductsContextComponent>
-            <RouterProvider router={router} />
-          </ProductsContextComponent>
-        </AuthContextProvider>
-      </ChatRoomSectionToggleProvider>
+
+      <UsersContextProvider>
+        <ChatRoomSectionToggleProvider>
+          <AuthContextProvider>
+            <ProductsContextComponent>
+              <RouterProvider router={router} />
+            </ProductsContextComponent>
+          </AuthContextProvider>
+        </ChatRoomSectionToggleProvider>
+      </UsersContextProvider>
+
     </>
   );
 }

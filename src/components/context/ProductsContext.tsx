@@ -40,7 +40,7 @@ export const ProductsContextComponent = ({children}:ProductsContextComponentProp
   const [searchFilter, setSearchFilter] = useState("");
   const [errorHandle, setErrorHandle] = useState("");
   const apiUrl = `https://api.escuelajs.co/api/v1/products?title=${searchFilter}&categoryId=${Number(categoryFilter)}`; //Public Api -- It have some issue with images
-  // const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API
+   //const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API
 
 //   NOTE Function to fetch the data from API
   const getProducts = async () => {
@@ -51,6 +51,9 @@ export const ProductsContextComponent = ({children}:ProductsContextComponentProp
       }
       const dataFromApi = (await response.json()) as Product[];
       setData(dataFromApi);
+
+
+      // console.log("dataFromApi", dataFromApi)
       if (dataFromApi.length === 0) {
         setErrorHandle("No Product Found");
       } else {

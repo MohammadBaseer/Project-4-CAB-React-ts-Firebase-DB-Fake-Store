@@ -1,32 +1,25 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase/Auth";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
-  const [errorHandle, setErrorHandle] = useState<string>("");
-  const [userEmail, setUserEmail] = useState<string>("");
-  const [userPassword, setUserPassword] = useState<string>("");
+        const navigate = useNavigate();
 
-  const navigate = useNavigate();
+       
 
-  const handelForm = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+const { userLogin, errorHandle } = useContext(AuthContext);
 
-    await signInWithEmailAndPassword(auth, userEmail, userPassword)
-      .then((userCredential) => {
-        const user = userCredential.user;
+const [userEmail, setUserEmail] = useState<string>("");
+const [userPassword, setUserPassword] = useState<string>("");
 
-        console.log("=========================>", user);
-        navigate("/chat");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        setErrorHandle(errorCode);
-      });
-  };
+const handelForm = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+
+  userLogin(userEmail, userPassword);
+
+ navigate('/');
+
+};
 
   return (
     <>
@@ -41,28 +34,14 @@ const Login = () => {
 
               <div>
                 <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Enter email"
-                  name="email"
-                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setUserEmail(e.target.value);
-                  }}
+                <input type="email" id="email" placeholder="Enter email" name="email" onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setUserEmail(e.target.value);  }}
                 />
               </div>
 
               <div>
                 <div>
                   <label htmlFor="password">Password:</label>
-                  <input
-                    type="password"
-                    placeholder="Enter password"
-                    id="password"
-                    name="password"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                      setUserPassword(e.target.value);
-                    }}
+                  <input type="password" placeholder="Enter password" id="password" name="password" onChange={(e: React.ChangeEvent<HTMLInputElement>) => { setUserPassword(e.target.value); }}
                   />
                 </div>
               </div>
@@ -71,12 +50,9 @@ const Login = () => {
             {errorHandle === "auth/invalid-credential" ? "Email or password not match" : "" }
             </div>
               <div>
-                Do you have a Local <Link to="/local-Login">Account</Link>?
-              </div>
-              <div>
                 Not a member yet? <Link to="/register">Sign up.</Link>
               </div>
-              <button type="submit">Login</button>
+              <button className="form-btn" type="submit">Login</button>
             </form>
           </div>
         </div>

@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { ChatRoomSectionToggle } from "../../context/ChatRoomSectionsContext";
+import { ChatRoomSectionToggle } from "../../context/chatContext/ChatRoomSectionsContext";
 
 const ChatSMSElements = () => {
   const { toggleState, setToggleState } = useContext(ChatRoomSectionToggle);

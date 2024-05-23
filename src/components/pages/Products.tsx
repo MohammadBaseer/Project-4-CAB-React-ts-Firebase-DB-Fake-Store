@@ -8,6 +8,10 @@ const Products = () => {
 
 const {getProducts, data, searchFilter, errorHandle, categoryFilter} = useContext(ProductsDataContext)
 
+// console.log("data", data !== null ? data : data)
+
+
+
   useEffect(() => {
     getProducts();
   }, [searchFilter, categoryFilter, errorHandle]);
