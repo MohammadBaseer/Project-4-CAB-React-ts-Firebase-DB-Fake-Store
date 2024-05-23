@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import {  db } from "../firebase/Auth";
+import {  auth, db } from "../firebase/Auth";
 import { collection, getDocs } from "firebase/firestore";
 import { getAuth, } from "firebase/auth";
 
@@ -12,11 +12,11 @@ type dataType = {
 };
 
 const Home = () => {
-  const { userSession, logOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
 
 
-  console.log("setUserSession", userSession)
+  console.log("user", user)
 
   const [users, setUsers] = useState<dataType | null>(null);
 
@@ -44,16 +44,15 @@ const Home = () => {
 
 
 // =============== check the current users
+console.log("auth=>>>>>>>>>>>>>>>>>>>>>>>>>>>", auth)
+// const user1 = auth.currentUser;
 
-const auth = getAuth();
-const user1 = auth.currentUser;
-
-if (user1) {
+// if (user1) {
 
   
-  console.log("user1", user1)
+//   console.log("user1", user1)
 
-} 
+// } 
 
 
 
@@ -66,7 +65,7 @@ if (user1) {
     <div className="main-box">
       <div className="main-container">
         <h1>This is Home Page</h1>
-        {userSession ? <h1>Welcome User: {userSession.name}</h1> : <h1>Login First</h1>}
+        {user ? <h1>Welcome User: {user.name}</h1> : <h1>Login First</h1>}
 
         <hr />
         <hr />

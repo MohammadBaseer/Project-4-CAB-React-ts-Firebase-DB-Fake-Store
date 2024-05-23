@@ -1,21 +1,21 @@
-import { User, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
-import { ReactNode, createContext, useState } from "react";
+import { User, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { ReactNode, createContext, useEffect, useState } from "react";
 import { auth, db, storage } from "../firebase/Auth";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 
 //!SECTION - Type of useState
-type userType = {
-    id:string;
-  name: string | null;
-  email: string | null
+type user = {
+    uid:string;
+  name: string;
+  email: string;
 
 };
 
 //!SECTION - Type of Context
 type authContextType = {
-  userSession: userType | null;
-  setUserSession: (user: userType | null) => void;
+  user: user | null;
+  setUser: (user: user | null) => void;
   //NOTE this is userLogin function types
   errorHandle: string;
   userLogin: (userEmail: string,userPassword: string) => Promise<void>;
@@ -24,7 +24,7 @@ type authContextType = {
 
 
 //REVIEW - for test 
-// getUser:User;
+// user:User;
 
 //
 logOut: () => void
@@ -33,8 +33,8 @@ logOut: () => void
 
 //!SECTION - Init Value to The Context
 const initAuthContext = {
-    userSession: {} as userType,
-  setUserSession: () => {
+    user: {} as user,
+  setUser: () => {
     throw new Error("Error has been occur");
   },
    //NOTE this is userLogin function init Value
@@ -66,7 +66,7 @@ export const AuthContextProvider = ({ children }: authContextProviderProps) => {
     // const navigate = useNavigate();
 
 //NOTE - user Check (now it locally working)
-  const [userSession, setUserSession] = useState<userType | null>(null);
+  const [user, setUser] = useState<user | null>(null);
 //
 
 
@@ -81,7 +81,7 @@ export const AuthContextProvider = ({ children }: authContextProviderProps) => {
 const logOut = () => {
   signOut(auth)
     .then(() => {
-      setUserSession(null);
+      setUser(null);
       console.log(" Sign-out successful.");
     })
     .catch((error) => {
@@ -165,30 +165,22 @@ const userRegister = async(displayName:string, email:string, password:string, fi
 const userLogin = async (userEmail: string, userPassword: string) => {
   await signInWithEmailAndPassword(auth, userEmail, userPassword)
     .then((userCredential) => {
-      const getUser = userCredential.user;
+      const user = userCredential.user;
 
 // 
+if (userCredential.user.email && userCredential.user.displayName) { // check if not null
+const uid = userCredential.user.uid;
+const name =userCredential.user.displayName;
+const email = userCredential.user.email
 
-const id = getUser.uid;
-const name = getUser.displayName;
-const email =  getUser.email
-
-// if (userSession) {
-    setUserSession({
-        id: id,
-        name: name, 
-        email: email
-        
-    });
-// }
-// else{
-    console.log("================= > user ", userSession)
-
-// }
+    setUser({uid, name, email});
+}
+    console.log("================= > user ", user)
 
 
 
-// console.log("==========getUser============", getUser.displayName, getUser.uid, getUser.email)
+
+// console.log("==========user============", user.displayName, user.uid, user.email)
 
 
 // const navigate = useNavigate();
@@ -204,14 +196,38 @@ const email =  getUser.email
 
 //! ==========================
 
+//!SECTION User Status check if online 
 
+const checkUserStatus = () => {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
 
+      
+      const uid = user.uid;
+      console.log("user is Loge in")
+      if (user.email && user.displayName) {
+        
+        setUser({uid:user.uid, name:user.displayName, email:user.email })
+      }
+      // ...
+    } else {
+      console.log("user is not Loge in")
+
+      // User is signed out
+      // ...
+    }
+  });
+}
+
+useEffect(() => {
+  checkUserStatus()
+}, [])
 
   return (
 
 
     //!SECTION - Component Provider
-    <AuthContext.Provider value={{ userSession, setUserSession, userLogin, errorHandle, userRegister, logOut }}>
+    <AuthContext.Provider value={{ user, setUser, userLogin, errorHandle, userRegister, logOut }}>
       {children}
     </AuthContext.Provider>
 

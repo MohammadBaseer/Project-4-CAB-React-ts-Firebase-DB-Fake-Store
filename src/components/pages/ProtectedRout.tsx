@@ -6,11 +6,11 @@ type ProtectedRoutType = {
 };
 
 const ProtectedRout = ({ children }: ProtectedRoutType) => {
-  const { userSession } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
   return (
     <>
-      {userSession ? (
+      {user ? (
         children
       ) : (
         <div className="main-box">

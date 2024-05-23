@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 
 
 const NavbarHead = () => {
-  const { logOut, userSession } = useContext(AuthContext);
+  const { logOut, user } = useContext(AuthContext);
 
   const signOut = () => {
     logOut();
@@ -17,7 +17,7 @@ const NavbarHead = () => {
         <div className="main-container">
           <div className="nav-elements">
             <span className="">
-              {userSession ? (
+              {user ? (
                 <Link to="#" onClick={signOut}>
                   Logout
                 </Link>
