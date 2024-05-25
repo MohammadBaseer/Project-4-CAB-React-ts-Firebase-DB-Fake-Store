@@ -203,7 +203,7 @@ const checkUserStatus = () => {
     if (user) {
 
       
-      const uid = user.uid;
+      // const uid = user.uid;
       console.log("user is Loge in")
       if (user.email && user.displayName) {
         

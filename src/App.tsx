@@ -20,6 +20,8 @@ import {
   ChatRoomSectionToggleProvider,
   UsersContextProvider,
 } from "./components/context/chatContext/ChatRoomSectionsContext";
+import { useEffect, useState } from "react";
+import Loader from "./components/Loader";
 
 
 function App() {
@@ -49,9 +51,23 @@ function App() {
     )
   );
 
+
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate a data fetch
+    const fetchData = async () => {
+      setLoading(true);
+      await new Promise(resolve => setTimeout(resolve, 2000)); // Simulate a 2-second fetch
+      setLoading(false);
+    };
+    fetchData();
+  }, []);
+
+
   return (
     <>
-
+{loading ? <Loader /> : 
       <UsersContextProvider>
         <ChatRoomSectionToggleProvider>
           <AuthContextProvider>
@@ -61,6 +77,7 @@ function App() {
           </AuthContextProvider>
         </ChatRoomSectionToggleProvider>
       </UsersContextProvider>
+}
 
     </>
   );
