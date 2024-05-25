@@ -59,16 +59,16 @@ type UserType = {
 
 type UsersContextType = {
   users: UserType[] | null;
-  setUsers: (data: UserType[] | null) => void;
+  // setUsers: (data: UserType[] | null) => void;
 
 };
 
 const usersContextInitValue: UsersContextType = {
 
   users: null,
-  setUsers: () => {
-    throw new Error('Context not initialized');
-  },
+  // setUsers: () => {
+  //   throw new Error('Context not initialized');
+  // },
 
 };
 
@@ -98,7 +98,7 @@ export const UsersContextProvider = ({ children }: UserChildrenProps) => {
     fetchData();
   }, []);
 
-  return <UsersDataContext.Provider value={{ users, setUsers}}>
+  return <UsersDataContext.Provider value={{ users}}>
     {children}
     </UsersDataContext.Provider>;
 };

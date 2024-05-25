@@ -1,31 +1,40 @@
 import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Product } from "../@types/Types";
-import { ProductsDataContext } from "../context/ProductsContext";
+import { apiDataContext } from "../context/ApiContext";
 
 const ProductFilters = () => {
-  const {setCategoryFilter, setSearchFilter } = useContext(ProductsDataContext)
   let option:string[] = [];
- 
-  const [data, setData] = useState<Product[] | null>(null);
-const apiUrl = `https://api.escuelajs.co/api/v1/products`; //Public Api -- It have some issue with images
-  // const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API
-  const getCategory = async () => {
-    try {
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        throw new Error("...something went wrong..");
-      }
-      const dataFromApi = (await response.json()) as Product[];
-      setData(dataFromApi);
-    } catch (error) {
-      console.log("error :>> ", error);
-    }
-  };
+
+
+
+  const {setCategoryFilter, setSearchFilter, data, getProducts } = useContext(apiDataContext)
+  const apiUrl = `https://api.escuelajs.co/api/v1/products`; //Public Api -- It have some issue with images
+
+
+
+  
+  // const {setCategoryFilter, setSearchFilter} = useContext(apiDataContext)
+
+  // const [data, setData] = useState<Product[] | null>(null);
+//   // const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API
+  // const getCategory = async () => {
+  //   try {
+  //     const response = await fetch(apiUrl);
+  //     if (!response.ok) {
+  //       throw new Error("...something went wrong..");
+  //     }
+  //     const dataFromApi = (await response.json()) as Product[];
+  //     setData(dataFromApi);
+  //   } catch (error) {
+  //     console.log("error :>> ", error);
+  //   }
+  // };
 
   useEffect(() => {
-    getCategory();
-  }, []);
+    getProducts(apiUrl);
+    // getCategory()
+  }, [apiUrl]);
 
 
 

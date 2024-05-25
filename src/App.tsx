@@ -13,15 +13,12 @@ import Products from "./components/pages/Products";
 import ProductItemDetail from "./components/pages/ProductItemDetails";
 import Contact from "./components/pages/Contact";
 import About from "./components/pages/About";
-import { ProductsContextComponent } from "./components/context/ProductsContext";
 import { AuthContextProvider } from "./components/context/AuthContext";
 import ProtectedRout from "./components/pages/ProtectedRout";
-import {
-  ChatRoomSectionToggleProvider,
-  UsersContextProvider,
-} from "./components/context/chatContext/ChatRoomSectionsContext";
+import { ChatRoomSectionToggleProvider, UsersContextProvider, } from "./components/context/chatContext/ChatRoomSectionsContext";
 import { useEffect, useState } from "react";
 import Loader from "./components/Loader";
+import { ApiContextComponentProvider } from "./components/context/ApiContext";
 
 
 function App() {
@@ -71,9 +68,14 @@ function App() {
       <UsersContextProvider>
         <ChatRoomSectionToggleProvider>
           <AuthContextProvider>
-            <ProductsContextComponent>
+
+<ApiContextComponentProvider>
+
               <RouterProvider router={router} />
-            </ProductsContextComponent>
+              
+</ApiContextComponentProvider>
+
+
           </AuthContextProvider>
         </ChatRoomSectionToggleProvider>
       </UsersContextProvider>

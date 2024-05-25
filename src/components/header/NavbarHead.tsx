@@ -2,11 +2,12 @@ import "primeicons/primeicons.css";
 import { useContext, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
-import { ChatRoomSectionToggle } from "../context/chatContext/ChatRoomSectionsContext";
+import { ChatRoomSectionToggle, UsersDataContext } from "../context/chatContext/ChatRoomSectionsContext";
 
 const NavbarHead = () => {
   const location = useLocation();
 
+  const { users } = useContext(UsersDataContext);
   const { logOut, user } = useContext(AuthContext);
   const { profileNavbarToggle, setProfileNavbarToggle } = useContext(ChatRoomSectionToggle);
 
@@ -36,7 +37,7 @@ const NavbarHead = () => {
                 <div className="user-tab-navbar-photo">
                   <img
                     className="user-photo"
-                    src="https://st3.depositphotos.com/15648834/17930/v/450/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                    src={""}
                     alt=""
                     onClick={toggle}
                   />
@@ -56,7 +57,7 @@ const NavbarHead = () => {
                     alt=""
                     onClick={toggle}
                   />
-                  <p>Mohammad Baseer Rahimi</p>
+                  <p>{user.name}</p>
                 </div>
 
                   <div className="user-tab-navbar-element">

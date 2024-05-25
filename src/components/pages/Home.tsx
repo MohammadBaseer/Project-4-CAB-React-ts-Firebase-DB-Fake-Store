@@ -2,9 +2,9 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import {  auth, db } from "../firebase/Auth";
 import { collection, getDocs } from "firebase/firestore";
-import { getAuth, } from "firebase/auth";
 
 type dataType = {
+  map: any;
   id: string;
   displayName: string;
   email: string;

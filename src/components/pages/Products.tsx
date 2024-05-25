@@ -1,19 +1,24 @@
 import { useContext, useEffect } from "react";
 import ProductItems from "./ProductItems";
 import ProductFilters from "./ProductFilters";
-import { ProductsDataContext } from "../context/ProductsContext";
+import {  apiDataContext } from "../context/ApiContext";
 
 const Products = () => {
 
 
-const {getProducts, data, searchFilter, errorHandle, categoryFilter} = useContext(ProductsDataContext)
+const {getProducts, data, searchFilter, errorHandle, categoryFilter} = useContext(apiDataContext)
 
 // console.log("data", data !== null ? data : data)
 
+//NOTE Testing 
 
+const apiUrl = `https://api.escuelajs.co/api/v1/products?title=${searchFilter}&categoryId=${Number(categoryFilter)}`; //Public Api -- It have some issue with images
+
+
+// End Testing
 
   useEffect(() => {
-    getProducts();
+    getProducts(apiUrl);
   }, [searchFilter, categoryFilter, errorHandle]);
 
   return (
