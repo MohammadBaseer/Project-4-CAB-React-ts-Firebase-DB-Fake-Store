@@ -74,7 +74,17 @@ a {
   font-size: 0.8rem !important;
   text-align: left;
   box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
 }
+.user-tab-navbar-element:first{
+
+}
+.user-tab-navbar-element p{
+  font-size: 10px;
+  padding: 6px;
+}
+
 
 .user-tab-navbar-element span{
   padding: 10px;
