@@ -1,5 +1,6 @@
+import styles from "./ProtectedRouts.module.css"
 import { ReactNode, useContext } from "react";
-import { AuthContext } from "../context/AuthContext";
+import { AuthContext } from "../../context/AuthContext";
 
 type ProtectedRoutType = {
   children: ReactNode;
@@ -13,8 +14,8 @@ const ProtectedRout = ({ children }: ProtectedRoutType) => {
       {user ? (
         children
       ) : (
-        <div className="main-box">
-          <div className="main-container">
+        <div className={styles.main_box}>
+          <div className={styles.body_container}>
             <h1>Please Login First</h1>
           </div>
         </div>

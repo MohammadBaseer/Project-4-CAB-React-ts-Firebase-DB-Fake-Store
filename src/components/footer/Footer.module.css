@@ -1,0 +1,18 @@
+.footer {
+    min-height: 200px;
+    background-color: #313131;
+    color: #ccc;
+    box-shadow: 0px -2px 5px rgb(96 96 96);
+  }
+  .footer:not(:first-child) {
+    text-align: center;
+    align-content: center;
+  }
+  .boy_container {
+    width: 90%;
+    margin: auto !important;
+    /* border: solid yellow; */
+  }  
+  hr {
+    margin: 10px;
+  }

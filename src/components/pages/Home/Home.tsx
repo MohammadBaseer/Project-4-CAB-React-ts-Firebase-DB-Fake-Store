@@ -1,6 +1,7 @@
+import styles from "./Home.module.css"
 import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
-import {  auth, db } from "../firebase/Auth";
+import { AuthContext } from "../../context/AuthContext";
+import { db } from "../../firebase/Auth";
 import { collection, getDocs } from "firebase/firestore";
 
 type dataType = {
@@ -14,9 +15,7 @@ type dataType = {
 const Home = () => {
   const { user } = useContext(AuthContext);
 
-
-
-  console.log("user", user)
+  // console.log("user", user);
 
   const [users, setUsers] = useState<dataType | null>(null);
 
@@ -35,35 +34,21 @@ const Home = () => {
     fetchData();
   }, []);
 
+  // =============== check the current users
+  // console.log("auth=>>>>>>>>>>>>>>>>>>>>>>>>>>>", auth);
+  // const user1 = auth.currentUser;
 
+  // if (user1) {
 
+  //   console.log("user1", user1)
 
+  // }
 
-
-
-
-
-// =============== check the current users
-console.log("auth=>>>>>>>>>>>>>>>>>>>>>>>>>>>", auth)
-// const user1 = auth.currentUser;
-
-// if (user1) {
-
-  
-//   console.log("user1", user1)
-
-// } 
-
-
-
-
-
-
-// console.log("Display auth of user ======> ", auth)
+  // console.log("Display auth of user ======> ", auth)
 
   return (
-    <div className="main-box">
-      <div className="main-container">
+    <div className={styles.main_box}>
+      <div className={styles.body_container}>
         <h1>This is Home Page</h1>
         {user ? <h1>Welcome User: {user.name}</h1> : <h1>Login First</h1>}
 
@@ -81,9 +66,6 @@ console.log("auth=>>>>>>>>>>>>>>>>>>>>>>>>>>>", auth)
               <p>{user.id}</p>
             </div>
           ))}
-
-
-
       </div>
     </div>
   );
