@@ -1,5 +1,4 @@
 import {
-  User,
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -10,6 +9,7 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { auth, db, storage } from "../firebase/Auth";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
+import { useNavigate } from "react-router-dom";
 
 //!SECTION - Type of useState
 type user = {
@@ -75,7 +75,8 @@ export const AuthContext = createContext<authContextType>(initAuthContext);
 
 //!SECTION - Component
 export const AuthContextProvider = ({ children }: authContextProviderProps) => {
-  // const navigate = useNavigate();
+
+
 
   //NOTE - user Check (now it locally working)
   const [user, setUser] = useState<user | null>(null);
@@ -98,60 +99,106 @@ export const AuthContextProvider = ({ children }: authContextProviderProps) => {
   //!SECTION Error State init here
   const [errorHandle, setErrorHandle] = useState<string>("");
 
-  //!SECTION User Register to Firebase
+
+
+
+
+
+
+
+
+
+  //!SECTION User Register to Firebase ---------------------------------------------------
   //NOTE
 
-  const userRegister = async (
-    displayName: string,
-    email: string,
-    password: string,
-    file: any
-  ) => {
-    try {
-      // Auth user registration
-      const res = await createUserWithEmailAndPassword(auth, email, password);
 
-      const storageRef = ref(storage, displayName);
+
+
+// const registerUsers = async (displayName: string, email: string, password: string, file: any) => {
+
+
+
+//  try {
+
+
+//   const res = await createUserWithEmailAndPassword(auth, email, password);
+//   const storageRef = ref(storage, displayName);
+//       const uploadTask = uploadBytesResumable(storageRef, file);
+
+
+
+
+
+// } catch (error) {
+  
+// } 
+// }
+
+
+
+
+const userRegister = async(displayName:string, email:string, password:string, file:any)=>{
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+    console.log("user ========> ", user);
+
+const storageRef = ref(storage, displayName);
       const uploadTask = uploadBytesResumable(storageRef, file);
 
-      // Register three observers:
-      uploadTask.on(
-        (error: any) => {
-          setErrorHandle(error);
-        },
-        () => {
-          getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-            await updateProfile(res.user, {
-              displayName,
-              photoURL: downloadURL,
-            });
-
-            // Add a new document in collection "users" to Firestore
-            await setDoc(doc(db, "users", res.user.uid), {
-              id: res.user.uid,
-              displayName,
-              email,
-              photoURL: downloadURL,
-            });
-            // End
-            await setDoc(doc(db, "userChats", res.user.uid), {});
+            uploadTask.on((error: any) => {
+        // setErrorHandle(error);
+        console.log("error=1", error)
+        setErrorHandle(error)
+      },
+      
+      () =>  {
+        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
+          await updateProfile(userCredential.user, {
+            displayName,
+            photoURL: downloadURL,
           });
-        }
-      );
-      console.log("User registration success");
-      // Redirect to login page
-      // navigate('/');
+          await setDoc(doc(db, "users", userCredential.user.uid), {
+            id: userCredential.user.uid,
+            displayName,
+            email,
+            photoURL: downloadURL,
+          });
+          // End
+          await setDoc(doc(db, "userChats", userCredential.user.uid), {});
+        });
+      }
+    );
+    console.log("User registration success");
 
-      // End
-    } catch (error) {
-      const errorCode = error.code;
-      // const errorMessage = error.message;
-      console.log(errorCode, errorMessage);
-      setErrorHandle(errorCode);
-    }
-  };
+  }catch (error: any) {
+     const errorCode = error.code;
+    const errorMessage = error.message;
+    console.log("errorCode", errorCode)
+    console.log("errorMessage", errorMessage)
+    setErrorHandle(errorCode)
+  }
+}
 
-  //! ==========================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  //! ==========================------------------------------------------------------
 
   //!SECTION User Login to Firebase
   //NOTE
@@ -193,9 +240,9 @@ export const AuthContextProvider = ({ children }: authContextProviderProps) => {
         console.log("================= > user ", user);
 
         // console.log("==========user============", user.displayName, user.uid, user.email)
+        const navigate = useNavigate();
 
-        // const navigate = useNavigate();
-        //       navigate("/");
+              navigate("/");
       })
       .catch((error) => {
         const errorCode = error.code;
