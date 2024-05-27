@@ -1,0 +1,11 @@
+.chat_list {
+    padding: 0px 8px 12px 8px;
+  }
+  .scroll {
+    overflow-y: scroll;
+    height: 77vh;
+    direction: rtl;
+  }
+  .scroll_list {
+    direction: ltr !important;
+  }

@@ -1,4 +1,4 @@
-import styles from "./Register.module.css"
+import styles from "./Register.module.css";
 import add from "../../../assets/img/addAvatar.png";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
@@ -70,13 +70,14 @@ const Register = () => {
               </div>
             </div>
 
+
+
             <div className={styles.error}>
-              {errorHandle === "auth/weak-password"
-                ? "Password should be at least 6 characters"
-                : ""}
-              {errorHandle === "auth/email-already-in-use"
-                ? "You have already an account"
-                : ""}
+
+              {errorHandle === "auth/weak-password" ? "Password should be at least 6 characters" : ""}
+
+              {errorHandle === "auth/email-already-in-use" ? "You have already an account" : ""}
+
             </div>
             <div>
               Do you have already an account? <Link to="/login">Login</Link>

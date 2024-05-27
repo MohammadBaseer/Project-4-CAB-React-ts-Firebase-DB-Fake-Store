@@ -7,7 +7,7 @@ import {
 import Home from "./components/pages/Home/Home";
 import Login from "./components/pages/Login/Login";
 import Register from "./components/pages/Register/Register";
-import Chat from "./components/pages/chat-Pages/Chat";
+import Chat from "./components/pages/chat-Pages/Chat/Chat";
 import Layout from "./components/layouts/Layout";
 import Products from "./components/pages/Products/Products";
 import ProductItemDetail from "./components/pages/ProductItemDetails/ProductItemDetails";

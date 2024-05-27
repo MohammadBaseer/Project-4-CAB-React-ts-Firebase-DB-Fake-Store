@@ -1,0 +1,36 @@
+.users {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    margin: 13px;
+    border-radius: 12px;
+    background-color: #f5f5f5;
+    box-shadow: 0px 0px 5px rgb(122 151 181);
+    cursor: pointer;
+    direction: ltr;
+  }
+.users:hover {
+    background-color: #313131;
+  }
+  /* .users:hover .chat-info {
+    color: #fff !important;
+  }  */
+  .image_div {
+    padding: 0px !important;
+  }
+  .chat_image {
+  border-radius: 50px;
+  margin-right: 5px;
+  width: 40px;
+   height: 40px;
+}
+  .chat_info {
+    padding: 5px;
+    color: #1b1b1b;
+    font-size: 11px;
+    display: flex;
+  }
+  .p{
+    margin: 0px;
+    padding: 0px;
+  }

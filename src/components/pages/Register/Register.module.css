@@ -49,3 +49,10 @@ input[type="password"] {
     padding-top: 10px !important;
     padding-bottom: 15px !important;
   }
+
+
+  @media only screen and (max-width: 815px) {
+    .reg_contain {
+      width: 60%;
+    }
+  }

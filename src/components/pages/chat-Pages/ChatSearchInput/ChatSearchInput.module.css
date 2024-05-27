@@ -1,0 +1,14 @@
+.search_container {
+    position: relative;
+  }
+  .pi_search {
+  position: absolute;
+  top: 50%;
+  right: 10px;
+  transform: translateY(-50%);
+  color: #888;
+}
+.search_input{
+  border-radius: 15px;
+  box-shadow: 0px 0px 5px rgb(122 151 181);
+}

@@ -1,0 +1,8 @@
+.main_box {
+  flex: 1;
+}
+.chat_container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+}
