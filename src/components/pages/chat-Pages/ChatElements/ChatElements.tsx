@@ -20,7 +20,7 @@ const ChatSMSElements = () => {
         <div className={styles.element}>
           <i
             className={
-              toggleState === 1 ? "pi pi-comment active" : "pi pi-comment"
+              toggleState === 1 ? `pi pi-comment ${styles.active}` : "pi pi-comment"
             }
             onClick={() => toggle(1)}
           ></i>
@@ -33,7 +33,7 @@ const ChatSMSElements = () => {
         </div>
         <div className={styles.element}>
           <i
-            className={toggleState === 2 ? "pi pi-users active" : "pi pi-users"}
+            className={toggleState === 2 ? `pi pi-users ${styles.active}` : "pi pi-users"}
             onClick={() => toggle(2)}
           ></i>
         </div>
