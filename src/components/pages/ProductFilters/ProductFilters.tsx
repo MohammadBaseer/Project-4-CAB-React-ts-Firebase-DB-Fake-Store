@@ -9,12 +9,13 @@ const ProductFilters = () => {
 
   const { setCategoryFilter, setSearchFilter, data, getProducts } =
     useContext(apiDataContext);
+
   const apiUrl = `https://api.escuelajs.co/api/v1/products`; //Public Api -- It have some issue with images
 
-  // const {setCategoryFilter, setSearchFilter} = useContext(apiDataContext)
+  // const { setCategoryFilter, setSearchFilter } = useContext(apiDataContext)
 
   // const [data, setData] = useState<Product[] | null>(null);
-  //   // const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API
+  // // const apiUrl = "https://8c1080f56e4f4a9a.mokky.dev/products"; // My own Endpoint API
   // const getCategory = async () => {
   //   try {
   //     const response = await fetch(apiUrl);
@@ -27,7 +28,10 @@ const ProductFilters = () => {
   //     console.log("error :>> ", error);
   //   }
   // };
-
+  // const filteredData = data?.filter((product) => {
+  //   return product.category.name === "Electronics"
+  // })
+  // console.log('filteredData', filteredData)
   useEffect(() => {
     getProducts(apiUrl);
     // getCategory()
@@ -69,11 +73,7 @@ const ProductFilters = () => {
               option.push(itemCategory.category.name);
               return (
                 <NavLink to="#" key={itemCategory.category.id}>
-                  <button
-                    className={styles.filter_button}
-                    value={itemCategory.category.id}
-                    onClick={categoryHandel}
-                  >
+                  <button className={styles.filter_button} value={itemCategory.category.id} onClick={categoryHandel} >
                     {itemCategory.category.name}
                   </button>
                 </NavLink>

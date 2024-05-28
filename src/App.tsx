@@ -13,14 +13,15 @@ import Products from "./components/pages/Products/Products";
 import ProductItemDetail from "./components/pages/ProductItemDetails/ProductItemDetails";
 import Contact from "./components/pages/Contact/Contact";
 import About from "./components/pages/About/About";
-import { AuthContextProvider } from "./components/context/AuthContext";
 import ProtectedRout from "./components/pages/ProtectedRouts/ProtectedRouts";
+import Loader from "./components/pages/Loader/Loader";
+
+import { AuthContextProvider } from "./components/context/AuthContext";
 import {
   ChatRoomSectionToggleProvider,
   UsersContextProvider,
 } from "./components/context/chatContext/ChatRoomSectionsContext";
 import { useEffect, useState } from "react";
-import Loader from "./components/pages/Loader/Loader";
 import { ApiContextComponentProvider } from "./components/context/ApiContext";
 
 function App() {
@@ -29,21 +30,22 @@ function App() {
       <>
         <Route path="/" element={<Layout />}>
           <Route index element={<Home />} />
-          <Route
-            path="/products"
-            element={
-              <ProtectedRout>
-                <Products />
-              </ProtectedRout>
-            }
-          />
+          <Route path="/products" element={<Products />} />
           <Route path="/products/:id" element={<ProductItemDetail />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
         </Route>
         <Route path="/chat" element={<Chat />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
+
+        <Route
+          path="/login"
+          element={
+            <ProtectedRout>
+              <Login />
+            </ProtectedRout>
+          }
+        />
       </>
     )
   );
@@ -65,15 +67,17 @@ function App() {
       {loading ? (
         <Loader />
       ) : (
-        <UsersContextProvider>
-          <ChatRoomSectionToggleProvider>
-            <AuthContextProvider>
+        <AuthContextProvider>
+          <UsersContextProvider>
+            <ChatRoomSectionToggleProvider>
+              {/* <AuthContextProvider> */}
               <ApiContextComponentProvider>
                 <RouterProvider router={router} />
               </ApiContextComponentProvider>
-            </AuthContextProvider>
-          </ChatRoomSectionToggleProvider>
-        </UsersContextProvider>
+              {/* </AuthContextProvider> */}
+            </ChatRoomSectionToggleProvider>
+          </UsersContextProvider>
+        </AuthContextProvider>
       )}
     </>
   );

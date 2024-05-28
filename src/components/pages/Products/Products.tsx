@@ -12,9 +12,7 @@ const Products = () => {
 
   //NOTE Testing
 
-  const apiUrl = `https://api.escuelajs.co/api/v1/products?title=${searchFilter}&categoryId=${Number(
-    categoryFilter
-  )}`; //Public Api -- It have some issue with images
+  const apiUrl = `https://api.escuelajs.co/api/v1/products?title=${searchFilter}&categoryId=${Number(categoryFilter)}`; //Public Api -- It have some issue with images
 
   // End Testing
 

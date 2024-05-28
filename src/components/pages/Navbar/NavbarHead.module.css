@@ -10,13 +10,15 @@ width: 90%;
 margin: auto !important;
 }
 .nav_elements {
-text-align: right;
+text-align: right !important;
 }
-.nav_elements,
+.nav_elements
 a {
 text-decoration: none !important;
 color: #476a8d;
 list-style: none;
+display: contents;
+
 } 
 .user_tab_navbar{
 display: inline-block;

@@ -1,10 +1,12 @@
 
 
+import { AuthContext } from "../../../context/AuthContext";
 import { ChatRoomSectionToggle } from "../../../context/chatContext/ChatRoomSectionsContext";
 import styles from "./ChatElements.module.css"
 import { useContext } from "react";
 
 const ChatSMSElements = () => {
+  const { user } = useContext(AuthContext);
 
   const {toggleState, setToggleState} = useContext(ChatRoomSectionToggle)
 
@@ -38,7 +40,7 @@ const ChatSMSElements = () => {
           ></i>
         </div>
         <div className={styles.element}>
-          <img className={styles.chat_image} src="https://i.pinimg.com/564x/76/ef/b9/76efb9495d394564fd5aa8466c397ff3.jpg" alt="" />
+          <img className={styles.chat_image} src={user?.photoURL} alt="" />
         </div>
       </div>
       <div className={styles.element}>

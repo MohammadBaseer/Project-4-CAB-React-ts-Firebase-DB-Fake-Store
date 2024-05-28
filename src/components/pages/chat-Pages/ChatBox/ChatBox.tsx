@@ -1,4 +1,11 @@
+import { useContext } from "react";
 import styles from "./ChatBox.module.css"
+import { AuthContext } from "../../../context/AuthContext";
+
+// const { user } = useContext(AuthContext)
+
+///REVIEW - Should be Fix
+
 
 const ChatBox = () => {
   return (
@@ -6,11 +13,11 @@ const ChatBox = () => {
       <div className={styles.chat_elements}>
         <div className={styles.chat_room_element_1}>
           <img
-            className={styles.chat_image} src="https://i.pinimg.com/564x/76/ef/b9/76efb9495d394564fd5aa8466c397ff3.jpg"
+            // className={styles.chat_image} src={user?.photoURL}
             alt=""
           />
           <div>
-            <p className={styles.p}>Baseer</p>
+            {/* <p className={styles.p}>{user?.name}</p> */}
             <p className={styles.p}>Last seen 3 hours ago</p>
           </div>
         </div>

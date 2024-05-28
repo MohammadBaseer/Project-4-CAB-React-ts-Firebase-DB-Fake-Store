@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode, useEffect } from "react";
+import { createContext, useState, ReactNode } from "react";
 import { Product } from "../@types/Types";
 
 // NOTE set type for "ProductDataContext"
@@ -77,17 +77,7 @@ export const ApiContextComponentProvider = ({
   };
 
   return (
-    <apiDataContext.Provider
-      value={{
-        getProducts,
-        data,
-        searchFilter,
-        categoryFilter,
-        errorHandle,
-        setSearchFilter,
-        setCategoryFilter,
-      }}
-    >
+    <apiDataContext.Provider value={{ getProducts, data, searchFilter, categoryFilter, errorHandle, setSearchFilter, setCategoryFilter, }} >
       {children}
     </apiDataContext.Provider>
   );

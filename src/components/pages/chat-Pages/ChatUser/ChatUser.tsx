@@ -1,5 +1,10 @@
 import styles from "./ChatUser.module.css"
+
+
+
 const ChatSMSUser = () => {
+
+  
   return (
     <div className={styles.users}>
       <div className={styles.image_div}>

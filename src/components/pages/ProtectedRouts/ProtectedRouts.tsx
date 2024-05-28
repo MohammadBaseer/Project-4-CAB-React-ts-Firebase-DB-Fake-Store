@@ -1,6 +1,6 @@
-import styles from "./ProtectedRouts.module.css"
 import { ReactNode, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 type ProtectedRoutType = {
   children: ReactNode;
@@ -8,20 +8,9 @@ type ProtectedRoutType = {
 
 const ProtectedRout = ({ children }: ProtectedRoutType) => {
   const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  return (
-    <>
-      {user ? (
-        children
-      ) : (
-        <div className={styles.main_box}>
-          <div className={styles.body_container}>
-            <h1>Please Login First</h1>
-          </div>
-        </div>
-      )}
-    </>
-  );
+  return <>{user === null ? children : navigate("/")}</>;
 };
 
 export default ProtectedRout;

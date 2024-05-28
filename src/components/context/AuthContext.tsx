@@ -1,57 +1,26 @@
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-  updateProfile,
-} from "firebase/auth";
+import {onAuthStateChanged,signOut,} from "firebase/auth";
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { auth, db, storage } from "../firebase/Auth";
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
-import { collection, doc, getDocs, query, setDoc, where } from "firebase/firestore";
-import { useNavigate } from "react-router-dom";
-
-//!SECTION - Type of useState
-type user = {
-  uid: string;
-  name: string;
-  email: string;
-  photoURL:string | undefined
-};
+import { auth,} from "../firebase/Auth";
+import { User } from "../@types/Types";
+import { userRegistration } from "./authServices";
 
 //!SECTION - Type of Context
 type authContextType = {
-  user: user | null;
-  setUser: (user: user | null) => void;
-  //NOTE this is userLogin function types
-  errorHandle: string;
-  userLogin: (userEmail: string, userPassword: string) => Promise<void>;
-  //NOTE this is userRegister function types
+  user: User | null;
+  setUser: (user: User | null) => void;
   userRegister: (
-displayName: string,
+    displayName: string,
     email: string,
     password: string,
     file: string
   ) => Promise<void>;
-
-
-
-  //REVIEW - for test
-  // user:User;
-
-  //
   logOut: () => void;
 };
 
 //!SECTION - Init Value to The Context
 const initAuthContext = {
-  user: {} as user,
+  user: {} as User,
   setUser: () => {
-    throw new Error("Error has been occur");
-  },
-  //NOTE this is userLogin function init Value
-  errorHandle: "",
-  userLogin: () => {
     throw new Error("Error has been occur");
   },
   userRegister: () => {
@@ -60,9 +29,6 @@ const initAuthContext = {
   logOut: () => {
     throw new Error("Error has been occur");
   },
-
-
-
 };
 
 //!SECTION - Props Type
@@ -75,16 +41,10 @@ export const AuthContext = createContext<authContextType>(initAuthContext);
 
 //!SECTION - Component
 export const AuthContextProvider = ({ children }: authContextProviderProps) => {
+  const [user, setUser] = useState<User | null>(null);
+console.log("user=================== to set to state ", user)
 
-
-
-  //NOTE - user Check (now it locally working)
-  const [user, setUser] = useState<user | null>(null);
-  const [photoURLgetSingleDataByID, setPhotoURLgetSingleDataByID ] = useState<string | undefined>(undefined)
-
-  //
-
-  //FIXME - Error Handling should fixe
+//!SECTION LogOut
   const logOut = () => {
     signOut(auth)
       .then(() => {
@@ -93,187 +53,33 @@ export const AuthContextProvider = ({ children }: authContextProviderProps) => {
       })
       .catch((error) => {
         // An error happened.
+        console.log("Logout", error);
       });
   };
 
-  //!SECTION Error State init here
-  const [errorHandle, setErrorHandle] = useState<string>("");
-
-
-
-
-
-
-
-
-
-
-  //!SECTION User Register to Firebase ---------------------------------------------------
-  //NOTE
-
-
-
-
-// const registerUsers = async (displayName: string, email: string, password: string, file: any) => {
-
-
-
-//  try {
-
-
-//   const res = await createUserWithEmailAndPassword(auth, email, password);
-//   const storageRef = ref(storage, displayName);
-//       const uploadTask = uploadBytesResumable(storageRef, file);
-
-
-
-
-
-// } catch (error) {
-  
-// } 
-// }
-
-
-
-
-const userRegister = async(displayName:string, email:string, password:string, file:any)=>{
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-    console.log("user ========> ", user);
-
-const storageRef = ref(storage, displayName);
-      const uploadTask = uploadBytesResumable(storageRef, file);
-
-            uploadTask.on((error: any) => {
-        // setErrorHandle(error);
-        console.log("error=1", error)
-        setErrorHandle(error)
-      },
-      
-      () =>  {
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          await updateProfile(userCredential.user, {
-            displayName,
-            photoURL: downloadURL,
-          });
-          await setDoc(doc(db, "users", userCredential.user.uid), {
-            id: userCredential.user.uid,
-            displayName,
-            email,
-            photoURL: downloadURL,
-          });
-          // End
-          await setDoc(doc(db, "userChats", userCredential.user.uid), {});
-        });
-      }
-    );
-    console.log("User registration success");
-
-  }catch (error: any) {
-     const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("errorCode", errorCode)
-    console.log("errorMessage", errorMessage)
-    setErrorHandle(errorCode)
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //! ==========================------------------------------------------------------
-
-  //!SECTION User Login to Firebase
-  //NOTE
-
-  const userLogin = async (userEmail: string, userPassword: string) => {
-    await signInWithEmailAndPassword(auth, userEmail, userPassword)
-      .then (async(userCredential) => {
-        const user = userCredential.user;
-
-        ///ANCHOR - Test
-
-        const q = query( collection(db, "users"), where("id", "==", user.uid) );
-
-        const querySnapshot = await getDocs(q);
-        querySnapshot.forEach((getSingleDataByID) => {
-          // getSingleDataByID.data() is never undefined for query doc snapshots
-          const getById = getSingleDataByID.data();
-          setPhotoURLgetSingleDataByID(getById.photoURL) // Stored into UseState
-
-          console.log("====================> Login user", " => ", getById.photoURL );
-        });
-
-        ///ANCHOR -  End Test
-        // check if not null
-        if (userCredential.user.email && userCredential.user.displayName) {
-          const uid = userCredential.user.uid;
-          const name = userCredential.user.displayName;
-          const email = userCredential.user.email;
-          const photoURL = photoURLgetSingleDataByID//get From Stored useStat
-
-          setUser({ uid, name, email, photoURL });
-
-
-
-
-
-
-        }
-        console.log("================= > user ", user);
-
-        // console.log("==========user============", user.displayName, user.uid, user.email)
-        const navigate = useNavigate();
-
-              navigate("/");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        //   const errorMessage = error.message;
-        //   console.log(errorCode, errorMessage);
-        setErrorHandle(errorCode);
-      });
+  //!SECTION User Register to Firebase 
+  const userRegister = async ( displayName: string, email: string, password: string, file: any) => {
+    await userRegistration(displayName, email, password, file);
   };
-
-  //! ==========================
-
   //!SECTION User Status check if online
 
   const checkUserStatus = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        // const uid = user.uid;
         console.log("user is Loge in");
         if (user.email && user.displayName && user.photoURL) {
-          setUser({ uid: user.uid, name: user.displayName, email: user.email, photoURL:user.photoURL});
+          setUser({
+            uid: user.uid,
+            displayName: user.displayName,
+            email: user.email,
+            photoURL: user.photoURL,
+          });
         }
-        // ...
       } else {
         console.log("user is not Loge in");
-
-        // User is signed out
-        // ...
       }
     });
   };
-
   useEffect(() => {
     checkUserStatus();
   }, []);
@@ -281,7 +87,7 @@ const storageRef = ref(storage, displayName);
   return (
     //!SECTION - Component Provider
     <AuthContext.Provider
-      value={{ user, setUser, userLogin, errorHandle, userRegister, logOut }}
+      value={{ user, setUser, userRegister, logOut }}
     >
       {children}
     </AuthContext.Provider>
