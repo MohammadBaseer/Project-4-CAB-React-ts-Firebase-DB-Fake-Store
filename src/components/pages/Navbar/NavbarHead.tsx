@@ -14,7 +14,7 @@ const NavbarHead = () => {
 
   //ANCHOR -
   const { logOut, user } = useContext(AuthContext);
-  console.log('user>>navbar', user)
+  // console.log('user>>navbar', user)
 
 
   // console.log("photo URL ======", user.photoURL !== undefined ? user.photoURL : "")

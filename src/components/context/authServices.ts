@@ -13,63 +13,54 @@ const userRegistration = async (
   file: any
 ) => {
   try {
+    // Create user with email and password
     const userCredential = await createUserWithEmailAndPassword(
       auth,
       email,
       password
     );
     const user = userCredential.user;
-    // console.log("user ========> ", user);
 
+    // Reference to the storage location
     const storageRef = ref(storage, displayName);
     const uploadTask = uploadBytesResumable(storageRef, file);
 
     uploadTask.on(
       "state_changed",
-
-      (snapshot) => {
-        getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-          await updateProfile(userCredential.user, {
+      null,
+      (error) => {
+        console.error("Error during file upload:", error);
+      },
+      async () => {
+        try {
+          // Get download URL once upload completes
+          const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
+          
+          // Update user profile with display name and photo URL
+          await updateProfile(user, {
             displayName,
             photoURL: downloadURL,
           });
-          await setDoc(doc(db, "users", userCredential.user.uid), {
-            id: userCredential.user.uid,
+
+          // Save user data to Firestore
+          await setDoc(doc(db, "users", user.uid), {
+            id: user.uid,
             displayName,
             email,
             photoURL: downloadURL,
           });
-          //update user's profile with photo url
-          updateProfile(auth.currentUser!, {
-            displayName: displayName,
-            photoURL: downloadURL,
-          })
-            .then(() => {
-              console.log("profile updated!!!!");
-              console.log("auth.currentUser>>>>", auth.currentUser);
-            })
-            .catch((error) => {
-              console.log("error updating profile>>", error);
-            });
 
-          // End
-          await setDoc(doc(db, "userChats", userCredential.user.uid), {});
-        });
-      },
-      (error) => {
-        // setErrorHandle(error);
-        console.log("error=1", error);
-        // setErrorHandle(error.message);
+          // Initialize user chats document
+          await setDoc(doc(db, "userChats", user.uid), {});
+
+          console.log("User registration successful");
+        } catch (error) {
+          console.error("Error updating profile or Firestore:", error);
+        }
       }
     );
-    console.log("User registration success");
-    // navigate("/login");
   } catch (error: any) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log("errorCode", errorCode);
-    console.log("errorMessage", errorMessage);
-    // setErrorHandle(errorCode);
+    console.error("Error during user registration:", error.code, error.message);
   }
 };
 

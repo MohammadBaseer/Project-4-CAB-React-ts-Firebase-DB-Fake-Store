@@ -66,7 +66,7 @@ console.log("user=================== to set to state ", user)
   const checkUserStatus = () => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("user is Loge in");
+        console.log("user is Loge in", user);
         if (user.email && user.displayName && user.photoURL) {
           setUser({
             uid: user.uid,

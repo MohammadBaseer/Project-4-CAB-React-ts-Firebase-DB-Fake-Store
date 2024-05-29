@@ -19,7 +19,7 @@ const Products = () => {
   useEffect(() => {
     getProducts(apiUrl);
   }, [searchFilter, categoryFilter, errorHandle]);
-
+ 
   return (
     <div className={styles.main_box}>
       <div className={styles.body_container}>
