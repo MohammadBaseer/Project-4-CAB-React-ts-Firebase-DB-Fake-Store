@@ -1,45 +1,48 @@
 import "primeicons/primeicons.css";
+import { signOut } from 'firebase/auth';
 import styles from './NavbarHead.module.css';
-
-import { useContext, useEffect } from "react";
+import {useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
-import { ChatRoomSectionToggle, } from "../../context/chatContext/ChatRoomSectionsContext";
-
+import { auth } from '../../Config/Firebase_Auth';
+import { UsersActionAuthContext } from '../../../Context/AuthAction_Context/UsersAuthContext';
 
 
 const NavbarHead = () => {
   const location = useLocation();
+const { user, setUser } = useContext(UsersActionAuthContext);
 
 
-  //ANCHOR -
-  const { logOut, user } = useContext(AuthContext);
-  // console.log('user>>navbar', user)
 
 
-  // console.log("photo URL ======", user.photoURL !== undefined ? user.photoURL : "")
-
-
-  const { profileNavbarToggle, setProfileNavbarToggle } = useContext(
-    ChatRoomSectionToggle
-  );
-
-  const toggle = () => {
-    if (profileNavbarToggle) {
-      setProfileNavbarToggle(false);
-    } else {
-      setProfileNavbarToggle(true);
-    }
-  };
-
-  const signOut = () => {
-    logOut();
-  };
-
-  useEffect(() => {
+const [profileNavbarToggle, setProfileNavbarToggle] = useState<boolean>(false);
+const toggle = () => {
+  if (profileNavbarToggle) {
     setProfileNavbarToggle(false);
-  }, [location]);
+  } else {
+    setProfileNavbarToggle(true);
+  }
+};
 
+
+
+const logOut = () => {
+  signOut(auth)
+  .then(() => {
+    setUser(null);
+    console.log(" Sign-out successful.");
+  })
+  .catch((error) => {
+    console.log("Logout", error);
+  });
+};
+
+useEffect(() => {
+  setProfileNavbarToggle(false);
+}, [location]);
+
+
+  console.log("user from Navbar", user)
+  
   return (
     <>
       <div className={styles.navbar_head}>
@@ -70,7 +73,7 @@ const NavbarHead = () => {
                       alt=""
                       onClick={toggle}
                     />
-                    <p>{user.name}</p>
+                    <p>{user.displayName}</p>
                   </div>
 
                   <div className={styles.user_tab_navbar_element}>
@@ -89,7 +92,7 @@ const NavbarHead = () => {
                   </div>
                   <div className={styles.user_tab_navbar_element}>
 
-                    <Link to="#" onClick={signOut}><span className="pi pi-sign-out"> Logout</span></Link>
+                    <Link to="#" onClick={logOut}><span className="pi pi-sign-out"> Logout</span></Link>
                   </div>
                 </div>
               </div>

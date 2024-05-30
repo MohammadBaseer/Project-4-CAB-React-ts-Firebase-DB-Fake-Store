@@ -1,86 +1,47 @@
 import {
-  createBrowserRouter,
-  createRoutesFromElements,
   Route,
   RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
 } from "react-router-dom";
-import Home from "./components/pages/Home/Home";
-import Login from "./components/pages/Login/Login";
-import Register from "./components/pages/Register/Register";
-import Chat from "./components/pages/chat-Pages/Chat/Chat";
-import Layout from "./components/layouts/Layout";
-import Products from "./components/pages/Products/Products";
-import ProductItemDetail from "./components/pages/ProductItemDetails/ProductItemDetails";
-import Contact from "./components/pages/Contact/Contact";
-import About from "./components/pages/About/About";
-import ProtectedRout from "./components/pages/ProtectedRouts/ProtectedRouts";
-import Loader from "./components/pages/Loader/Loader";
-
-import { AuthContextProvider } from "./components/context/AuthContext";
-import {
-  ChatRoomSectionToggleProvider,
-  UsersContextProvider,
-} from "./components/context/chatContext/ChatRoomSectionsContext";
-import { useEffect, useState } from "react";
-import { ApiContextComponentProvider } from "./components/context/ApiContext";
+import Home from "./Components/Pages/Home/Home";
+import Layout from "./Components/Pages/Layout/Layout";
+import Products from "./Components/Pages/Product_Components/Products/Products";
+import ProductItemDetail from "./Components/Pages/Product_Components/Product_Item_Details/ProductItemDetails";
+import Contact from "./Components/Pages/Contact/Contact";
+import About from "./Components/Pages/About/About";
+import ApiContextProvider from "./Context/Api_Context";
+import Login from "./Components/AuthActions/Login/Login";
+import Register from "./Components/AuthActions/Register/Register";
+import CardDisplayPage from "./Components/Pages/Admin_Panel/Card_Display_Page/CardDisplayPage";
+import MyShop from "./Components/Pages/Admin_Panel/Card_Admin/My_Shop/MyShop";
+import { auth } from "./Components/Config/Firebase_Auth";
 
 function App() {
+  console.log("current user in Firebase::::", auth.currentUser);
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route path="/products" element={<Products />} />
-          <Route path="/products/:id" element={<ProductItemDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-        </Route>
-        <Route path="/chat" element={<Chat />} />
-        <Route path="/register" element={<Register />} />
-
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
         <Route
-          path="/login"
+          path="/products"
           element={
-            <ProtectedRout>
-              <Login />
-            </ProtectedRout>
+            <ApiContextProvider>
+              <Products />
+            </ApiContextProvider>
           }
         />
-      </>
+
+        <Route path="/products/:id" element={<ProductItemDetail />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+      </Route>
     )
   );
 
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate a data fetch
-    const runLoader = async () => {
-      setLoading(true);
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Simulate a 2-second fetch
-      setLoading(false);
-    };
-    runLoader();
-  }, []);
-
-  return (
-    <>
-      {loading ? (
-        <Loader />
-      ) : (
-        <AuthContextProvider>
-          <UsersContextProvider>
-            <ChatRoomSectionToggleProvider>
-              {/* <AuthContextProvider> */}
-              <ApiContextComponentProvider>
-                <RouterProvider router={router} />
-              </ApiContextComponentProvider>
-              {/* </AuthContextProvider> */}
-            </ChatRoomSectionToggleProvider>
-          </UsersContextProvider>
-        </AuthContextProvider>
-      )}
-    </>
-  );
+  return <>{<RouterProvider router={router} />}</>;
 }
 
 export default App;

@@ -12,8 +12,6 @@ dist
 dist-ssr
 *.local
 
-test
-NOTE.md
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
@@ -24,3 +22,4 @@ NOTE.md
 *.njsproj
 *.sln
 *.sw?
+Admin_Panel
