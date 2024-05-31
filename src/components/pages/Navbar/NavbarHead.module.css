@@ -10,7 +10,10 @@ width: 90%;
 margin: auto !important;
 }
 .nav_elements {
-text-align: right !important;
+/* text-align: right !important; */
+display: flex;
+justify-content: flex-end;
+align-items: center;
 }
 .nav_elements
 a {

@@ -100,14 +100,6 @@ export const UsersActionAuthContextProvider = ({
       if (user) {
         console.log("user is Loge in (onAuthStateChanged)");
         setUser(user);
-        // if (user.email && user.displayName && user.photoURL) {
-        //   setUser({
-        //     uid: user.uid,
-        //     displayName: user.displayName,
-        //     email: user.email,
-        //     photoURL: user.photoURL,
-        //   });
-        // }
       } else {
         console.log("user is not Loge in");
         setUser(null);

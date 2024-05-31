@@ -1,4 +1,4 @@
-import styles from './Navbar.module.css';
+import styles from "./Navbar.module.css";
 
 import { NavLink } from "react-router-dom";
 import NavbarHead from "./NavbarHead";
@@ -24,6 +24,9 @@ function Navbar() {
                 </li>
                 <li className={styles.nav_elements}>
                   <NavLink to="/about">About us</NavLink>
+                </li>
+                <li className={styles.nav_elements}>
+                  <NavLink to="/card">Card</NavLink>
                 </li>
               </div>
             </ul>

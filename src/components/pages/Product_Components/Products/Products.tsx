@@ -4,6 +4,7 @@ import styles from "./Products.module.css";
 import ProductItems from "../Product_Items/ProductItems";
 import ProductFilters from "../Products_Filter/ProductFilters";
 import { ApiDataContext } from "../../../../Context/Api_Context";
+import { UsersActionAuthContext } from "../../../../Context/AuthAction_Context/UsersAuthContext";
 
 const Products = () => {
   const {
@@ -15,6 +16,13 @@ const Products = () => {
     categoryFilter,
     searchFilter,
   } = useContext(ApiDataContext);
+
+
+const {user} = useContext(UsersActionAuthContext)
+
+
+
+
 
   // console.log("filteredData from Product Page", filteredData && filteredData )
 
@@ -39,6 +47,7 @@ const Products = () => {
             {errorHandle}
             {filteredData &&
               filteredData.map((element) => {
+                // console.log(element);
                 return (
                   <ProductItems
                     key={element.id}
@@ -48,6 +57,8 @@ const Products = () => {
                     category={element.category.name}
                     description={element.description.slice(0, 150)}
                     price={element.price}
+                    storeArrayIntoState={element}
+                    uid={user?.uid}
                   />
                 );
               })}

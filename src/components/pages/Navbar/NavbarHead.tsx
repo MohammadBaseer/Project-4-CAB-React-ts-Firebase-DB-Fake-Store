@@ -2,7 +2,7 @@ import "primeicons/primeicons.css";
 import { signOut } from 'firebase/auth';
 import styles from './NavbarHead.module.css';
 import {useContext, useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { auth } from '../../Config/Firebase_Auth';
 import { UsersActionAuthContext } from '../../../Context/AuthAction_Context/UsersAuthContext';
 
@@ -49,6 +49,16 @@ useEffect(() => {
         <div className={styles.body_container}>
           <div className={styles.nav_elements}>
             {user ? (
+<>
+<p>
+  <Link  to="/cart">
+<i className="pi pi-shopping-cart">
+  <span> 3</span>
+</i>
+   </Link>
+</p>
+
+
               <div className={styles.user_tab_navbar}>
                 <div className={styles.user_tab_navbar_photo}>
                   <img
@@ -56,23 +66,23 @@ useEffect(() => {
                     src={user.photoURL !== undefined ? user.photoURL : ""}
                     alt=""
                     onClick={toggle}
-                  />
+                    />
                 </div>
                 <div
                   className={styles.user_tab_navbar_element_box}
                   style={
                     profileNavbarToggle === true
-                      ? { display: "block" }
-                      : { display: "none" }
+                    ? { display: "block" }
+                    : { display: "none" }
                   }
-                >
+                  >
                   <div className={styles.user_tab_navbar_element}>
                     <img
                       className={styles.user_photo}
                       src={user.photoURL !== undefined ? user.photoURL : ""}
                       alt=""
                       onClick={toggle}
-                    />
+                      />
                     <p>{user.displayName}</p>
                   </div>
 
@@ -96,6 +106,7 @@ useEffect(() => {
                   </div>
                 </div>
               </div>
+                      </>
             ) : (
               <>
                 <span className="">

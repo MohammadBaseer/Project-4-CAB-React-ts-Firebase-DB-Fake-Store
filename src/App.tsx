@@ -13,9 +13,8 @@ import About from "./Components/Pages/About/About";
 import ApiContextProvider from "./Context/Api_Context";
 import Login from "./Components/AuthActions/Login/Login";
 import Register from "./Components/AuthActions/Register/Register";
-import CardDisplayPage from "./Components/Pages/Admin_Panel/Card_Display_Page/CardDisplayPage";
-import MyShop from "./Components/Pages/Admin_Panel/Card_Admin/My_Shop/MyShop";
 import { auth } from "./Components/Config/Firebase_Auth";
+import Cart from "./Components/Pages/Cart/Cart";
 
 function App() {
   console.log("current user in Firebase::::", auth.currentUser);
@@ -37,6 +36,7 @@ function App() {
         <Route path="/about" element={<About />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<Cart />} />
       </Route>
     )
   );
