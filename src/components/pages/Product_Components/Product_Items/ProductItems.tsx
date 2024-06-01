@@ -1,10 +1,9 @@
-import { useContext, useEffect, useState } from "react";
+import {  useEffect, useState } from "react";
 import styles from "./ProductItems.module.css";
 import { Link } from "react-router-dom";
 import {IncomingStoreArrayIntoStateType,} from "../../../../@Types/Type";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../Config/Firebase_Auth";
-import { UsersActionAuthContext } from "../../../../Context/AuthAction_Context/UsersAuthContext";
 import { User } from "firebase/auth";
 
 type itemPropsType = {
@@ -128,7 +127,7 @@ insertDataToDB()
 
         {/* ======================================= */}
 
-        <pre>{objectTest}</pre>
+        {/* <pre>{objectTest}</pre> */}
 
         {/* ======================================= */}
       </div>

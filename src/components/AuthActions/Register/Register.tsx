@@ -1,18 +1,14 @@
 import styles from "./Register.module.css";
 import add from "../../../assets/img/addAvatar.png";
-import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-import { errorHandler } from "../../../Context/Error_Handler/errorCatcher";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { auth, storage } from "../../Config/Firebase_Auth";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import { useContext, useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
-  const navigate = useNavigate();
-
-  const { userRegister, test } = useContext(UsersActionAuthContext);
+  const { userRegister, user, errorHandle } = useContext(
+    UsersActionAuthContext
+  );
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -21,31 +17,30 @@ const Register = () => {
 
   const handelForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    //   try {
-    //     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    //     const user = userCredential.user;
 
-    //     const storageRef = ref(storage, `profilePhotos/${user.uid}`);
-    //     await uploadBytes(storageRef, file);
-    //     const photoURL = await getDownloadURL(storageRef);
+    ///ANCHOR - Error Handler Set
 
-    //     await updateProfile(user, {
-    //       displayName: name,
-    //       photoURL: photoURL,
-    //     });
-    //     console.log('User registered successfully with profile photo:', user);
-    //     navigate("/")
-    //  await setUser(null);
-
-    //   } catch (error) {
-    //     console.error('Error during user registration:', error);
-    //     errorHandler(error)
-    //   }
-
-    userRegister(name, email, password, file);
-    // test("testing context");
+    if (name === "" || email === "" || password === "") {
+      toast.error("The input felid should not be empty.");
+    } else if (file === null) {
+      toast.error("Please select a avatar");
+    } else {
+      userRegister(name, email, password, file);
+      if (errorHandle === "auth/email-already-in-use") {
+        toast.error("The entered email already exists.");
+      } else if (errorHandle === "auth/weak-password") {
+        toast.error("Password should be at least 6 characters.");
+      } else if (errorHandle === "auth/invalid-email") {
+        toast.error("Please use a valid email.");
+      }
+    }
   };
 
+  if (user) {
+    // navigate("/");|
+    //TODO IF you have the time, it would be nice that you try that the Navigate takes you to the current location of the user (so if the user type "/login" in the url when they are in "/products", Navigate takes you to "/products")
+    return <Navigate to="/" />;
+  }
   return (
     <>
       <div className={styles.main_box}>
@@ -114,7 +109,7 @@ const Register = () => {
               </div>
             </div>
 
-            {/* <div className={styles.error}>
+            <div className={styles.error}>
               {errorHandle === "auth/weak-password"
                 ? "Password should be at least 6 characters"
                 : ""}
@@ -122,7 +117,7 @@ const Register = () => {
               {errorHandle === "auth/email-already-in-use"
                 ? "You have already an account"
                 : ""}
-            </div> */}
+            </div>
             <div>
               Do you have already an account? <Link to="/login">Login</Link>
             </div>
@@ -132,6 +127,7 @@ const Register = () => {
           </form>
         </div>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 };

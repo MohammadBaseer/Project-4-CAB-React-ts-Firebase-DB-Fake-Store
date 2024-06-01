@@ -25,9 +25,6 @@ function Navbar() {
                 <li className={styles.nav_elements}>
                   <NavLink to="/about">About us</NavLink>
                 </li>
-                <li className={styles.nav_elements}>
-                  <NavLink to="/card">Card</NavLink>
-                </li>
               </div>
             </ul>
           </div>

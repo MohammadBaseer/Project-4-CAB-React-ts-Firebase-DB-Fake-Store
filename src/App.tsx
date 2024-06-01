@@ -15,9 +15,10 @@ import Login from "./Components/AuthActions/Login/Login";
 import Register from "./Components/AuthActions/Register/Register";
 import { auth } from "./Components/Config/Firebase_Auth";
 import Cart from "./Components/Pages/Cart/Cart";
+import { useEffect } from "react";
+import Test from "./Components/Pages/Test/Test";
 
 function App() {
-  console.log("current user in Firebase::::", auth.currentUser);
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<Layout />}>
@@ -37,9 +38,13 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/test" element={<Test />} />
       </Route>
     )
   );
+  // useEffect(() => {
+  //   // console.log("Auth from App Page", auth.currentUser);
+  // }, []);
 
   return <>{<RouterProvider router={router} />}</>;
 }

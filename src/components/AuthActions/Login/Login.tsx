@@ -5,6 +5,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Config/Firebase_Auth";
 import { FirebaseError } from "firebase/app";
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
+import toast, { Toaster } from "react-hot-toast";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const Login = () => {
 
   const [userEmail, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [loggedIn, setLoggedIn] = useState(false);
 
   const emailSetFunc = (e: ChangeEvent<HTMLInputElement>) => {
@@ -26,41 +28,45 @@ const Login = () => {
 
   const handelForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("email=====", userEmail, "password=====", password);
-    try {
-      if (userEmail === "") {
-        alert("Enter your email, please!");
-      } else if (password === "") {
-        alert("Enter your password, please!");
-      } else {
-        const loggedIn = await signInWithEmailAndPassword(
-          auth,
-          userEmail,
-          password
-        );
 
-        if (loggedIn) setLoggedIn(true);
-        alert("Successfully logged in!");
-        setEmail("");
-        setPassword("");
-        // setLoggedInUserID(auth.currentUser?.uid);
-        setUser({
-          uid: auth.currentUser!.uid,
-          displayName: auth.currentUser!.displayName,
-          email: auth.currentUser!.email,
-          photoURL: auth.currentUser!.photoURL,
-        });
-        console.log(
-          "auth.currentUser?.uid------------->",
-          auth.currentUser?.photoURL
-        );
-        navigate("/");
-      }
-    } catch (error) {
-      if (error instanceof FirebaseError) {
-        catchError(error);
-      } else {
-        console.log(error);
+    if (userEmail === "" || password === "") {
+      toast.error("The input felid should not be empty.");
+    } else {
+      try {
+        if (userEmail === "") {
+          alert("Enter your email, please!");
+        } else if (password === "") {
+          alert("Enter your password, please!");
+        } else {
+          const loggedIn = await signInWithEmailAndPassword(
+            auth,
+            userEmail,
+            password
+          );
+          if (loggedIn) setLoggedIn(true);
+          setEmail("");
+          setPassword("");
+          setUser({
+            uid: auth.currentUser!.uid,
+            displayName: auth.currentUser!.displayName,
+            email: auth.currentUser!.email,
+            photoURL: auth.currentUser!.photoURL,
+          });
+          console.log(
+            "auth.currentUser?.uid------------->",
+            auth.currentUser?.photoURL
+          );
+          navigate("/");
+        }
+      } catch (error) {
+        if (error?.code === "auth/invalid-credential") {
+          toast.error(
+            "Either email or password is incorrect. Please try again."
+          );
+          setUser(null);
+        } else {
+          console.log(error);
+        }
       }
     }
   };
@@ -124,6 +130,7 @@ const Login = () => {
           </div>
         </div>
       </div>
+      <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 };

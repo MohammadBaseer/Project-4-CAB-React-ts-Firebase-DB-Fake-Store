@@ -35,7 +35,7 @@ export declare type ProductsType = {
   description: string;
   data: Date;
 };
-export declare type cardItemTypes = {
+export declare type CardItemTypes = {
   docID: string;
   uid: User | null | undefined;
   id: number;
