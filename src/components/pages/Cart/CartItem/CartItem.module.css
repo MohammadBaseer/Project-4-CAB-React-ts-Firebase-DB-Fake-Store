@@ -1,0 +1,255 @@
+.shopping_cart_box {
+    padding: 80px;
+  }
+  
+  .product_image {
+    float: left;
+    width: 20%;
+  }
+  
+  .product_details {
+    float: left;
+    width: 37%;
+  }
+  
+  .product_price {
+    float: left;
+    width: 12%;
+  }
+  
+  .product_quantity {
+    float: left;
+    width: 10%;
+  }
+  
+  .product_removal {
+    float: left;
+    width: 9%;
+  }
+  
+  .product_line_price {
+    float: left;
+    width: 12%;
+    text-align: right;
+  }
+  
+  /* This is used as the traditional .clearfix class */
+  .group:before,
+  .shopping_cart:before,
+  .column_labels:before,
+  .product:before,
+  .totals_item:before,
+  .group:after,
+  .shopping_cart:after,
+  .column_labels:after,
+  .product:after,
+  .totals_item:after {
+    content: "";
+    display: table;
+  }
+  
+  .group:after,
+  .shopping_cart:after,
+  .column_labels:after,
+  .product:after,
+  .totals_item:after {
+    clear: both;
+  }
+  
+  .group,
+  .shopping_cart,
+  .column_labels,
+  .product,
+  .totals_item {
+    zoom: 1;
+  }
+  
+  /* Apply clearfix in a few places */
+  /* Apply dollar signs */
+  .product .product_price:before,
+  .product .product_line_price:before,
+  .totals_value:before {
+    content: "$";
+  }
+  
+  /* Body/Header stuff */
+  body {
+    padding: 0px 30px 30px 20px;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue",
+      Helvetica, Arial, sans-serif;
+    font-weight: 100;
+  }
+  
+  h1 {
+    font-weight: 100;
+  }
+  
+  label {
+    color: #aaa;
+  }
+  
+  .shopping_cart {
+    margin-top: -45px;
+  }
+  
+  /* Column headers */
+  .column_labels label {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #eee;
+  }
+  .column_labels .product_image,
+  .column_labels .product_details,
+  .column_labels .product_removal {
+    text-indent: -9999px;
+  }
+  
+  /* Product entries */
+  .product {
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+  }
+  .product .product_image {
+    text-align: center;
+  }
+  .product .product_image img {
+    width: 100px;
+  }
+  .product .product_details .product_title {
+    margin-right: 20px;
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+  }
+  .product .product_details .product_description {
+    margin: 5px 20px 5px 0;
+    line-height: 1.4em;
+  }
+  .product .product_quantity input {
+    width: 40px;
+  }
+  .product .remove_product {
+    border: 0;
+    padding: 4px 8px;
+    background-color: #c66;
+    color: #fff;
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  .product .remove_product:hover {
+    background-color: #a44;
+  }
+  
+  /* Totals section */
+  .totals .totals_item {
+    float: right;
+    clear: both;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  .totals .totals_item label {
+    float: left;
+    clear: both;
+    width: 79%;
+    text-align: right;
+  }
+  .totals .totals_item .totals_value {
+    float: right;
+    width: 21%;
+    text-align: right;
+  }
+  .totals .totals-item-total {
+    font-family: "HelveticaNeue-Medium", "Helvetica Neue Medium";
+  }
+  
+  .checkout {
+    float: right;
+    border: 0;
+    margin-top: 20px;
+    padding: 6px 25px;
+    background-color: #476a8d;
+    color: #fff;
+    font-size: 25px;
+    border-radius: 3px;
+  }
+  
+  .checkout:hover {
+    background-color: #647d96;
+  }
+  
+  /* Make adjustments for tablet */
+  @media screen and (max-width: 650px) {
+    .shopping-cart {
+      margin: 0;
+      padding-top: 20px;
+      border-top: 1px solid #eee;
+    }
+  
+    .column_labels {
+      display: none;
+    }
+  
+    .product_image {
+      float: right;
+      width: auto;
+    }
+    .product_image img {
+      margin: 0 0 10px 10px;
+    }
+  
+    .product_details {
+      float: none;
+      margin-bottom: 10px;
+      width: auto;
+    }
+  
+    .product_price {
+      clear: both;
+      width: 70px;
+    }
+  
+    .product_quantity {
+      width: 100px;
+    }
+    .product_quantity input {
+      margin-left: 20px;
+    }
+  
+    .product_quantity:before {
+      content: "x";
+    }
+  
+    .product_removal {
+      width: auto;
+    }
+  
+    .product_line_price {
+      float: right;
+      width: 70px;
+    }
+  }
+  /* Make more adjustments for phone */
+  @media screen and (max-width: 350px) {
+    .product_removal {
+      float: right;
+    }
+  
+    .product_line_price {
+      float: right;
+      clear: left;
+      width: auto;
+      margin-top: 10px;
+    }
+  
+    .product .product_line_price:before {
+      content: "Item Total: $";
+    }
+  
+    .totals .totals_item label {
+      width: 60%;
+    }
+    .totals .totals_item .totals_value {
+      width: 40%;
+    }
+  }
+  

@@ -1,6 +1,6 @@
 import styles from "./Cart.module.css";
 import "./Cart.css";
-import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { CardItemTypes } from "../../../@Types/Type";
 import {
   collection,
@@ -10,70 +10,52 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { auth, db } from "../../Config/Firebase_Auth";
+import { db } from "../../Config/Firebase_Auth";
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
+import CartItem from "./CartItem/CartItem";
 
 const Cart = () => {
   const { user } = useContext(UsersActionAuthContext);
-
-
-
-  const [quantity, setQuantity] = useState(1);
 
   const [getProductsData, setGetCartData] = useState<CardItemTypes[] | null>(
     null
   );
 
+  console.log("getProductsData", getProductsData?.length);
 
-const currentUser = auth.currentUser?.uid
-
-
-if (!currentUser) {
-    console.log("currentUser", currentUser);
-
-}
-
-
-
-  console.log("user", user);
-
-
-
-  const getProductsRealTime = async () => {
-    try {
-      const q = await query(collection(db, "cart"), where("uid", "==", user?.uid));
-      // const q = await query(collection(db, "cart"));
-      onSnapshot(q, (querySnapshot) => {
-        const getProductsArray: CardItemTypes[] = [];
-        querySnapshot.forEach((doc) => {
-          ///REVIEW -  created object to get the doc id for delete
-          const dataObject = {
-            docID: doc.id,
-            uid: doc.data().uid,
-            id: doc.data().id,
-            title: doc.data().title,
-            price: doc.data().price,
-            description: doc.data().description,
-            image: doc.data().image,
-          };
-          // getProductsArray.push(doc.data() as cardItemTypes);
-          getProductsArray.push(dataObject as CardItemTypes);
-        });
-        // console.log("getProductsArray", getProductsArray);
-        setGetCartData(getProductsArray);
-      });
-    } catch (error) {
-      console.log("----Error----> ", error);
-    }
-  };
-
-  //NOTE - Delete CartITem by ID and uid
   const deleteCart = async (docID: string) => {
     console.log("Deleting item with UID:", docID);
     await deleteDoc(doc(db, "cart", docID));
   };
 
   useEffect(() => {
+    const getProductsRealTime = async () => {
+      try {
+        const q = await query(
+          collection(db, "cart"),
+          where("uid", "==", user?.uid)
+        );
+        onSnapshot(q, (querySnapshot) => {
+          const getProductsArray: CardItemTypes[] = [];
+          querySnapshot.forEach((doc) => {
+            const dataObject = {
+              docID: doc.id,
+              uid: doc.data().uid,
+              id: doc.data().id,
+              title: doc.data().title,
+              price: doc.data().price,
+              description: doc.data().description,
+              image: doc.data().image,
+            };
+            getProductsArray.push(dataObject as CardItemTypes);
+          });
+          setGetCartData(getProductsArray);
+        });
+      } catch (error) {
+        console.log("----Error----> ", error);
+      }
+    };
+
     getProductsRealTime();
   }, [user]);
 
@@ -96,43 +78,14 @@ if (!currentUser) {
             </div>
 
             {/* ------------------------------------------------------------------------------------------------------------ */}
-
             {getProductsData &&
               getProductsData.map((cardItem, index) => {
                 return (
-                  <div className="product" key={index}>
-                    <div className="product-image">
-                      <img src={cardItem.image} />
-                    </div>
-                    <div className="product-details">
-                      <div className="product-title">{cardItem.title}</div>
-                      <p className="product-description">
-                        {cardItem.description}
-                      </p>
-                    </div>
-                    <div className="product-price">{cardItem.price}</div>
-                    <div className="product-quantity">
-                      <input
-                        type="number"
-                        value={quantity}
-                        min="1"
-                        onChange={(e: ChangeEvent<HTMLInputElement> | any) => {
-                          setQuantity(e.target.value);
-                        }}
-                      />
-                    </div>
-                    <div className="product-removal">
-                      <button
-                        className="remove-product"
-                        onClick={() => deleteCart(cardItem.docID)}
-                      >
-                        Remove
-                      </button>
-                    </div>
-                    <div className="product-line-price">
-                      {cardItem.price * quantity}
-                    </div>
-                  </div>
+                  <CartItem
+                    key={index}
+                    cardItem={cardItem}
+                    deleteCart={deleteCart}
+                  />
                 );
               })}
 

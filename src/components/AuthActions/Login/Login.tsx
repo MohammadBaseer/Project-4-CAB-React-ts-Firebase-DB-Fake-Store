@@ -3,7 +3,7 @@ import { ChangeEvent, useContext, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Config/Firebase_Auth";
-import { FirebaseError } from "firebase/app";
+
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -112,14 +112,6 @@ const Login = () => {
                   />
                 </div>
               </div>
-              {/* <div style={{ color: "red", marginBottom: "3px" }}>
-                {errorHandle === "auth/too-many-requests"
-                  ? "Access to this account has been temporarily disabled due to many failed login attempts. You can immediately restore it by resetting your password or you can try again later"
-                  : ""}
-                {errorHandle === "auth/invalid-credential"
-                  ? "Email or password not match"
-                  : ""}
-              </div> */}
               <div>
                 Not a member yet? <Link to="/register">Sign up.</Link>
               </div>

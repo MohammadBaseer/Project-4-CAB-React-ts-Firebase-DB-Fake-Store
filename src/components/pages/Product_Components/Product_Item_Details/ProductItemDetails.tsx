@@ -1,8 +1,9 @@
-import styles from "./ProductItemDetails.module.css"
+import styles from "./ProductItemDetails.module.css";
 
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../../../@Types/Type";
+import CartButton from "../Product_Items/CartButton";
 
 const ProductItemDetail = () => {
   let { id } = useParams();
@@ -49,9 +50,14 @@ const ProductItemDetail = () => {
       <div className={styles.body_container}>
         <div className={styles.product_detail_container}>
           <div className={styles.detail_boxes}>
-            <div className={`${styles.product_detail_box} col-12 sm:col-12 md:col-11 lg:col-11 xl:col-11`}>
-              <div className={`${styles.image_box} col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4`}>
-                <img className={styles.item_image}
+            <div
+              className={`${styles.product_detail_box} col-12 sm:col-12 md:col-11 lg:col-11 xl:col-11`}
+            >
+              <div
+                className={`${styles.image_box} col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4`}
+              >
+                <img
+                  className={styles.item_image}
                   src={
                     cleanImageUrl(product?.images[0]!)
                       ? cleanImageUrl(product?.images[0]!)
@@ -61,7 +67,9 @@ const ProductItemDetail = () => {
                 />
               </div>
 
-              <div className={`${styles.image_box} col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4`}>
+              <div
+                className={`${styles.image_box} col-12 sm:col-12 md:col-4 lg:col-4 xl:col-4`}
+              >
                 <div className={styles.product_info}>
                   <h1>{product?.title}</h1>
                   <p>
@@ -73,10 +81,8 @@ const ProductItemDetail = () => {
                     {" "}
                     <strong>Price:</strong> {product?.price}{" "}
                   </p>
-                  <button>
-                    {" "}
-                    <i className="pi pi-shopping-cart">&nbsp;</i>Add To Card{" "}
-                  </button>
+
+                  <CartButton />
                 </div>
               </div>
             </div>

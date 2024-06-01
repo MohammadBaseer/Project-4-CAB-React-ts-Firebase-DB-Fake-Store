@@ -35,8 +35,6 @@ const NavbarHead = () => {
     setProfileNavbarToggle(false);
   }, [location]);
 
-  // console.log("user from Navbar", user);
-
   return (
     <>
       <div className={styles.navbar_head}>

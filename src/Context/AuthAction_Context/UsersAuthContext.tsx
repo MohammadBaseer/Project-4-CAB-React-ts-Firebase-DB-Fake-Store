@@ -9,7 +9,7 @@ import { auth, storage } from "../../Components/Config/Firebase_Auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 // import { errorHandler } from "../Error_Handler/errorCatcher";
 import { useNavigate } from "react-router";
-import toast from "react-hot-toast";
+
 
 //!SECTION - Type of Context
 type UsersActionAuthContextType = {
@@ -21,7 +21,8 @@ type UsersActionAuthContextType = {
     password: string,
     file: File | null
   ) => Promise<void>;
-  // logOut: () => void;
+  passDataForCompare: string | null
+   setPassDataForCompare: () => void;
   ///TODO -
   errorHandle: string;
   setErrorHandle: (errorHandle: string) => void;
@@ -36,9 +37,10 @@ const initUsersActionAuthContext = {
   userRegister: () => {
     throw new Error("userRegister function must be overridden");
   },
-  // logOut: () => {
-  //   throw new Error("logOut function must be overridden");
-  // },
+  passDataForCompare: null,
+setPassDataForCompare: () => {
+  throw new Error("logOut function must be overridden");
+ },
   ///TODO -
   errorHandle: "",
   setErrorHandle: () => {
@@ -56,14 +58,14 @@ export const UsersActionAuthContext = createContext<UsersActionAuthContextType>(
   initUsersActionAuthContext
 );
 
-// const navigate = useNavigate();
+
 
 //!SECTION - Component
 export const UsersActionAuthContextProvider = ({
   children,
 }: UsersActionAuthContextProviderProps) => {
   const navigateTo = useNavigate();
-  // const [user, setUser] = useState<User | null>(null);
+const [passDataForCompare, setPassDataForCompare ] = useState<string | null>(null)
   const [user, setUser] = useState<User | null>(null);
 
   //TODO -
@@ -75,7 +77,7 @@ export const UsersActionAuthContextProvider = ({
     password: string,
     file: File | null
   ) => {
-    // console.log("name, email, password, file", name, email, password);
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -111,25 +113,6 @@ export const UsersActionAuthContextProvider = ({
     }
   };
 
-  // useEffect(() => {
-  //   const checkUserStatus = () => {
-  //     onAuthStateChanged(auth, (user) => {
-  //       if (user) {
-  //         setUser(user);
-
-  //         const uid = user.uid;
-
-  //         console.log("user is Loge in", user.displayName, "======", uid);
-  //         // ...
-  //       } else {
-  //         console.log("user is not Loge in");
-  //         setUser(null);
-  //       }
-  //     });
-  //   };
-
-  //   checkUserStatus();
-  // }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {

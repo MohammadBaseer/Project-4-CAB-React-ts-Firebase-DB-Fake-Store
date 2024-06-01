@@ -17,14 +17,7 @@ const Products = () => {
     searchFilter,
   } = useContext(ApiDataContext);
 
-
-const {user} = useContext(UsersActionAuthContext)
-
-
-
-
-
-  // console.log("filteredData from Product Page", filteredData && filteredData )
+  const { user } = useContext(UsersActionAuthContext);
 
   useEffect(() => {
     getProducts();
@@ -33,9 +26,6 @@ const {user} = useContext(UsersActionAuthContext)
   useEffect(() => {
     filterDataFun(data);
   }, [categoryFilter, searchFilter, data]);
-
-  // console.log("categoryFilter from p page" , categoryFilter)
-  // End Testing
 
   return (
     <div className={styles.main_box}>

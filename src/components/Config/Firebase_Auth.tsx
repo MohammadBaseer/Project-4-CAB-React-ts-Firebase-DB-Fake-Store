@@ -21,4 +21,3 @@ const db = getFirestore(app);
 const storage = getStorage();
 export { app, auth, db, storage };
 
-//REVIEW the name of the file is misleading. Name it more like config , or firebaseConfig, or firebaseServices

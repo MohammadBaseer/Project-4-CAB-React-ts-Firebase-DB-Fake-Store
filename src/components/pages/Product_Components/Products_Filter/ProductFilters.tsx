@@ -13,7 +13,6 @@ const ProductFilters = () => {
     setSearchFilter,
     filterDataFun,
     searchFilter,
-    filteredData,
     categoryFilter,
   } = useContext(ApiDataContext);
 
@@ -24,10 +23,6 @@ const ProductFilters = () => {
   useEffect(() => {
     filterDataFun(data);
   }, [categoryFilter, searchFilter, data]);
-
-  //   console.log("filteredData ======================> ", filteredData)
-
-  // console.log("categoryFilter", typeof categoryFilter)
 
   const categoryHandel = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const value = e.currentTarget.value;

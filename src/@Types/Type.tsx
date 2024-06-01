@@ -37,7 +37,7 @@ export declare type ProductsType = {
 };
 export declare type CardItemTypes = {
   docID: string;
-  uid: User | null | undefined;
+  uid: string;
   id: number;
   image: string;
   title: string;
@@ -45,4 +45,6 @@ export declare type CardItemTypes = {
   description: string;
   price: number;
   storeArrayIntoState: object;
+  deleteCart: any
+  cardItem :CardItemTypes
 };

@@ -1,13 +1,17 @@
-import {  useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import styles from "./ProductItems.module.css";
 import { Link } from "react-router-dom";
-import {IncomingStoreArrayIntoStateType,} from "../../../../@Types/Type";
+import { IncomingStoreArrayIntoStateType } from "../../../../@Types/Type";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../Config/Firebase_Auth";
 import { User } from "firebase/auth";
 
+import CartButton from "./CartButton";
+import { UsersActionAuthContext } from "../../../../Context/AuthAction_Context/UsersAuthContext";
+import toast, { Toaster } from "react-hot-toast";
+
 type itemPropsType = {
-  uid: User | null | undefined
+  uid: User | null | undefined;
   id: number;
   image: string;
   title: string;
@@ -31,14 +35,22 @@ const cleanImageUrl = (imageURL: string): string => {
   }
 };
 
-const ProductItems = ({ id, image, title, category, description, price, storeArrayIntoState, uid }: itemPropsType) => {
+const ProductItems = ({
+  id,
+  image,
+  title,
+  category,
+  description,
+  price,
+  storeArrayIntoState,
+  uid,
+}: itemPropsType) => {
+  // const [objectTest, setObjectTest] = useState();
+  // const objectJSON = JSON.stringify(storeArrayIntoState, null, 2);
+  const [incomingStoreArrayIntoState, setIncomingStoreArrayIntoState] =
+    useState<IncomingStoreArrayIntoStateType | null>(null);
 
-
-
-  const [objectTest, setObjectTest] = useState();
-  const objectJSON = JSON.stringify(storeArrayIntoState, null, 2);
-
-  const [incomingStoreArrayIntoState, setIncomingStoreArrayIntoState] = useState<IncomingStoreArrayIntoStateType | null>(null);
+  const { user } = useContext(UsersActionAuthContext);
 
   const getItemDataIntoState = () => {
     setIncomingStoreArrayIntoState({
@@ -49,100 +61,95 @@ const ProductItems = ({ id, image, title, category, description, price, storeArr
       description: storeArrayIntoState.description,
       image: storeArrayIntoState.images[0],
     });
-
-  }
+  };
 
   useEffect(() => {
-    setObjectTest(objectJSON);
+    // setObjectTest(objectJSON);
 
     if (incomingStoreArrayIntoState) {
-      console.log("incomingStoreArrayIntoState", "=======OnClickFun=======",);
+      // console.log("incomingStoreArrayIntoState", "=======OnClickFun=======",);
 
-    
- const insertDataToDB = async () => {
-  try {
-    if (incomingStoreArrayIntoState) {
-      const docRef = await addDoc(collection(db, "cart"), {
-        uid: incomingStoreArrayIntoState.uid,
-        id: incomingStoreArrayIntoState.id,
-        title: incomingStoreArrayIntoState.title,
-        price: incomingStoreArrayIntoState.price,
-        description: incomingStoreArrayIntoState.description,
-        image: incomingStoreArrayIntoState.image,
-      });
-      console.log("Product inserted:", docRef);
-    } else {
-      console.log(
-        "something went wrong with incomingStoreArrayIntoState"
-      );
+      const insertDataToDB = async () => {
+        if (user === null) {
+          toast.error("Please login first.");
+        } else {
+          try {
+            if (incomingStoreArrayIntoState) {
+              const docRef = await addDoc(collection(db, "cart"), {
+                uid: incomingStoreArrayIntoState.uid,
+                id: incomingStoreArrayIntoState.id,
+                title: incomingStoreArrayIntoState.title,
+                price: incomingStoreArrayIntoState.price,
+                description: incomingStoreArrayIntoState.description,
+                image: incomingStoreArrayIntoState.image,
+              });
+            } else {
+              console.log(
+                "something went wrong with incomingStoreArrayIntoState"
+              );
+            }
+
+            toast.success("Successfully added to cart!");
+          } catch (error) {
+            console.error("Error during user registration:", error);
+            console.log("========>", error);
+          }
+        }
+      };
+
+      insertDataToDB();
     }
-  } catch (error) {
-    console.error("Error during user registration:", error);
-    console.log("========>", error);
-  }
-};
-
-insertDataToDB()
-
-
-    }
-
-
   }, [incomingStoreArrayIntoState]);
 
-
-
-
-
-
-
-
-
-
   return (
-    <div
-      className={`${styles.product_elements} col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3`}
-    >
-      <div className="image-slider">
-        <img
-          className={styles.p_image}
-          src={
-            cleanImageUrl(image)
-              ? cleanImageUrl(image)
-              : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"
-          }
-          alt=""
-        />
-      </div>
-      <div className={styles.item_info}>
-        <p>{title}...</p>
-        <p>
-          {" "}
-          <strong>Category:</strong> {category}{" "}
-        </p>
-        <p>{description}...</p>
-        <p>
-          <strong>Price:</strong> {price} £{" "}
-        </p>
-
-        {/* ======================================= */}
-
-        {/* <pre>{objectTest}</pre> */}
-
-        {/* ======================================= */}
-      </div>
-      <div className={styles.item_elements}>
-        <div className={styles.item_sub_elements}>
-          <Link className={styles.product_details_btn} to={`${id}`}>
-            <i className="pi pi-window-maximize"></i>
-          </Link>
-          <button onClick={getItemDataIntoState}>
+    <>
+      <div
+        className={`${styles.product_elements} col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3`}
+      >
+        <div className="image-slider">
+          <img
+            className={styles.p_image}
+            src={
+              cleanImageUrl(image)
+                ? cleanImageUrl(image)
+                : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"
+            }
+            alt=""
+          />
+        </div>
+        <div className={styles.item_info}>
+          <p>{title}...</p>
+          <p>
             {" "}
-            <i className="pi pi-shopping-cart">&nbsp;</i>Add To Card{" "}
-          </button>
+            <strong>Category:</strong> {category}{" "}
+          </p>
+          <p>{description}...</p>
+          <p>
+            <strong>Price:</strong> {price} £{" "}
+          </p>
+
+          {/* ======================================= */}
+
+          {/* <pre>{objectTest}</pre> */}
+
+          {/* ======================================= */}
+        </div>
+        <div className={styles.item_elements}>
+          <div className={styles.item_sub_elements}>
+            <Link className={styles.product_details_btn} to={`${id}`}>
+              <i className="pi pi-window-maximize"></i>
+            </Link>
+
+            <CartButton
+              id={id}
+              uid={uid}
+              getItemDataIntoState={getItemDataIntoState}
+            />
+          </div>
         </div>
       </div>
-    </div>
+      <Toaster position="bottom-right" reverseOrder={false} />
+    </>
   );
 };
 
