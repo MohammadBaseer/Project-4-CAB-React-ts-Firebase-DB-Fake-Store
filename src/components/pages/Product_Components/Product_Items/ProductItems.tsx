@@ -22,8 +22,7 @@ type itemPropsType = {
 };
 
 const cleanImageUrl = (imageURL: string): string => {
-  const alternativeImage =
-    "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
+  const alternativeImage = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
   // console.log("imageUrl", imageURL);
   const cleanUrl = imageURL?.replace(/^\["|"\]$/g, ""); // remote [" and "] from the url
   // return cleanUrl
@@ -35,20 +34,10 @@ const cleanImageUrl = (imageURL: string): string => {
   }
 };
 
-const ProductItems = ({
-  id,
-  image,
-  title,
-  category,
-  description,
-  price,
-  storeArrayIntoState,
-  uid,
-}: itemPropsType) => {
+const ProductItems = ({ id, image, title, category, description, price, storeArrayIntoState, uid }: itemPropsType) => {
   const [objectTest, setObjectTest] = useState();
   const objectJSON = JSON.stringify(storeArrayIntoState, null, 2);
-  const [incomingStoreArrayIntoState, setIncomingStoreArrayIntoState] =
-    useState<IncomingStoreArrayIntoStateType | null>(null);
+  const [incomingStoreArrayIntoState, setIncomingStoreArrayIntoState] = useState<IncomingStoreArrayIntoStateType | null>(null);
 
   const { user } = useContext(UsersActionAuthContext);
 
@@ -84,9 +73,7 @@ const ProductItems = ({
                 image: incomingStoreArrayIntoState.image,
               });
             } else {
-              console.log(
-                "something went wrong with incomingStoreArrayIntoState"
-              );
+              console.log("something went wrong with incomingStoreArrayIntoState");
             }
 
             toast.success("Successfully added to cart!");
@@ -103,19 +90,9 @@ const ProductItems = ({
 
   return (
     <>
-      <div
-        className={`${styles.product_elements} col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3`}
-      >
+      <div className={`${styles.product_elements} col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3`}>
         <div className="image-slider">
-          <img
-            className={styles.p_image}
-            src={
-              cleanImageUrl(image)
-                ? cleanImageUrl(image)
-                : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"
-            }
-            alt=""
-          />
+          <img className={styles.p_image} src={cleanImageUrl(image) ? cleanImageUrl(image) : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"} alt="" />
         </div>
         <div className={styles.item_info}>
           <p>{title}...</p>
@@ -130,7 +107,7 @@ const ProductItems = ({
 
           {/* ======================================= */}
 
-          <pre>{objectTest}</pre>
+          {/* <pre>{objectTest}</pre> */}
 
           {/* ======================================= */}
         </div>
@@ -140,11 +117,7 @@ const ProductItems = ({
               <i className="pi pi-window-maximize"></i>
             </Link>
 
-            <CartButton
-              id={id}
-              uid={uid}
-              getItemDataIntoState={getItemDataIntoState}
-            />
+            <CartButton id={id} uid={uid} getItemDataIntoState={getItemDataIntoState} />
           </div>
         </div>
       </div>

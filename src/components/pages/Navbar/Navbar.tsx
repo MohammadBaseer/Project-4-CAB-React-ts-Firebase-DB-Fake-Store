@@ -2,15 +2,28 @@ import styles from "./Navbar.module.css";
 // import "./navbarLink.css";
 import { NavLink } from "react-router-dom";
 import NavbarHead from "./NavbarHead";
+import { useState } from "react";
 
 function Navbar() {
+  const [hideMenuToggle, setHideMenuToggle] = useState<boolean>(false);
+
+  const menuToggle = () => {
+    if (hideMenuToggle) {
+      setHideMenuToggle(false);
+    } else {
+      setHideMenuToggle(true);
+    }
+  };
+  console.log("hideMenuToggle", hideMenuToggle);
   return (
     <>
       <NavbarHead />
-
-      <div className={styles.body_container}>
+      <div className={styles.menu}>
+        <i className="pi pi-bars" onClick={menuToggle}></i>
+      </div>
+      <div className={styles.body_container} style={hideMenuToggle === true ? { display: "block" } : { display: "" }}>
         <nav className="navbar">
-          <div className="flex-box">
+          <div className={styles.flex_box}>
             <ul>
               <div className={styles.flex}>
                 <li className={styles.nav_elements}>

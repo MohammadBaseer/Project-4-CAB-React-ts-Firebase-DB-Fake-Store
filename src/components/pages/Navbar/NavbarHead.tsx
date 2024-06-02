@@ -2,7 +2,7 @@ import "primeicons/primeicons.css";
 import { signOut } from "firebase/auth";
 import styles from "./NavbarHead.module.css";
 import { useContext, useEffect, useState } from "react";
-import { Link, NavLink, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { auth } from "../../Config/Firebase_Auth";
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
 import useFirebaseStoreFetchDataHooks from "../../../Context/FirebaseStoreFetchData_CustomHooks/useFirebaseStoreFetchDataHooks";
@@ -16,14 +16,11 @@ const NavbarHead = () => {
 
   //! Called the Custom Hook To fetch data from Firebase Store DB ==== to count the Cart Item
   const { productsData } = useFirebaseStoreFetchDataHooks();
-  const matchingDataLength = productsData
-    ? productsData.filter((e) => e.uid === user?.uid).length
-    : 0;
+  const matchingDataLength = productsData ? productsData.filter((e) => e.uid === user?.uid).length : 0;
   //!---------------------------------------------------------------------------------
 
   //! use State and Function for user Drop Down menu toggle on off
-  const [profileNavbarToggle, setProfileNavbarToggle] =
-    useState<boolean>(false);
+  const [profileNavbarToggle, setProfileNavbarToggle] = useState<boolean>(false);
 
   const toggle = () => {
     if (profileNavbarToggle) {
@@ -63,38 +60,18 @@ const NavbarHead = () => {
                 <p>
                   <Link to="/cart">
                     <i className="pi pi-shopping-cart">
-                      <span>
-                        {" "}
-                        {matchingDataLength === 0 ? "" : matchingDataLength}
-                      </span>
+                      <span> {matchingDataLength === 0 ? "" : matchingDataLength}</span>
                     </i>
                   </Link>
                 </p>
 
                 <div className={styles.user_tab_navbar}>
                   <div className={styles.user_tab_navbar_photo}>
-                    <img
-                      className={styles.user_photo}
-                      src={user.photoURL !== null ? user.photoURL : ""}
-                      alt=""
-                      onClick={toggle}
-                    />
+                    <img className={styles.user_photo} src={user.photoURL !== null ? user.photoURL : ""} alt="" onClick={toggle} />
                   </div>
-                  <div
-                    className={styles.user_tab_navbar_element_box}
-                    style={
-                      profileNavbarToggle === true
-                        ? { display: "block" }
-                        : { display: "none" }
-                    }
-                  >
+                  <div className={styles.user_tab_navbar_element_box} style={profileNavbarToggle === true ? { display: "block" } : { display: "none" }}>
                     <div className={styles.user_tab_navbar_element}>
-                      <img
-                        className={styles.user_photo}
-                        src={user.photoURL !== null ? user.photoURL : ""}
-                        alt=""
-                        onClick={toggle}
-                      />
+                      <img className={styles.user_photo} src={user.photoURL !== null ? user.photoURL : ""} alt="" onClick={toggle} />
                       <p>{user.displayName}</p>
                     </div>
 
@@ -129,10 +106,7 @@ const NavbarHead = () => {
                   &nbsp;/&nbsp;
                   <Link to="/register">Register</Link>
                   &nbsp;
-                  <span
-                    className="pi pi-sign-in"
-                    style={{ fontSize: "0.8rem" }}
-                  ></span>
+                  <span className="pi pi-sign-in" style={{ fontSize: "0.8rem" }}></span>
                 </span>
               </>
             )}

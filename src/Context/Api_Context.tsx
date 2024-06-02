@@ -66,7 +66,8 @@ const ApiContextProvider = ({ children }: childrenProps) => {
   };
   //! -------------------------------------------------------------------------
 
-  const apiUrl = `https://api.escuelajs.co/api/v1/products`; // Public API -- It has some issues with images
+  const apiUrl = `https://8c1080f56e4f4a9a.mokky.dev/products`; // My own EndPoint
+  //const apiUrl = `https://api.escuelajs.co/api/v1/products`; // Public API -- It has some issues with images
   const getProducts = async () => {
     try {
       const response = await fetch(apiUrl);
