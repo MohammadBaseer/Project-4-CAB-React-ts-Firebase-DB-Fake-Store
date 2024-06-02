@@ -1,5 +1,5 @@
 import styles from "./ProductFilters.module.css";
-import { ChangeEvent, FormEvent, useContext, useEffect } from "react";
+import { ChangeEvent, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ApiDataContext } from "../../../../Context/Api_Context";
 const ProductFilters = () => {
@@ -17,16 +17,11 @@ const ProductFilters = () => {
     filterDataFun(mergeData);
   }, [categoryFilter, searchFilter, mergeData]);
 
-  const categoryHandel = (e:ChangeEvent<HTMLSelectElement>): void => {
+  const categoryHandel = (e: ChangeEvent<HTMLSelectElement>): void => {
     const value = e.currentTarget.value;
     setCategoryFilter(value);
     console.log("value", value);
   };
-
-  // const test = (e: FormEvent<HTMLSelectElement>): void => {
-  //   const value = e.currentTarget.value;
-  //   setCategoryFilter(value);
-  // };
   //!SECTION
 
   return (
@@ -51,30 +46,23 @@ const ProductFilters = () => {
           </button>
         </NavLink>
 
-{/* //! -------------------------------------------------------- */}
+        <div className={styles.select_container} data-placeholder="All Categories">
+          <select className={styles.select} value={categoryFilter} onChange={categoryHandel}>
+            <option value="">All Categories</option>
 
-
-<div className={styles.select_container} data-placeholder="All Categories">
-  <select className={styles.select} value={categoryFilter} onChange={categoryHandel} >
-    <option value="">All Categories</option>
-
-    {mergeData &&
-      mergeData.map((itemCategory, index) => {
-        if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
-          pickCategoryFromApi.push(itemCategory.category.name);
-          return (
-            <option key={index} value={itemCategory.category.id}>{itemCategory.category.name}</option>
-          )
-        }
-      })}
-  </select>
-</div>
-
-
-{/* //!---------------------------------------------------------- */}
-
-
-        
+            {mergeData &&
+              mergeData.map((itemCategory, index) => {
+                if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
+                  pickCategoryFromApi.push(itemCategory.category.name);
+                  return (
+                    <option key={index} value={itemCategory.category.id}>
+                      {itemCategory.category.name}
+                    </option>
+                  );
+                }
+              })}
+          </select>
+        </div>
       </div>
     </div>
   );
