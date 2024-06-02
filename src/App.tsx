@@ -13,38 +13,40 @@ import About from "./Components/Pages/About/About";
 import ApiContextProvider from "./Context/Api_Context";
 import Login from "./Components/AuthActions/Login/Login";
 import Register from "./Components/AuthActions/Register/Register";
-import { auth } from "./Components/Config/Firebase_Auth";
 import Cart from "./Components/Pages/Cart/Cart";
-import { useEffect } from "react";
 import Test from "./Components/Pages/Test/Test";
+import ProtectedRout from "./Components/AuthActions/ProtectedRouts/ProtectedRouts";
+import CardDisplayPage from "./Components/Pages/Admin_Panel/Card_Display_Page/CardDisplayPage";
+import MyShop from "./Components/Pages/Admin_Panel/Card_Admin/My_Shop/MyShop";
 
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Route path="/" element={<Layout />}>
-        <Route index element={<Home />} />
-        <Route
-          path="/products"
-          element={
-            <ApiContextProvider>
-              <Products />
-            </ApiContextProvider>
-          }
-        />
+      <>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route
+            path="/products"
+            element={
+              <ApiContextProvider>
+                <Products />
+              </ApiContextProvider>
+            }
+          />
 
-        <Route path="/products/:id" element={<ProductItemDetail />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/test" element={<Test />} />
-      </Route>
+          <Route path="/products/:id" element={<ProductItemDetail />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/admin" element={<CardDisplayPage />} />
+          <Route path="/myshop" element={<MyShop />} />
+        </Route>
+      </>
     )
   );
-  // useEffect(() => {
-  //   // console.log("Auth from App Page", auth.currentUser);
-  // }, []);
 
   return <>{<RouterProvider router={router} />}</>;
 }

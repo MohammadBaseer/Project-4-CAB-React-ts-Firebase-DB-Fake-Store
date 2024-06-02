@@ -1,4 +1,5 @@
 import { UsersActionAuthContextProvider } from "../../../Context/AuthAction_Context/UsersAuthContext";
+import Footer from "../Footer/Footer";
 import Navbar from "../Navbar/Navbar";
 import styles from "./Layout.module.css";
 import { Outlet } from "react-router-dom";
@@ -10,7 +11,7 @@ const Layout = () => {
         <UsersActionAuthContextProvider>
           <Navbar />
           <Outlet />
-          {/* <Footer /> */}
+          <Footer />
         </UsersActionAuthContextProvider>
       </div>
     </>

@@ -6,23 +6,17 @@ import { ApiDataContext } from "../../../../Context/Api_Context";
 const ProductFilters = () => {
   let pickCategoryFromApi: string[] = [];
 
-  const {
-    getProducts,
-    data,
-    setCategoryFilter,
-    setSearchFilter,
-    filterDataFun,
-    searchFilter,
-    categoryFilter,
-  } = useContext(ApiDataContext);
+  const { getProducts, data, mergeData, setCategoryFilter, setSearchFilter, filterDataFun, searchFilter, categoryFilter } = useContext(ApiDataContext);
+
+  console.log("data", data);
 
   useEffect(() => {
     getProducts();
   }, []);
 
   useEffect(() => {
-    filterDataFun(data);
-  }, [categoryFilter, searchFilter, data]);
+    filterDataFun(mergeData);
+  }, [categoryFilter, searchFilter, data, mergeData]);
 
   const categoryHandel = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const value = e.currentTarget.value;
@@ -48,33 +42,23 @@ const ProductFilters = () => {
       </div>
       <div className={styles.filter_container}>
         <NavLink to="#">
-          <button
-            className={`${styles.filter_button} ${styles.filter_head}`}
-            value=""
-          >
+          <button className={`${styles.filter_button} ${styles.filter_head}`} value="">
             <i className="pi pi-sort-amount-down">&nbsp;</i>Categories
           </button>
         </NavLink>
         <NavLink to="#">
-          <button
-            className={styles.filter_button}
-            value=""
-            onClick={categoryHandel}
-          >
+          <button className={styles.filter_button} value="" onClick={categoryHandel}>
             All
           </button>
         </NavLink>
-        {data &&
-          data.map((itemCategory) => {
+        {mergeData &&
+          mergeData.map((itemCategory, index) => {
+            // console.log("itemCategory", itemCategory);
             if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
               pickCategoryFromApi.push(itemCategory.category.name);
               return (
-                <NavLink to="#" key={itemCategory.category.id}>
-                  <button
-                    className={styles.filter_button}
-                    value={itemCategory.category.id}
-                    onClick={categoryHandel}
-                  >
+                <NavLink to="#" key={index}>
+                  <button className={styles.filter_button} value={itemCategory.category.id} onClick={categoryHandel}>
                     {itemCategory.category.name}
                   </button>
                 </NavLink>

@@ -3,7 +3,6 @@ import { ChangeEvent, useContext, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../Config/Firebase_Auth";
-
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
 import toast, { Toaster } from "react-hot-toast";
 
@@ -38,11 +37,7 @@ const Login = () => {
         } else if (password === "") {
           alert("Enter your password, please!");
         } else {
-          const loggedIn = await signInWithEmailAndPassword(
-            auth,
-            userEmail,
-            password
-          );
+          const loggedIn = await signInWithEmailAndPassword(auth, userEmail, password);
           if (loggedIn) setLoggedIn(true);
           setEmail("");
           setPassword("");
@@ -52,17 +47,12 @@ const Login = () => {
             email: auth.currentUser!.email,
             photoURL: auth.currentUser!.photoURL,
           });
-          console.log(
-            "auth.currentUser?.uid------------->",
-            auth.currentUser?.photoURL
-          );
+          console.log("auth.currentUser?.uid------------->", auth.currentUser?.photoURL);
           navigate("/");
         }
-      } catch (error) {
-        if (error?.code === "auth/invalid-credential") {
-          toast.error(
-            "Either email or password is incorrect. Please try again."
-          );
+      } catch (error: any) {
+        if (error.code === "auth/invalid-credential") {
+          toast.error("Either email or password is incorrect. Please try again.");
           setUser(null);
         } else {
           console.log(error);
@@ -89,27 +79,13 @@ const Login = () => {
 
               <div>
                 <label htmlFor="email">Email:</label>
-                <input
-                  type="email"
-                  id="email"
-                  placeholder="Enter email"
-                  name="email"
-                  onChange={emailSetFunc}
-                  value={state?.email}
-                />
+                <input type="email" id="email" placeholder="Enter email" name="email" onChange={emailSetFunc} value={state?.email} />
               </div>
 
               <div>
                 <div>
                   <label htmlFor="password">Password:</label>
-                  <input
-                    type="password"
-                    placeholder="Enter password"
-                    id="password"
-                    name="password"
-                    onChange={passwordSetFunc}
-                    value={password}
-                  />
+                  <input type="password" placeholder="Enter password" id="password" name="password" onChange={passwordSetFunc} value={password} />
                 </div>
               </div>
               <div>

@@ -9,7 +9,7 @@ export declare type IncomingStoreArrayIntoStateType = {
 
 ///!SECTION Thi is for API need to fixe the name
 export declare type Product = {
-  id: number;
+  id: string;
   title: string;
   price: number;
   description: string;
@@ -27,14 +27,19 @@ export type User = {
 };
 
 //!SECTION Thi is for firebase store need to fixe the name
+
 export declare type ProductsType = {
+  id: number;
   title: string;
   price: number;
-  category: string;
-  imageURL: string;
+  category: {
+    name: string;
+  };
+  images: Array<string>;
   description: string;
   data: Date;
 };
+
 export declare type CardItemTypes = {
   docID: string;
   uid: string;
@@ -45,6 +50,6 @@ export declare type CardItemTypes = {
   description: string;
   price: number;
   storeArrayIntoState: object;
-  deleteCart: any
-  cardItem :CardItemTypes
+  deleteCart: any;
+  cardItem: CardItemTypes;
 };

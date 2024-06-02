@@ -45,8 +45,8 @@ const ProductItems = ({
   storeArrayIntoState,
   uid,
 }: itemPropsType) => {
-  // const [objectTest, setObjectTest] = useState();
-  // const objectJSON = JSON.stringify(storeArrayIntoState, null, 2);
+  const [objectTest, setObjectTest] = useState();
+  const objectJSON = JSON.stringify(storeArrayIntoState, null, 2);
   const [incomingStoreArrayIntoState, setIncomingStoreArrayIntoState] =
     useState<IncomingStoreArrayIntoStateType | null>(null);
 
@@ -64,7 +64,7 @@ const ProductItems = ({
   };
 
   useEffect(() => {
-    // setObjectTest(objectJSON);
+    setObjectTest(objectJSON);
 
     if (incomingStoreArrayIntoState) {
       // console.log("incomingStoreArrayIntoState", "=======OnClickFun=======",);
@@ -130,7 +130,7 @@ const ProductItems = ({
 
           {/* ======================================= */}
 
-          {/* <pre>{objectTest}</pre> */}
+          <pre>{objectTest}</pre>
 
           {/* ======================================= */}
         </div>

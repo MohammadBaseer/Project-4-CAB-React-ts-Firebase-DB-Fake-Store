@@ -49,14 +49,7 @@ const CartItem = ({cardItem, deleteCart}:CardItemTypes) => {
                     </div>
                     <div className={styles.product_price}>{cardItem.price}</div>
                     <div className={styles.product_quantity}>
-                      <input
-                        type="number"
-                        value={quantity}
-                        min="1"
-                        onChange={(e: ChangeEvent<HTMLInputElement> | any) => {
-                          setQuantity(e.target.value);
-                        }}
-                      />
+                      <input type="number" value={quantity} min="1" onChange={(e: ChangeEvent<HTMLInputElement> | any) => { setQuantity(e.target.value); }}  />
                     </div>
                     <div className={styles.product_removal}>
                       <button

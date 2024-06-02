@@ -13,6 +13,7 @@ import {
 import { db } from "../../Config/Firebase_Auth";
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
 import CartItem from "./CartItem/CartItem";
+import { Navigate } from "react-router";
 
 const Cart = () => {
   const { user } = useContext(UsersActionAuthContext);
@@ -20,39 +21,39 @@ const Cart = () => {
   const [getProductsData, setGetCartData] = useState<CardItemTypes[] | null>(
     null
   );
-
-  console.log("getProductsData", getProductsData?.length);
-
+  // console.log("getProductsData", getProductsData?.length);
   const deleteCart = async (docID: string) => {
-    console.log("Deleting item with UID:", docID);
+    // console.log("Deleting item with UID:", docID);
     await deleteDoc(doc(db, "cart", docID));
   };
 
   useEffect(() => {
     const getProductsRealTime = async () => {
-      try {
-        const q = await query(
-          collection(db, "cart"),
-          where("uid", "==", user?.uid)
-        );
-        onSnapshot(q, (querySnapshot) => {
-          const getProductsArray: CardItemTypes[] = [];
-          querySnapshot.forEach((doc) => {
-            const dataObject = {
-              docID: doc.id,
-              uid: doc.data().uid,
-              id: doc.data().id,
-              title: doc.data().title,
-              price: doc.data().price,
-              description: doc.data().description,
-              image: doc.data().image,
-            };
-            getProductsArray.push(dataObject as CardItemTypes);
+      if (user) {
+        try {
+          const q = await query(
+            collection(db, "cart"),
+            where("uid", "==", user?.uid)
+          );
+          onSnapshot(q, (querySnapshot) => {
+            const getProductsArray: CardItemTypes[] = [];
+            querySnapshot.forEach((doc) => {
+              const dataObject = {
+                docID: doc.id,
+                uid: doc.data().uid,
+                id: doc.data().id,
+                title: doc.data().title,
+                price: doc.data().price,
+                description: doc.data().description,
+                image: doc.data().image,
+              };
+              getProductsArray.push(dataObject as CardItemTypes);
+            });
+            setGetCartData(getProductsArray);
           });
-          setGetCartData(getProductsArray);
-        });
-      } catch (error) {
-        console.log("----Error----> ", error);
+        } catch (error) {
+          console.log("----Error----> ", error);
+        }
       }
     };
 

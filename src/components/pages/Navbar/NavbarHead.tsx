@@ -5,13 +5,26 @@ import { useContext, useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { auth } from "../../Config/Firebase_Auth";
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
+import useFirebaseStoreFetchDataHooks from "../../../Context/FirebaseStoreFetchData_CustomHooks/useFirebaseStoreFetchDataHooks";
 
 const NavbarHead = () => {
-  const location = useLocation();
   const { user, setUser } = useContext(UsersActionAuthContext);
 
+  //! in every location change the toggle state
+  const location = useLocation();
+  //!---------------------------------------------------------------------------------
+
+  //! Called the Custom Hook To fetch data from Firebase Store DB ==== to count the Cart Item
+  const { productsData } = useFirebaseStoreFetchDataHooks();
+  const matchingDataLength = productsData
+    ? productsData.filter((e) => e.uid === user?.uid).length
+    : 0;
+  //!---------------------------------------------------------------------------------
+
+  //! use State and Function for user Drop Down menu toggle on off
   const [profileNavbarToggle, setProfileNavbarToggle] =
     useState<boolean>(false);
+
   const toggle = () => {
     if (profileNavbarToggle) {
       setProfileNavbarToggle(false);
@@ -19,7 +32,9 @@ const NavbarHead = () => {
       setProfileNavbarToggle(true);
     }
   };
+  //!---------------------------------------------------------------------------------
 
+  //! Logout Auth to Logout the Current User
   const logOut = () => {
     signOut(auth)
       .then(() => {
@@ -30,10 +45,13 @@ const NavbarHead = () => {
         console.log("Logout", error);
       });
   };
+  //!---------------------------------------------------------------------------------
 
+  //! in every location change the toggle state
   useEffect(() => {
     setProfileNavbarToggle(false);
   }, [location]);
+  //!---------------------------------------------------------------------------------
 
   return (
     <>
@@ -45,7 +63,10 @@ const NavbarHead = () => {
                 <p>
                   <Link to="/cart">
                     <i className="pi pi-shopping-cart">
-                      <span> 3</span>
+                      <span>
+                        {" "}
+                        {matchingDataLength === 0 ? "" : matchingDataLength}
+                      </span>
                     </i>
                   </Link>
                 </p>
