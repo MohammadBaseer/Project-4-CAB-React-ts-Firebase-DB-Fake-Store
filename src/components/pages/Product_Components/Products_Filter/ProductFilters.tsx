@@ -1,14 +1,14 @@
 import styles from "./ProductFilters.module.css";
-import { ChangeEvent, useContext, useEffect } from "react";
+import { ChangeEvent, FormEvent, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ApiDataContext } from "../../../../Context/Api_Context";
 
 const ProductFilters = () => {
   let pickCategoryFromApi: string[] = [];
 
-  const { getProducts, data, mergeData, setCategoryFilter, setSearchFilter, filterDataFun, searchFilter, categoryFilter } = useContext(ApiDataContext);
+  const { getProducts, data, setCategoryFilter, setSearchFilter, filterDataFun, searchFilter, categoryFilter, mergeData } = useContext(ApiDataContext);
 
-  console.log("data", data);
+  // console.log("data", data);
 
   useEffect(() => {
     getProducts();
@@ -16,13 +16,18 @@ const ProductFilters = () => {
 
   useEffect(() => {
     filterDataFun(mergeData);
-  }, [categoryFilter, searchFilter, data, mergeData]);
+  }, [categoryFilter, searchFilter, mergeData]);
 
   const categoryHandel = (e: React.MouseEvent<HTMLButtonElement>): void => {
     const value = e.currentTarget.value;
     setCategoryFilter(value);
+    console.log("value", value);
   };
 
+  // const test = (e: FormEvent<HTMLSelectElement>): void => {
+  //   const value = e.currentTarget.value;
+  //   setCategoryFilter(value);
+  // };
   //!SECTION
 
   return (
@@ -46,26 +51,43 @@ const ProductFilters = () => {
             <i className="pi pi-sort-amount-down">&nbsp;</i>Categories
           </button>
         </NavLink>
+
         <NavLink to="#">
           <button className={styles.filter_button} value="" onClick={categoryHandel}>
             All
           </button>
         </NavLink>
+
+        {/* <select onChange={test} value={categoryFilter}>
+ <option value="">All - 1</option> */}
+
         {mergeData &&
           mergeData.map((itemCategory, index) => {
-            // console.log("itemCategory", itemCategory);
+            // if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
+            //   pickCategoryFromApi.push(itemCategory.category.name);
+
+            //   return (
+
+            //     <option value={itemCategory.id} >{itemCategory.category.name}</option>
+
+            //   );
+            // }
+
             if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
               pickCategoryFromApi.push(itemCategory.category.name);
               return (
-                <NavLink to="#" key={index}>
+                <NavLink to="#" key={itemCategory.category.id}>
                   <button className={styles.filter_button} value={itemCategory.category.id} onClick={categoryHandel}>
                     {itemCategory.category.name}
                   </button>
                 </NavLink>
               );
             }
+
             return null;
           })}
+
+        {/* </select> */}
       </div>
     </div>
   );

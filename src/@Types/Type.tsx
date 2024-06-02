@@ -53,3 +53,18 @@ export declare type CardItemTypes = {
   deleteCart: any;
   cardItem: CardItemTypes;
 };
+
+
+//!------------
+export declare type ProductsMergeType = {
+  id: number ;
+  title: string;
+  price: number;
+  description: string;
+  images: Array<string>;
+  category: {
+    id: number
+    name: string;
+  };
+
+};

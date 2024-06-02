@@ -75,7 +75,7 @@ const NavbarHead = () => {
                   <div className={styles.user_tab_navbar_photo}>
                     <img
                       className={styles.user_photo}
-                      src={user.photoURL !== undefined ? user.photoURL : ""}
+                      src={user.photoURL !== null ? user.photoURL : ""}
                       alt=""
                       onClick={toggle}
                     />
@@ -91,7 +91,7 @@ const NavbarHead = () => {
                     <div className={styles.user_tab_navbar_element}>
                       <img
                         className={styles.user_photo}
-                        src={user.photoURL !== undefined ? user.photoURL : ""}
+                        src={user.photoURL !== null ? user.photoURL : ""}
                         alt=""
                         onClick={toggle}
                       />

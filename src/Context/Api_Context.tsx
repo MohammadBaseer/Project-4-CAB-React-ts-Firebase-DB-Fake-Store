@@ -1,19 +1,20 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { Product, ProductsType } from "../@Types/Type";
+import { Product, ProductsMergeType } from "../@Types/Type";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../Components/Config/Firebase_Auth";
 
 type ApiDataContextType = {
   getProducts: () => Promise<void>;
-  data: ProductsType[];
-  mergeData: ProductsType[];
-  filteredData: ProductsType[] | null;
+  // data: ProductsMergeType[];
+  data: ProductsMergeType[];
+  mergeData: ProductsMergeType[];
+  filteredData: ProductsMergeType[] | null;
   categoryFilter: string | null | number;
   setCategoryFilter: (categoryFilter: string) => void;
   searchFilter: string;
   setSearchFilter: (searchFilter: string) => void;
   errorHandle: string;
-  filterDataFun: (data: ProductsType[]) => void;
+  filterDataFun: (data: ProductsMergeType[]) => void;
 };
 
 const ApiDataContextInit = {
@@ -23,9 +24,9 @@ const ApiDataContextInit = {
   filterDataFun: () => {
     throw new Error("FilterFun Error");
   },
-  data: [] as ProductsType[],
-  mergeData: [] as ProductsType[],
-  filteredData: [] as ProductsType[],
+  data: [] as ProductsMergeType[],
+  mergeData: [] as ProductsMergeType[],
+  filteredData: [] as ProductsMergeType[],
   categoryFilter: "",
   setCategoryFilter: () => {
     throw new Error("CategoryFun Error");
@@ -42,61 +43,48 @@ type childrenProps = {
 };
 
 export const ApiDataContext = createContext<ApiDataContextType>(ApiDataContextInit);
+
 const ApiContextProvider = ({ children }: childrenProps) => {
-  const [data, setData] = useState<ProductsType[]>([]);
-  const [filteredData, setFilteredData] = useState<ProductsType[] | null>(null);
+  const [data, setData] = useState<ProductsMergeType[]>([]);
+  const [filteredData, setFilteredData] = useState<ProductsMergeType[] | null>(null);
   const [categoryFilter, setCategoryFilter] = useState<string | number>("");
   const [searchFilter, setSearchFilter] = useState<string>("");
   const [errorHandle, setErrorHandle] = useState<string>("");
+  const [mergeData, setMergeData] = useState<ProductsMergeType[]>([]);
+  const [getProductsData, setGetProductsData] = useState<ProductsMergeType[] | null>(null);
 
-  ///REVIEW - ======================================= //! === Testing ==== Merge the API and Database data
-
-  const [mergeData, setMergeData] = useState<ProductsType[]>([]);
-
-  const [getProductsData, setGetProductsData] = useState<ProductsType[] | null>(null);
-
+  //! This si the Fetch Function to get the data from Firebase Store Database
   const getProductsRealTime = () => {
     const q = query(collection(db, "products"));
     onSnapshot(q, (querySnapshot) => {
-      const getProductsArray: ProductsType[] = [];
+      const getProductsArray: ProductsMergeType[] = [];
       querySnapshot.forEach((doc) => {
-        const reStructureObject = {
-          id: doc.data().id,
-          title: doc.data().title,
-          price: doc.data().price,
-          description: doc.data().description,
-          images: [doc.data().images.length > 0 ? doc.data().images[0] : ""], // Safely handle the case when images array is empty
-          category: {
-            name: doc.data().category.name,
-          },
-        };
-
-        getProductsArray.push(reStructureObject as ProductsType);
+        getProductsArray.push(doc.data() as ProductsMergeType);
       });
-      // console.log("getProductsArray ===== >", getProductsArray);
       setGetProductsData(getProductsArray);
     });
   };
-
-  ///REVIEW - ======================================= //! ===------------------------------------------------
+  //! -------------------------------------------------------------------------
 
   const apiUrl = `https://api.escuelajs.co/api/v1/products`; // Public API -- It has some issues with images
-
   const getProducts = async () => {
     try {
       const response = await fetch(apiUrl);
       if (!response.ok) {
         throw new Error("Something went wrong...");
       }
-      const dataFromApi = (await response.json()) as ProductsType[];
+      const dataFromApi = (await response.json()) as ProductsMergeType[];
+      const reStructuredProductAPI: ProductsMergeType[] = [];
       setData(dataFromApi);
     } catch (error) {
       setErrorHandle("Failed to fetch products");
       console.error("Error:", error);
     }
   };
-  //!======================== Filter Section
-  const filterDataFun = (mergeData: ProductsType[]) => {
+  //! -------------------------------------------------------------------------
+
+  //! This is the Filter Function
+  const filterDataFun = (mergeData: ProductsMergeType[]) => {
     let filteredData = mergeData;
     if (categoryFilter === "") {
       filteredData = mergeData;
@@ -107,27 +95,38 @@ const ApiContextProvider = ({ children }: childrenProps) => {
     if (searchFilter) {
       filteredData = filteredData.filter((product) => product.title.toLowerCase().includes(searchFilter.toLowerCase()));
     }
-
     setFilteredData(filteredData);
-
     if (filteredData.length === 0) {
       setErrorHandle("No Product Found");
     } else {
       setErrorHandle("");
     }
   };
+  //! -------------------------------------------------------------------------
 
+  //! Function to Merge the API and Firebase Store Database data into Single State
   const mergeProducts = () => {
     if (data && getProductsData) {
-      setMergeData([...data, ...getProductsData]);
+      const dataArray = [...data, ...getProductsData];
+      const mergedData1 = dataArray.map((item) => ({
+        id: item.id,
+        title: item.title,
+        price: item.price,
+        description: item.description,
+        images: item.images,
+        category: {
+          id: item.category.id,
+          name: item.category.name,
+        },
+      }));
+      setMergeData(mergedData1);
     }
   };
-
-  console.log("mergeData", mergeData);
+  //! -------------------------------------------------------------------------
 
   useEffect(() => {
     filterDataFun(mergeData);
-  }, [mergeData]);
+  }, [mergeData, categoryFilter]);
 
   useEffect(() => {
     getProductsRealTime();

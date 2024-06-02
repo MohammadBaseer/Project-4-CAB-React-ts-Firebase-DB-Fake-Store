@@ -1,10 +1,21 @@
 import styles from "./CartButton.module.css";
 import useFirebaseStoreFetchDataHooks from "../../../../Context/FirebaseStoreFetchData_CustomHooks/useFirebaseStoreFetchDataHooks";
+import { ProductsMergeType } from "../../../../@Types/Type";
 
-const CartButton = ({ id, uid, getItemDataIntoState }) => {
+type CartButtonType ={
+  id: string;
+  uid: string;
+
+}
+
+
+
+const CartButton = ({ id, uid, getItemDataIntoState }:CartButtonType) => {
   //! Custom Hook To fetch data from Firebase Store DB ====
   const { productsData } = useFirebaseStoreFetchDataHooks();
 
+
+  
   return (
     <button
       className={styles.button}
