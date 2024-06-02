@@ -2,11 +2,10 @@ import styles from "./ProductFilters.module.css";
 import { ChangeEvent, FormEvent, useContext, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import { ApiDataContext } from "../../../../Context/Api_Context";
-
 const ProductFilters = () => {
   let pickCategoryFromApi: string[] = [];
 
-  const { getProducts, data, setCategoryFilter, setSearchFilter, filterDataFun, searchFilter, categoryFilter, mergeData } = useContext(ApiDataContext);
+  const { getProducts, setCategoryFilter, setSearchFilter, filterDataFun, searchFilter, categoryFilter, mergeData } = useContext(ApiDataContext);
 
   // console.log("data", data);
 
@@ -18,7 +17,7 @@ const ProductFilters = () => {
     filterDataFun(mergeData);
   }, [categoryFilter, searchFilter, mergeData]);
 
-  const categoryHandel = (e: React.MouseEvent<HTMLButtonElement>): void => {
+  const categoryHandel = (e:ChangeEvent<HTMLSelectElement>): void => {
     const value = e.currentTarget.value;
     setCategoryFilter(value);
     console.log("value", value);
@@ -52,42 +51,30 @@ const ProductFilters = () => {
           </button>
         </NavLink>
 
-        <NavLink to="#">
-          <button className={styles.filter_button} value="" onClick={categoryHandel}>
-            All
-          </button>
-        </NavLink>
+{/* //! -------------------------------------------------------- */}
 
-        {/* <select onChange={test} value={categoryFilter}>
- <option value="">All - 1</option> */}
 
-        {mergeData &&
-          mergeData.map((itemCategory, index) => {
-            // if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
-            //   pickCategoryFromApi.push(itemCategory.category.name);
+<div className={styles.select_container} data-placeholder="All Categories">
+  <select className={styles.select} value={categoryFilter} onChange={categoryHandel} >
+    <option value="">All Categories</option>
 
-            //   return (
+    {mergeData &&
+      mergeData.map((itemCategory, index) => {
+        if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
+          pickCategoryFromApi.push(itemCategory.category.name);
+          return (
+            <option key={index} value={itemCategory.category.id}>{itemCategory.category.name}</option>
+          )
+        }
+      })}
+  </select>
+</div>
 
-            //     <option value={itemCategory.id} >{itemCategory.category.name}</option>
 
-            //   );
-            // }
+{/* //!---------------------------------------------------------- */}
 
-            if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
-              pickCategoryFromApi.push(itemCategory.category.name);
-              return (
-                <NavLink to="#" key={itemCategory.category.id}>
-                  <button className={styles.filter_button} value={itemCategory.category.id} onClick={categoryHandel}>
-                    {itemCategory.category.name}
-                  </button>
-                </NavLink>
-              );
-            }
 
-            return null;
-          })}
-
-        {/* </select> */}
+        
       </div>
     </div>
   );
