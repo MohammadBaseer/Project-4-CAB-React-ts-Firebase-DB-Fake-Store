@@ -7,15 +7,7 @@ import { ApiDataContext } from "../../../../Context/Api_Context";
 import { UsersActionAuthContext } from "../../../../Context/AuthAction_Context/UsersAuthContext";
 
 const Products = () => {
-  const {
-    getProducts,
-    filteredData,
-    errorHandle,
-    data,
-    filterDataFun,
-    categoryFilter,
-    searchFilter,
-  } = useContext(ApiDataContext);
+  const { getProducts, filteredData, errorHandle, data, filterDataFun, categoryFilter, searchFilter } = useContext(ApiDataContext);
 
   const { user } = useContext(UsersActionAuthContext);
 
@@ -38,19 +30,7 @@ const Products = () => {
             {filteredData &&
               filteredData.map((element) => {
                 // console.log(element);
-                return (
-                  <ProductItems
-                    key={element.id}
-                    id={element.id}
-                    image={element.images[0]}
-                    title={element.title.slice(0, 15)}
-                    category={element.category.name}
-                    description={element.description.slice(0, 150)}
-                    price={element.price}
-                    storeArrayIntoState={element}
-                    uid={user?.uid}
-                  />
-                );
+                return <ProductItems key={element.id} id={element.id} image={element.images} title={element.title.slice(0, 15)} category={element.category.name} description={element.description.slice(0, 150)} price={element.price} element={element} uid={user?.uid} />;
               })}
           </div>
         </div>

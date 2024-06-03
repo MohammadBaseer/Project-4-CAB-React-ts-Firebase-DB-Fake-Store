@@ -7,8 +7,6 @@ const ProductFilters = () => {
 
   const { getProducts, setCategoryFilter, setSearchFilter, filterDataFun, searchFilter, categoryFilter, mergeData } = useContext(ApiDataContext);
 
-  // console.log("data", data);
-
   useEffect(() => {
     getProducts();
   }, []);
@@ -22,6 +20,7 @@ const ProductFilters = () => {
     setCategoryFilter(value);
     console.log("value", value);
   };
+
   //!SECTION
 
   return (
@@ -46,6 +45,8 @@ const ProductFilters = () => {
           </button>
         </NavLink>
 
+        {/* //! -------------------------------------------------------- */}
+
         <div className={styles.select_container} data-placeholder="All Categories">
           <select className={styles.select} value={categoryFilter} onChange={categoryHandel}>
             <option value="">All Categories</option>
@@ -55,14 +56,19 @@ const ProductFilters = () => {
                 if (!pickCategoryFromApi.includes(itemCategory.category.name)) {
                   pickCategoryFromApi.push(itemCategory.category.name);
                   return (
-                    <option key={index} value={itemCategory.category.id}>
+                    <option key={index} value={itemCategory.category.name}>
                       {itemCategory.category.name}
                     </option>
+                    // <option key={index} value={itemCategory.category.id}>
+                    //   {itemCategory.category.name}
+                    // </option>
                   );
                 }
               })}
           </select>
         </div>
+
+        {/* //!---------------------------------------------------------- */}
       </div>
     </div>
   );

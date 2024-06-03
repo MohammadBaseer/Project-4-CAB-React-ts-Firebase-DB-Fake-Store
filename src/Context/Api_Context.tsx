@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useEffect, useState } from "react";
-import { Product, ProductsMergeType } from "../@Types/Type";
+import { ProductsMergeType } from "../@Types/Type";
 import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../Components/Config/Firebase_Auth";
 
@@ -9,7 +9,7 @@ type ApiDataContextType = {
   data: ProductsMergeType[];
   mergeData: ProductsMergeType[];
   filteredData: ProductsMergeType[] | null;
-  categoryFilter: string | null | number;
+  categoryFilter: string | number;
   setCategoryFilter: (categoryFilter: string) => void;
   searchFilter: string;
   setSearchFilter: (searchFilter: string) => void;
@@ -33,7 +33,7 @@ const ApiDataContextInit = {
   },
   searchFilter: "",
   setSearchFilter: () => {
-    throw new Error("Serach FilterFun Error");
+    throw new Error("Search FilterFun Error");
   },
   errorHandle: "",
 } as ApiDataContextType;
@@ -66,8 +66,9 @@ const ApiContextProvider = ({ children }: childrenProps) => {
   };
   //! -------------------------------------------------------------------------
 
+  //! Api Fetch function
   const apiUrl = `https://8c1080f56e4f4a9a.mokky.dev/products`; // My own EndPoint
-  //const apiUrl = `https://api.escuelajs.co/api/v1/products`; // Public API -- It has some issues with images
+  // const apiUrl = `https://api.escuelajs.co/api/v1/products`; // Public API -- It has some issues with images
   const getProducts = async () => {
     try {
       const response = await fetch(apiUrl);
@@ -75,7 +76,7 @@ const ApiContextProvider = ({ children }: childrenProps) => {
         throw new Error("Something went wrong...");
       }
       const dataFromApi = (await response.json()) as ProductsMergeType[];
-      const reStructuredProductAPI: ProductsMergeType[] = [];
+      // const reStructuredProductAPI: ProductsMergeType[] = [];
       setData(dataFromApi);
     } catch (error) {
       setErrorHandle("Failed to fetch products");
@@ -91,7 +92,8 @@ const ApiContextProvider = ({ children }: childrenProps) => {
       filteredData = mergeData;
     }
     if (categoryFilter !== "") {
-      filteredData = filteredData.filter((product) => Number(product.category.id) === Number(categoryFilter));
+      // filteredData = filteredData.filter((product) => Number(product.category.id) === Number(categoryFilter));
+      filteredData = filteredData.filter((product) => product.category.name === categoryFilter);
     }
     if (searchFilter) {
       filteredData = filteredData.filter((product) => product.title.toLowerCase().includes(searchFilter.toLowerCase()));

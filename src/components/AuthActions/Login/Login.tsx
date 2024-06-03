@@ -47,7 +47,6 @@ const Login = () => {
             email: auth.currentUser!.email,
             photoURL: auth.currentUser!.photoURL,
           });
-          console.log("auth.currentUser?.uid------------->", auth.currentUser?.photoURL);
           navigate("/");
         }
       } catch (error: any) {

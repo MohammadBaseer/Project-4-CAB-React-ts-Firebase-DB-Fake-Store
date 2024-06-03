@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
 import styles from "./CardDisplayPage.module.css";
-import ProductFilters from "../../Product_Components/Products_Filter/ProductFilters";
 import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../../Config/Firebase_Auth";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { ProductsType } from "../../../../@Types/Type";
-import { UsersActionAuthContext } from "../../../../Context/AuthAction_Context/UsersAuthContext";
 
 const CardDisplayPage = () => {
   // const { user } = useContext(UsersActionAuthContext);

@@ -3,7 +3,7 @@ import styles from "./AddItemModal.module.css";
 import AddItemForm from "./AddItemForm";
 
 const AddItemModal = () => {
-  const [displayToggle, setDisplayToggle] = useState(false);
+  const [displayToggle, setDisplayToggle] = useState<boolean>(false);
 
   const formToggle = () => {
     if (displayToggle) {

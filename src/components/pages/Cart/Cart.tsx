@@ -2,28 +2,17 @@ import styles from "./Cart.module.css";
 import "./Cart.css";
 import { useContext, useEffect, useState } from "react";
 import { CardItemTypes } from "../../../@Types/Type";
-import {
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../Config/Firebase_Auth";
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
 import CartItem from "./CartItem/CartItem";
-import { Navigate } from "react-router";
 
 const Cart = () => {
   const { user } = useContext(UsersActionAuthContext);
 
-  const [getProductsData, setGetCartData] = useState<CardItemTypes[] | null>(
-    null
-  );
+  const [getProductsData, setGetCartData] = useState<CardItemTypes[] | null>(null);
   // console.log("getProductsData", getProductsData?.length);
   const deleteCart = async (docID: string) => {
-    // console.log("Deleting item with UID:", docID);
     await deleteDoc(doc(db, "cart", docID));
   };
 
@@ -31,10 +20,7 @@ const Cart = () => {
     const getProductsRealTime = async () => {
       if (user) {
         try {
-          const q = await query(
-            collection(db, "cart"),
-            where("uid", "==", user?.uid)
-          );
+          const q = await query(collection(db, "cart"), where("uid", "==", user?.uid));
           onSnapshot(q, (querySnapshot) => {
             const getProductsArray: CardItemTypes[] = [];
             querySnapshot.forEach((doc) => {
@@ -47,7 +33,7 @@ const Cart = () => {
                 description: doc.data().description,
                 image: doc.data().image,
               };
-              getProductsArray.push(dataObject as CardItemTypes);
+              getProductsArray.push(dataObject as unknown as CardItemTypes);
             });
             setGetCartData(getProductsArray);
           });
@@ -81,18 +67,12 @@ const Cart = () => {
             {/* ------------------------------------------------------------------------------------------------------------ */}
             {getProductsData &&
               getProductsData.map((cardItem, index) => {
-                return (
-                  <CartItem
-                    key={index}
-                    cardItem={cardItem}
-                    deleteCart={deleteCart}
-                  />
-                );
+                return <CartItem key={index} cardItem={cardItem} deleteCart={deleteCart} />;
               })}
 
             {/* ------------------------------------------------------------------------------------------------------------ */}
 
-            <div className="totals">
+            {/* <div className="totals">
               <div className="totals-item">
                 <label>Subtotal</label>
                 <div className="totals-value" id="cart-subtotal">
@@ -117,7 +97,7 @@ const Cart = () => {
                   90.57
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <button className="checkout">Checkout</button>
           </div>

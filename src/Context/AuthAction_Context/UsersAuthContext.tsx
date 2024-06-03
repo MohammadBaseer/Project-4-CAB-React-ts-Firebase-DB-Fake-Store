@@ -1,8 +1,4 @@
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  updateProfile,
-} from "firebase/auth";
+import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { User } from "../../@Types/Type";
 import { auth, storage } from "../../Components/Config/Firebase_Auth";
@@ -10,19 +6,13 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 // import { errorHandler } from "../Error_Handler/errorCatcher";
 import { useNavigate } from "react-router";
 
-
 //!SECTION - Type of Context
 type UsersActionAuthContextType = {
   user: User | null;
   setUser: (user: User | null) => void;
-  userRegister: (
-    name: string,
-    email: string,
-    password: string,
-    file: File | null
-  ) => Promise<void>;
-  passDataForCompare: string | null
-   setPassDataForCompare: () => void;
+  userRegister: (name: string, email: string, password: string, file: File | null) => Promise<void>;
+  // passDataForCompare: string | null
+  //  setPassDataForCompare: () => void;
   ///TODO -
   errorHandle: string;
   setErrorHandle: (errorHandle: string) => void;
@@ -37,10 +27,10 @@ const initUsersActionAuthContext = {
   userRegister: () => {
     throw new Error("userRegister function must be overridden");
   },
-  passDataForCompare: null,
-setPassDataForCompare: () => {
-  throw new Error("logOut function must be overridden");
- },
+  //   passDataForCompare: null,
+  // setPassDataForCompare: () => {
+  //   throw new Error("logOut function must be overridden");
+  //  },
   ///TODO -
   errorHandle: "",
   setErrorHandle: () => {
@@ -54,36 +44,19 @@ type UsersActionAuthContextProviderProps = {
 };
 
 //!SECTION - Context
-export const UsersActionAuthContext = createContext<UsersActionAuthContextType>(
-  initUsersActionAuthContext
-);
-
-
+export const UsersActionAuthContext = createContext<UsersActionAuthContextType>(initUsersActionAuthContext);
 
 //!SECTION - Component
-export const UsersActionAuthContextProvider = ({
-  children,
-}: UsersActionAuthContextProviderProps) => {
+export const UsersActionAuthContextProvider = ({ children }: UsersActionAuthContextProviderProps) => {
   const navigateTo = useNavigate();
-const [passDataForCompare, setPassDataForCompare ] = useState<string | null>(null)
   const [user, setUser] = useState<User | null>(null);
 
   //TODO -
   const [errorHandle, setErrorHandle] = useState("");
 
-  const userRegister = async (
-    name: string | null,
-    email: string,
-    password: string,
-    file: File | null
-  ) => {
-
+  const userRegister = async (name: string | null, email: string, password: string, file: File | null) => {
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
       if (file) {
@@ -113,7 +86,6 @@ const [passDataForCompare, setPassDataForCompare ] = useState<string | null>(nul
     }
   };
 
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
@@ -135,10 +107,6 @@ const [passDataForCompare, setPassDataForCompare ] = useState<string | null>(nul
 
   return (
     //!SECTION - Component Provider
-    <UsersActionAuthContext.Provider
-      value={{ user, setUser, userRegister, errorHandle, setErrorHandle }}
-    >
-      {children}
-    </UsersActionAuthContext.Provider>
+    <UsersActionAuthContext.Provider value={{ user, setUser, userRegister, errorHandle, setErrorHandle }}>{children}</UsersActionAuthContext.Provider>
   );
 };

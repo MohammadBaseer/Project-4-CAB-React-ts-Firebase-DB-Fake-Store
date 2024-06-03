@@ -1,10 +1,10 @@
 export declare type IncomingStoreArrayIntoStateType = {
-  uid: string;
-  id: string;
+  uid: string | number;
+  id: string | number;
   title: string;
   price: number;
   description: string;
-  image: [];
+  image: Array<string>;
 };
 
 ///!SECTION Thi is for API need to fixe the name
@@ -13,14 +13,14 @@ export declare type Product = {
   title: string;
   price: number;
   description: string;
-  category: Category;
-  images: string[];
-  storeArrayIntoState: IncomingStoreArrayIntoStateType | object | [];
+  category: string;
+  images: Array<string>;
+  storeArrayIntoState: IncomingStoreArrayIntoStateType | object | Array<string>;
 };
 
 //User Auth Action Types
 export type User = {
-  uid: string | null;
+  uid: string | number;
   displayName: string | null;
   email: string | null;
   photoURL: string | null;
@@ -41,10 +41,11 @@ export declare type ProductsType = {
 };
 
 export declare type CardItemTypes = {
-  docID: string;
-  uid: string;
+  docID: string | number;
+  uid: string | number;
   id: number;
-  image: string;
+  image: Array<string>;
+  images: Array<string>;
   title: string;
   category: string;
   description: string;
@@ -54,17 +55,15 @@ export declare type CardItemTypes = {
   cardItem: CardItemTypes;
 };
 
-
 //!------------
 export declare type ProductsMergeType = {
-  id: number ;
+  id: number;
   title: string;
   price: number;
   description: string;
   images: Array<string>;
   category: {
-    id: number
+    id: number;
     name: string;
   };
-
 };

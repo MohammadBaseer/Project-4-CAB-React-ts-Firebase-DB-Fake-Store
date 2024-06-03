@@ -1,42 +1,36 @@
 import { useContext, useEffect, useState } from "react";
 import styles from "./ProductItems.module.css";
 import { Link } from "react-router-dom";
-import { IncomingStoreArrayIntoStateType } from "../../../../@Types/Type";
+import { CardItemTypes, IncomingStoreArrayIntoStateType, ProductsMergeType } from "../../../../@Types/Type";
 import { addDoc, collection } from "firebase/firestore";
 import { db } from "../../../Config/Firebase_Auth";
-import { User } from "firebase/auth";
 
 import CartButton from "./CartButton";
 import { UsersActionAuthContext } from "../../../../Context/AuthAction_Context/UsersAuthContext";
 import toast, { Toaster } from "react-hot-toast";
 
 type itemPropsType = {
-  uid: User | null | undefined;
-  id: number;
-  image: string;
+  uid: string | number | any;
+  id: string | number;
+  image: Array<string>;
   title: string;
   category: string;
   description: string;
   price: number;
-  storeArrayIntoState: object;
+  element: CardItemTypes | ProductsMergeType;
 };
 
 const cleanImageUrl = (imageURL: string): string => {
   const alternativeImage = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
-  // console.log("imageUrl", imageURL);
   const cleanUrl = imageURL?.replace(/^\["|"\]$/g, ""); // remote [" and "] from the url
-  // return cleanUrl
   if (/\.[a-z]{3,4}$/i.test(cleanUrl)) {
-    // if the url have no file Extension
     return cleanUrl;
   } else {
     return alternativeImage;
   }
 };
 
-const ProductItems = ({ id, image, title, category, description, price, storeArrayIntoState, uid }: itemPropsType) => {
-  const [objectTest, setObjectTest] = useState();
-  const objectJSON = JSON.stringify(storeArrayIntoState, null, 2);
+const ProductItems = ({ id, image, title, category, description, price, element, uid }: itemPropsType) => {
   const [incomingStoreArrayIntoState, setIncomingStoreArrayIntoState] = useState<IncomingStoreArrayIntoStateType | null>(null);
 
   const { user } = useContext(UsersActionAuthContext);
@@ -44,20 +38,16 @@ const ProductItems = ({ id, image, title, category, description, price, storeArr
   const getItemDataIntoState = () => {
     setIncomingStoreArrayIntoState({
       uid: uid,
-      id: storeArrayIntoState.id,
-      title: storeArrayIntoState.title,
-      price: storeArrayIntoState.price,
-      description: storeArrayIntoState.description,
-      image: storeArrayIntoState.images[0],
+      id: element.id,
+      title: element.title,
+      price: element.price,
+      description: element.description,
+      image: element.images,
     });
   };
 
   useEffect(() => {
-    setObjectTest(objectJSON);
-
     if (incomingStoreArrayIntoState) {
-      // console.log("incomingStoreArrayIntoState", "=======OnClickFun=======",);
-
       const insertDataToDB = async () => {
         if (user === null) {
           toast.error("Please login first.");
@@ -70,10 +60,9 @@ const ProductItems = ({ id, image, title, category, description, price, storeArr
                 title: incomingStoreArrayIntoState.title,
                 price: incomingStoreArrayIntoState.price,
                 description: incomingStoreArrayIntoState.description,
-                image: incomingStoreArrayIntoState.image,
+                image: incomingStoreArrayIntoState.image[0],
               });
             } else {
-              console.log("something went wrong with incomingStoreArrayIntoState");
             }
 
             toast.success("Successfully added to cart!");
@@ -92,7 +81,7 @@ const ProductItems = ({ id, image, title, category, description, price, storeArr
     <>
       <div className={`${styles.product_elements} col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3`}>
         <div className="image-slider">
-          <img className={styles.p_image} src={cleanImageUrl(image) ? cleanImageUrl(image) : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"} alt="" />
+          <img className={styles.p_image} src={cleanImageUrl(image[0]) ? cleanImageUrl(image[0]) : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"} alt="" />
         </div>
         <div className={styles.item_info}>
           <p>{title}...</p>
@@ -104,12 +93,6 @@ const ProductItems = ({ id, image, title, category, description, price, storeArr
           <p>
             <strong>Price:</strong> {price} £{" "}
           </p>
-
-          {/* ======================================= */}
-
-          {/* <pre>{objectTest}</pre> */}
-
-          {/* ======================================= */}
         </div>
         <div className={styles.item_elements}>
           <div className={styles.item_sub_elements}>
@@ -117,7 +100,7 @@ const ProductItems = ({ id, image, title, category, description, price, storeArr
               <i className="pi pi-window-maximize"></i>
             </Link>
 
-            <CartButton id={id} uid={uid} getItemDataIntoState={getItemDataIntoState} />
+            <CartButton id={id} uid={uid!} getItemDataIntoState={getItemDataIntoState} />
           </div>
         </div>
       </div>

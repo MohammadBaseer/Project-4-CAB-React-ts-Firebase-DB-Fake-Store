@@ -6,9 +6,7 @@ import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/User
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
-  const { userRegister, user, errorHandle } = useContext(
-    UsersActionAuthContext
-  );
+  const { userRegister, user, errorHandle } = useContext(UsersActionAuthContext);
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -110,13 +108,9 @@ const Register = () => {
             </div>
 
             <div className={styles.error}>
-              {errorHandle === "auth/weak-password"
-                ? "Password should be at least 6 characters"
-                : ""}
+              {errorHandle === "auth/weak-password" ? "Password should be at least 6 characters" : ""}
 
-              {errorHandle === "auth/email-already-in-use"
-                ? "You have already an account"
-                : ""}
+              {errorHandle === "auth/email-already-in-use" ? "You have already an account" : ""}
             </div>
             <div>
               Do you have already an account? <Link to="/login">Login</Link>

@@ -170,6 +170,7 @@ label {
   color: #fff;
   font-size: 25px;
   border-radius: 3px;
+  width: 200px;
 }
 
 .checkout:hover {

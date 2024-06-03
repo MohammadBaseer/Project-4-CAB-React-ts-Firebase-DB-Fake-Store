@@ -1,4 +1,4 @@
-import styles from './Footer.module.css';
+import styles from "./Footer.module.css";
 const Footer = () => {
   return (
     <>
@@ -6,7 +6,7 @@ const Footer = () => {
       <br />
       <div className={styles.footer}>
         <hr />
-        <div className={styles.boy_container}>This is a Footer </div>
+        <div className={styles.boy_container}></div>
       </div>
     </>
   );

@@ -1,12 +1,16 @@
 import styles from "./AddItemForm.module.css";
 import add from "../../../../../assets/img/addAvatar.png";
-import { useContext, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "../../../../Config/Firebase_Auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { UsersActionAuthContext } from "../../../../../Context/AuthAction_Context/UsersAuthContext";
 
-const AddItemForm = ({ setDisplayToggle }) => {
+type DisplayToggleProps = {
+  setDisplayToggle: Dispatch<SetStateAction<boolean>>;
+};
+
+const AddItemForm = ({ setDisplayToggle }: DisplayToggleProps) => {
   const { user } = useContext(UsersActionAuthContext);
 
   // UseState to get my input data
@@ -89,12 +93,10 @@ const AddItemForm = ({ setDisplayToggle }) => {
             <div className={styles.col_75}>
               <select id="categories" name="categories" value={categories} onChange={(e) => setCategories(e.target.value)}>
                 <option value="">Categories</option>
-                <option value="electronics">Electronics</option>
-                <option value="mobile">Mobile</option>
-                <option value="clothes">Clothes</option>
-                <option value="furniture">Furniture</option>
-                <option value="test">Test</option>
-                <option value="TestME">Test-1</option>
+                <option value="Apple">Apple</option>
+                <option value="Samsung">Samsung</option>
+                <option value="Nokia">Nokia</option>
+                <option value="Sony">Sony</option>
               </select>
             </div>
           </div>

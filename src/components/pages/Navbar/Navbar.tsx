@@ -1,10 +1,14 @@
 import styles from "./Navbar.module.css";
 // import "./navbarLink.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import NavbarHead from "./NavbarHead";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function Navbar() {
+  //! in every location change the toggle state
+  const location = useLocation();
+  //!---------------------------------------------------------------------------------
+
   const [hideMenuToggle, setHideMenuToggle] = useState<boolean>(false);
 
   const menuToggle = () => {
@@ -14,7 +18,10 @@ function Navbar() {
       setHideMenuToggle(true);
     }
   };
-  console.log("hideMenuToggle", hideMenuToggle);
+  useEffect(() => {
+    setHideMenuToggle(false);
+  }, [location]);
+
   return (
     <>
       <NavbarHead />
