@@ -2,26 +2,20 @@ import { collection, onSnapshot, query } from "firebase/firestore";
 import AddItemModal from "./AddItemModal";
 import styles from "./MyShop.module.css";
 import { db } from "../../../../Config/Firebase_Auth";
-import { useContext, useEffect, useState } from "react";
-import { UsersActionAuthContext } from "../../../../../Context/AuthAction_Context/UsersAuthContext";
 import { ProductsType } from "../../../../../@Types/Type";
 import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const MyShop = () => {
-  const { user } = useContext(UsersActionAuthContext);
-  console.log("user ID", user?.uid);
-
   const [getProductsData, setGetProductsData] = useState<ProductsType[] | null>(null);
 
   const getProductsToTableRealTime = () => {
-    // const q = query(collection(db, "products"), where("uid", "==", user?.uid));
     const q = query(collection(db, "products"));
     onSnapshot(q, (querySnapshot) => {
       const getProductsArray: ProductsType[] = [];
       querySnapshot.forEach((doc) => {
         getProductsArray.push(doc.data() as ProductsType);
       });
-      console.log("getProductsArray", getProductsArray);
       setGetProductsData(getProductsArray);
     });
   };
@@ -29,8 +23,6 @@ const MyShop = () => {
   useEffect(() => {
     getProductsToTableRealTime();
   }, []);
-
-  console.log("getProductsData", getProductsData);
 
   return (
     <>

@@ -13,7 +13,9 @@ export declare type Product = {
   title: string;
   price: number;
   description: string;
-  category: string;
+  category: {
+    name: string;
+  };
   images: Array<string>;
   storeArrayIntoState: IncomingStoreArrayIntoStateType | object | Array<string>;
 };
@@ -36,6 +38,7 @@ export declare type ProductsType = {
     name: string;
   };
   images: Array<string>;
+  imageURL: string;
   description: string;
   data: Date;
 };

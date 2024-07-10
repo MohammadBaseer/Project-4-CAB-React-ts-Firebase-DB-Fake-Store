@@ -54,7 +54,7 @@ const ProductItems = ({ id, image, title, category, description, price, element,
         } else {
           try {
             if (incomingStoreArrayIntoState) {
-              const docRef = await addDoc(collection(db, "cart"), {
+              await addDoc(collection(db, "cart"), {
                 uid: incomingStoreArrayIntoState.uid,
                 id: incomingStoreArrayIntoState.id,
                 title: incomingStoreArrayIntoState.title,

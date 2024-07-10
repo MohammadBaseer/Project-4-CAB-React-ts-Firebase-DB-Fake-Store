@@ -9,7 +9,6 @@ import ApiContextProvider from "./Context/Api_Context";
 import Login from "./Components/AuthActions/Login/Login";
 import Register from "./Components/AuthActions/Register/Register";
 import Cart from "./Components/Pages/Cart/Cart";
-import CardDisplayPage from "./Components/Pages/Admin_Panel/Card_Display_Page/CardDisplayPage";
 import MyShop from "./Components/Pages/Admin_Panel/Card_Admin/My_Shop/MyShop";
 import ProtectedRoute from "./Components/AuthActions/ProtectedRouts/ProtectedRouts";
 

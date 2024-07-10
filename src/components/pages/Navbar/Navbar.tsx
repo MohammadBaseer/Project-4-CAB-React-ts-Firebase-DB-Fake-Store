@@ -1,5 +1,4 @@
 import styles from "./Navbar.module.css";
-// import "./navbarLink.css";
 import { NavLink, useLocation } from "react-router-dom";
 import NavbarHead from "./NavbarHead";
 import { useEffect, useState } from "react";

@@ -3,7 +3,6 @@ import { ReactNode, createContext, useEffect, useState } from "react";
 import { User } from "../../@Types/Type";
 import { auth, storage } from "../../Components/Config/Firebase_Auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
-// import { errorHandler } from "../Error_Handler/errorCatcher";
 import { useNavigate } from "react-router";
 
 //!SECTION - Type of Context
@@ -11,11 +10,10 @@ type UsersActionAuthContextType = {
   user: User | null;
   setUser: (user: User | null) => void;
   userRegister: (name: string, email: string, password: string, file: File | null) => Promise<void>;
-  // passDataForCompare: string | null
-  //  setPassDataForCompare: () => void;
-  ///TODO -
   errorHandle: string;
   setErrorHandle: (errorHandle: string) => void;
+  isLoading: boolean;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 //!SECTION - Init Value to The Context
@@ -27,14 +25,13 @@ const initUsersActionAuthContext = {
   userRegister: () => {
     throw new Error("userRegister function must be overridden");
   },
-  //   passDataForCompare: null,
-  // setPassDataForCompare: () => {
-  //   throw new Error("logOut function must be overridden");
-  //  },
-  ///TODO -
   errorHandle: "",
   setErrorHandle: () => {
     throw new Error("userRegister function must be overridden");
+  },
+  isLoading: true,
+  setIsLoading: () => {
+    throw new Error("setIsLoading function must be overridden");
   },
 };
 
@@ -50,8 +47,7 @@ export const UsersActionAuthContext = createContext<UsersActionAuthContextType>(
 export const UsersActionAuthContextProvider = ({ children }: UsersActionAuthContextProviderProps) => {
   const navigateTo = useNavigate();
   const [user, setUser] = useState<User | null>(null);
-
-  //TODO -
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorHandle, setErrorHandle] = useState("");
 
   const userRegister = async (name: string | null, email: string, password: string, file: File | null) => {
@@ -75,14 +71,12 @@ export const UsersActionAuthContextProvider = ({ children }: UsersActionAuthCont
       }
 
       setUser(user);
-
-      console.log("User registered successfully with profile photo:", user);
+      setIsLoading(false);
       navigateTo("/");
-    } catch (error) {
+    } catch (error: any) {
       setErrorHandle(error?.code);
-      console.error("Error during user registration:", error);
-
       setUser(null);
+      setIsLoading(false);
     }
   };
 
@@ -90,23 +84,18 @@ export const UsersActionAuthContextProvider = ({ children }: UsersActionAuthCont
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user);
-
-        console.log("User is logged in:", user.displayName, "UID:", user.uid);
+        setIsLoading(false);
       } else {
-        console.log("User is not logged in");
         setUser(null);
+        setIsLoading(false);
       }
     });
 
     return () => unsubscribe(); // Cleanup subscription on unmount
   }, []);
 
-  // if (loading) {
-  //   return <Loader />;
-  // }
-
   return (
     //!SECTION - Component Provider
-    <UsersActionAuthContext.Provider value={{ user, setUser, userRegister, errorHandle, setErrorHandle }}>{children}</UsersActionAuthContext.Provider>
+    <UsersActionAuthContext.Provider value={{ user, setUser, userRegister, errorHandle, setErrorHandle, isLoading, setIsLoading }}>{children}</UsersActionAuthContext.Provider>
   );
 };

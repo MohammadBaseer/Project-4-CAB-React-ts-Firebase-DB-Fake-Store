@@ -16,7 +16,7 @@ const NavbarHead = () => {
 
   //! Called the Custom Hook To fetch data from Firebase Store DB ==== to count the Cart Item
   const { productsData } = useFirebaseStoreFetchDataHooks();
-  const matchingDataLength = productsData ? productsData.filter((e) => e.uid === user?.uid).length : 0;
+  const matchingDataLength = productsData ? productsData.filter((e: any) => e.uid === user?.uid).length : 0;
   //!---------------------------------------------------------------------------------
 
   //! use State and Function for user Drop Down menu toggle on off
@@ -75,28 +75,28 @@ const NavbarHead = () => {
                       <p>{user.displayName}</p>
                     </div>
 
-                    <div className={styles.user_tab_navbar_element}>
+                    {/* <div className={styles.user_tab_navbar_element}>
                       <span className="pi pi-user">
                         <Link to="/register"> My Profile</Link>
                       </span>
-                    </div>
-                    <div className={styles.user_tab_navbar_element}>
+                    </div> */}
+                    {/* <div className={styles.user_tab_navbar_element}>
                       <Link to="/chat">
                         {" "}
                         <span className="pi pi-comment"> Messages</span>{" "}
                       </Link>
-                    </div>
+                    </div> */}
                     <div className={styles.user_tab_navbar_element}>
                       <Link to="/myShop">
                         {" "}
                         <span className="pi pi-shop"> My Shop</span>{" "}
                       </Link>
                     </div>
-                    <div className={styles.user_tab_navbar_element}>
+                    {/* <div className={styles.user_tab_navbar_element}>
                       <span className="pi pi-cog">
                         <Link to="/register"> Settings</Link>
                       </span>
-                    </div>
+                    </div> */}
                     <div className={styles.user_tab_navbar_element}>
                       <Link to="#" onClick={logOut}>
                         <span className="pi pi-sign-out"> Logout</span>

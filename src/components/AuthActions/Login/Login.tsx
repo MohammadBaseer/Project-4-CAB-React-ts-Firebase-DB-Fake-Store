@@ -15,11 +15,10 @@ const Login = () => {
   const [userEmail, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
 
   const emailSetFunc = (e: ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
-    console.log(userEmail);
   };
   const passwordSetFunc = (e: ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -37,8 +36,8 @@ const Login = () => {
         } else if (password === "") {
           alert("Enter your password, please!");
         } else {
-          const loggedIn = await signInWithEmailAndPassword(auth, userEmail, password);
-          if (loggedIn) setLoggedIn(true);
+          await signInWithEmailAndPassword(auth, userEmail, password);
+          // if (loggedIn) setLoggedIn(true);
           setEmail("");
           setPassword("");
           setUser({

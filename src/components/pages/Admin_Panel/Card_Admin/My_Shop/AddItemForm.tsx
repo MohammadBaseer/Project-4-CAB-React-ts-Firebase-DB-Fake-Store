@@ -22,11 +22,11 @@ const AddItemForm = ({ setDisplayToggle }: DisplayToggleProps) => {
 
   const addProductHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("title", title);
-    console.log("price", price);
-    console.log("categories", categories);
-    console.log("file", file);
-    console.log("description", description);
+
+    if (title === "" || price === "" || categories === "" || file === null || description === "") {
+      alert("input missed*");
+      return;
+    }
 
     try {
       // const randomName = Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -60,7 +60,6 @@ const AddItemForm = ({ setDisplayToggle }: DisplayToggleProps) => {
 
       setDisplayToggle(false);
     } catch (error) {
-      console.error("Error during user registration:", error);
       console.log("========>", error);
     }
   };

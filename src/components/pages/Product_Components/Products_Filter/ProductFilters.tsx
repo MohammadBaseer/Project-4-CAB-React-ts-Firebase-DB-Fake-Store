@@ -18,7 +18,6 @@ const ProductFilters = () => {
   const categoryHandel = (e: ChangeEvent<HTMLSelectElement>): void => {
     const value = e.currentTarget.value;
     setCategoryFilter(value);
-    console.log("value", value);
   };
 
   //!SECTION

@@ -1,18 +1,14 @@
 import { Link } from "react-router-dom";
 import styles from "./CardDisplayPage.module.css";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import { collection, onSnapshot, query } from "firebase/firestore";
 import { db } from "../../../Config/Firebase_Auth";
 import { useEffect, useState } from "react";
 import { ProductsType } from "../../../../@Types/Type";
 
 const CardDisplayPage = () => {
-  // const { user } = useContext(UsersActionAuthContext);
-  // console.log("user ID", user.uid)
-
   const [getProductsData, setGetProductsData] = useState<ProductsType[] | null>(null);
 
   const getProductsRealTime = () => {
-    // const q = query(collection(db, "products"), where("uid", "==", user?.uid));
     const q = query(collection(db, "products"));
     onSnapshot(q, (querySnapshot) => {
       const getProductsArray: ProductsType[] = [];
@@ -32,11 +28,9 @@ const CardDisplayPage = () => {
     <div className={styles.main_box}>
       <div className={styles.body_container}>
         <div className={styles.p_container}>
-          {/* <ProductFilters /> */}
-
           <div className={`${styles.p_box} col-12 sm:col-12 md:col-9`}>
             {getProductsData &&
-              getProductsData.map((productsData, index) => {
+              getProductsData.map((productsData: any, index) => {
                 return (
                   <div className={`${styles.product_elements} col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3`} key={index}>
                     <div className="image-slider">

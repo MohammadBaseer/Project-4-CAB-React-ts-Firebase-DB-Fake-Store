@@ -1,15 +1,11 @@
 import styles from "./ProductItemDetails.module.css";
 
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Product } from "../../../../@Types/Type";
-import CartButton from "../Product_Items/CartButton";
-import { UsersActionAuthContext } from "../../../../Context/AuthAction_Context/UsersAuthContext";
 
 const ProductItemDetail = () => {
   let { id } = useParams();
-  const { user } = useContext(UsersActionAuthContext);
-  console.log("id", id);
 
   const [product, setProduct] = useState<Product | null>(null);
   const apiUrl = `https://api.escuelajs.co/api/v1/products/${id}`;
@@ -21,7 +17,6 @@ const ProductItemDetail = () => {
         throw new Error("...something went wrong..");
       }
       const dataFromApi = (await response.json()) as Product;
-      console.log("dataFromApi", dataFromApi);
       setProduct(dataFromApi);
     } catch (error) {
       console.log("error :>> ", error);
@@ -32,12 +27,10 @@ const ProductItemDetail = () => {
     getSingleProduct();
   }, []);
 
-  console.log("product ======>", product);
   //
 
   const cleanImageUrl = (imageURL: string): string => {
     const alternativeImage = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
-    console.log("imageUrl", imageURL);
     const cleanUrl = imageURL?.replace(/^\["|"\]$/g, "");
     if (/\.[a-z]{3,4}$/i.test(cleanUrl)) {
       return cleanUrl; // Return original URL if it has a file extension
@@ -69,7 +62,11 @@ const ProductItemDetail = () => {
                     <strong>Price:</strong> {product?.price}{" "}
                   </p>
 
-                  <CartButton uid={user?.uid!} id={product?.id!} />
+                  {/* <CartButton uid={user?.uid!} id={product?.id!} /> */}
+                  <button className={styles.button} disabled>
+                    {/* <i className="pi pi-shopping-cart">&nbsp;</i> */}
+                    Not Allowed
+                  </button>
                 </div>
               </div>
             </div>
