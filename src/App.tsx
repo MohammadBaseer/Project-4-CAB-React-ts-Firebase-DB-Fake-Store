@@ -15,45 +15,43 @@ import ProtectedRoute from "./Components/AuthActions/ProtectedRouts/ProtectedRou
 function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<Home />} />
-          <Route
-            path="/products"
-            element={
-              <ApiContextProvider>
-                <Products />
-              </ApiContextProvider>
-            }
-          />
-          <Route path="/products/:id" element={<ProductItemDetail />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/*" element={<Home />} />
-          <Route
-            path="/cart"
-            element={
-              <ProtectedRoute>
-                <Cart />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/myShop"
-            element={
-              <ProtectedRoute>
-                <MyShop />
-              </ProtectedRoute>
-            }
-          />
-        </Route>
-      </>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Home />} />
+        <Route
+          path="/products"
+          element={
+            <ApiContextProvider>
+              <Products />
+            </ApiContextProvider>
+          }
+        />
+        <Route path="/products/:id" element={<ProductItemDetail />} />
+        <Route path="/contact" element={<Contact />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<Home />} />
+        <Route
+          path="/cart"
+          element={
+            <ProtectedRoute>
+              <Cart />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/myShop"
+          element={
+            <ProtectedRoute>
+              <MyShop />
+            </ProtectedRoute>
+          }
+        />
+      </Route>
     )
   );
 
-  return <>{<RouterProvider router={router} />}</>;
+  return <RouterProvider router={router} />;
 }
 
 export default App;
