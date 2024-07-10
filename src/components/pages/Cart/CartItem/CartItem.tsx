@@ -1,13 +1,22 @@
 import { ChangeEvent, useState } from "react";
-import { CardItemTypes } from "../../../../@Types/Type";
 import styles from "./CartItem.module.css";
 
 type CartItemProps = {
-  cardItem: CardItemTypes | string;
+  cardItem: {
+    id: string;
+    uid: string;
+    docID: string;
+    title: string;
+    price: number;
+    image: string;
+    description: string;
+  };
   deleteCart: (parameter: string) => void;
 };
 const CartItem = ({ cardItem, deleteCart }: CartItemProps) => {
   const [quantity, setQuantity] = useState<number>(1);
+
+  console.log(cardItem);
 
   const cleanImageUrl = (imageURL: string): string => {
     const alternativeImage = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
