@@ -8,7 +8,8 @@ type CartItemProps = {
     docID: string;
     title: string;
     price: number;
-    image: string;
+    image: string | string[];
+    // image: string;
     description: string;
   };
   deleteCart: (parameter: string) => void;
@@ -16,7 +17,7 @@ type CartItemProps = {
 const CartItem = ({ cardItem, deleteCart }: CartItemProps) => {
   const [quantity, setQuantity] = useState<number>(1);
 
-  console.log(cardItem);
+  let image = cardItem.image as string;
 
   const cleanImageUrl = (imageURL: string): string => {
     const alternativeImage = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";
@@ -36,7 +37,8 @@ const CartItem = ({ cardItem, deleteCart }: CartItemProps) => {
       <div className={styles.product}>
         <div className={styles.product_image}>
           <img
-            src={cleanImageUrl(cardItem.image) ? cleanImageUrl(cardItem.image) : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
+            // src={cleanImageUrl(cardItem.image) ? cleanImageUrl(cardItem.image) : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
+            src={cleanImageUrl(image) ? cleanImageUrl(image) : "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png"}
 
             // src={cardItem.image}
           />

@@ -44,9 +44,12 @@ export declare type ProductsType = {
 };
 
 export declare type CardItemTypes = {
-  docID: string | number;
-  uid: string | number;
-  id: number;
+  // docID: string | number;
+  // uid: string | number;
+  // id: number;
+  id: string;
+  uid: string;
+  docID: string;
   image: Array<string>;
   images: Array<string>;
   title: string;
