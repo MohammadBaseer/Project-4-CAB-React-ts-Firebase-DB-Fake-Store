@@ -1,16 +1,16 @@
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from "react-router-dom";
-import Home from "./Components/Pages/Home/Home";
+import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 import Layout from "./Components/Pages/Layout/Layout";
+import ApiContextProvider from "./Context/Api_Context";
+import Home from "./Components/Pages/Home/Home";
 import Products from "./Components/Pages/Product_Components/Products/Products";
 import ProductItemDetail from "./Components/Pages/Product_Components/Product_Item_Details/ProductItemDetails";
 import Contact from "./Components/Pages/Contact/Contact";
 import About from "./Components/Pages/About/About";
-import ApiContextProvider from "./Context/Api_Context";
-import Login from "./Components/AuthActions/Login/Login";
 import Register from "./Components/AuthActions/Register/Register";
+import Login from "./Components/AuthActions/Login/Login";
+import ProtectedRoute from "./Components/AuthActions/ProtectedRouts/ProtectedRouts";
 import Cart from "./Components/Pages/Cart/Cart";
 import MyShop from "./Components/Pages/Admin_Panel/Card_Admin/My_Shop/MyShop";
-import ProtectedRoute from "./Components/AuthActions/ProtectedRouts/ProtectedRouts";
 
 function App() {
   const router = createBrowserRouter(
