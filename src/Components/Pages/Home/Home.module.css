@@ -1,0 +1,7 @@
+.main_box {
+    flex: 1;
+  }
+  .body_container {
+    width: 90%;
+    margin: auto !important;
+  }
