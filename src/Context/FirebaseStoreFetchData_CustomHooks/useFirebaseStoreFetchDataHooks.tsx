@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { CardItemTypes } from "../../@Types/Type";
 import { collection, onSnapshot, query } from "firebase/firestore";
-import { db } from "../../Components/Config/Firebase_Auth";
+import { db } from "../../components/Config/Firebase_Auth";
 
 const useFirebaseStoreFetchDataHooks = () => {
   const [productsData, setProductsData] = useState<CardItemTypes[] | boolean | null | any>(null);

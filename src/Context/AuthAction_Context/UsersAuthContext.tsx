@@ -1,7 +1,7 @@
 import { createUserWithEmailAndPassword, onAuthStateChanged, updateProfile } from "firebase/auth";
 import { ReactNode, createContext, useEffect, useState } from "react";
 import { User } from "../../@Types/Type";
-import { auth, storage } from "../../Components/Config/Firebase_Auth";
+import { auth, storage } from "../../components/Config/Firebase_Auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { useNavigate } from "react-router";
 

@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useEffect, useState } from "react";
 import { ProductsMergeType } from "../@Types/Type";
 import { collection, onSnapshot, query } from "firebase/firestore";
-import { db } from "../Components/Config/Firebase_Auth";
+import { db } from "../components/Config/Firebase_Auth";
 
 type ApiDataContextType = {
   getProducts: () => Promise<void>;
