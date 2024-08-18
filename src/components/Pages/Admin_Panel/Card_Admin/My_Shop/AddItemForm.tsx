@@ -1,6 +1,6 @@
 import styles from "./AddItemForm.module.css";
 import add from "../../../../../assets/img/addAvatar.png";
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useContext, useState } from "react";
 import { addDoc, collection } from "firebase/firestore";
 import { db, storage } from "../../../../Config/Firebase_Auth";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
@@ -57,10 +57,20 @@ const AddItemForm = ({ setDisplayToggle }: DisplayToggleProps) => {
       setCategories("");
       setFile(null);
       setDescription("");
-
+      setSelectImage(null);
       setDisplayToggle(false);
     } catch (error) {
       console.log("========>", error);
+    }
+  };
+
+  const [selectImage, setSelectImage] = useState<null | string>(null);
+
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setSelectImage(file ? URL.createObjectURL(file) : null);
+    if (e.target.files) {
+      setFile(file);
     }
   };
 
@@ -108,22 +118,11 @@ const AddItemForm = ({ setDisplayToggle }: DisplayToggleProps) => {
             </div>
             <div className={styles.col_75}>
               <label htmlFor="file" className={styles.file}>
-                <img className={styles.avatar} src={add} alt="" />
-                <span>Add an Image</span>
+                <img className={styles.avatar} src={selectImage === null ? add : selectImage} alt="" />
+                <span>{selectImage ? " File Added" : " Add an Image"}</span>
               </label>
 
-              <input
-                type="file"
-                id="file"
-                name="file"
-                placeholder="Your last name.."
-                style={{ display: "none" }}
-                onChange={(e) => {
-                  if (e.target.files) {
-                    setFile(e.target.files[0]);
-                  }
-                }}
-              />
+              <input type="file" id="file" name="file" placeholder="Your last name.." style={{ display: "none" }} onChange={handleFileChange} />
             </div>
           </div>
 

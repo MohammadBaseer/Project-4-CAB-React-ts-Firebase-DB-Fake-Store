@@ -14,6 +14,8 @@ type UsersActionAuthContextType = {
   setErrorHandle: (errorHandle: string) => void;
   isLoading: boolean;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
+  selectImage: null | string;
+  setSelectImage: (image: string | null) => void;
 };
 
 //!SECTION - Init Value to The Context
@@ -33,6 +35,10 @@ const initUsersActionAuthContext = {
   setIsLoading: () => {
     throw new Error("setIsLoading function must be overridden");
   },
+  selectImage: null,
+  setSelectImage: () => {
+    throw new Error("setSelectImage function must be overridden");
+  },
 };
 
 //!SECTION - Props Type
@@ -49,6 +55,7 @@ export const UsersActionAuthContextProvider = ({ children }: UsersActionAuthCont
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [errorHandle, setErrorHandle] = useState("");
+  const [selectImage, setSelectImage] = useState<null | string>(null);
 
   const userRegister = async (name: string | null, email: string, password: string, file: File | null) => {
     try {
@@ -72,6 +79,7 @@ export const UsersActionAuthContextProvider = ({ children }: UsersActionAuthCont
 
       setUser(user);
       setIsLoading(false);
+      setSelectImage(null);
       navigateTo("/");
     } catch (error: any) {
       setErrorHandle(error?.code);
@@ -96,6 +104,6 @@ export const UsersActionAuthContextProvider = ({ children }: UsersActionAuthCont
 
   return (
     //!SECTION - Component Provider
-    <UsersActionAuthContext.Provider value={{ user, setUser, userRegister, errorHandle, setErrorHandle, isLoading, setIsLoading }}>{children}</UsersActionAuthContext.Provider>
+    <UsersActionAuthContext.Provider value={{ user, setUser, userRegister, errorHandle, setErrorHandle, isLoading, setIsLoading, selectImage, setSelectImage }}>{children}</UsersActionAuthContext.Provider>
   );
 };

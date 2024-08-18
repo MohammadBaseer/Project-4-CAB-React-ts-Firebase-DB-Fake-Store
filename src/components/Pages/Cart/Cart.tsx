@@ -3,8 +3,9 @@ import "./Cart.css";
 import { useContext, useEffect, useState } from "react";
 import { CardItemTypes } from "../../../@Types/Type";
 import { collection, deleteDoc, doc, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "../../Config/Firebase_Auth";
+
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
+import { db } from "../../Config/Firebase_Auth";
 import CartItem from "./CartItem/CartItem";
 
 const Cart = () => {
@@ -45,7 +46,9 @@ const Cart = () => {
 
     getProductsRealTime();
   }, [user]);
-
+  useEffect(() => {
+    document.title = "Wish List";
+  }, []);
   return (
     <div className={styles.main_box}>
       <div className={styles.body_container}>

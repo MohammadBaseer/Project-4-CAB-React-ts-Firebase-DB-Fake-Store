@@ -1,12 +1,12 @@
 import styles from "./Register.module.css";
 import add from "../../../assets/img/addAvatar.png";
-import { useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
 import toast, { Toaster } from "react-hot-toast";
 
 const Register = () => {
-  const { userRegister, user, errorHandle } = useContext(UsersActionAuthContext);
+  const { userRegister, user, errorHandle, selectImage, setSelectImage } = useContext(UsersActionAuthContext);
 
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
@@ -34,11 +34,22 @@ const Register = () => {
     }
   };
 
+  const handleFileChange = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setSelectImage(file ? URL.createObjectURL(file) : null);
+    if (e.target.files) {
+      setFile(e.target.files[0]);
+    }
+  };
+
   if (user) {
     // navigate("/");|
     //TODO IF you have the time, it would be nice that you try that the Navigate takes you to the current location of the user (so if the user type "/login" in the url when they are in "/products", Navigate takes you to "/products")
     return <Navigate to="/" />;
   }
+  useEffect(() => {
+    document.title = "Registration";
+  }, []);
   return (
     <>
       <div className={styles.main_box}>
@@ -91,19 +102,10 @@ const Register = () => {
 
               <div>
                 <label className={styles.file} htmlFor="file">
-                  <img className="avatar" src={add} alt="" />
-                  <span>Add an avatar</span>
+                  <img className={styles.avatar} src={selectImage ? selectImage : add} alt="" />
+                  <span>{selectImage ? "Avatar Selected" : "Add an avatar"}</span>
                 </label>
-                <input
-                  style={{ display: "none" }}
-                  type="file"
-                  id="file"
-                  onChange={(e) => {
-                    if (e.target.files) {
-                      setFile(e.target.files[0]);
-                    }
-                  }}
-                />
+                <input style={{ display: "none" }} type="file" id="file" onChange={handleFileChange} />
               </div>
             </div>
 

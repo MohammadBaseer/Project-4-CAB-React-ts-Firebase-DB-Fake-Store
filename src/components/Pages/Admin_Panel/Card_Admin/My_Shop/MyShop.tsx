@@ -22,6 +22,7 @@ const MyShop = () => {
 
   useEffect(() => {
     getProductsToTableRealTime();
+    document.title = "My Shop";
   }, []);
 
   return (
@@ -65,7 +66,8 @@ const MyShop = () => {
                         <td>{productsData.description}</td>
                         <td>{productsData.price}-£</td>
                         <td>
-                          <Link to="">Del</Link>
+                          {/* <Link to="">Del</Link> */}
+                          N/A
                         </td>
                       </tr>
                     );

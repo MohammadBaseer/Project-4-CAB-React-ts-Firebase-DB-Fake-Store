@@ -3,11 +3,10 @@ import styles from "./ProductItems.module.css";
 import { Link } from "react-router-dom";
 import { CardItemTypes, IncomingStoreArrayIntoStateType, ProductsMergeType } from "../../../../@Types/Type";
 import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../../Config/Firebase_Auth";
-
-import CartButton from "./CartButton";
 import { UsersActionAuthContext } from "../../../../Context/AuthAction_Context/UsersAuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import { db } from "../../../Config/Firebase_Auth";
+import CartButton from "./CartButton";
 
 type itemPropsType = {
   uid: string | number | any;
@@ -76,7 +75,6 @@ const ProductItems = ({ id, image, title, category, description, price, element,
       insertDataToDB();
     }
   }, [incomingStoreArrayIntoState]);
-
   return (
     <>
       <div className={`${styles.product_elements} col-11 sm:col-5 md:col-4 lg:col-4 xl:col-3`}>

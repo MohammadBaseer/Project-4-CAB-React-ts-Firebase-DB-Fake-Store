@@ -13,6 +13,7 @@ const Products = () => {
 
   useEffect(() => {
     getProducts();
+    document.title = "Products";
   }, []);
 
   useEffect(() => {

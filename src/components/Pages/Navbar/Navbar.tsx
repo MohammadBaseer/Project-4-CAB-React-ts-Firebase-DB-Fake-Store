@@ -38,12 +38,12 @@ function Navbar() {
                 <li className={styles.nav_elements}>
                   <NavLink to="products">Products</NavLink>
                 </li>
-                <li className={styles.nav_elements}>
+                {/* <li className={styles.nav_elements}>
                   <NavLink to="contact">Contact</NavLink>
                 </li>
                 <li className={styles.nav_elements}>
                   <NavLink to="/about">About us</NavLink>
-                </li>
+                </li> */}
               </div>
             </ul>
           </div>

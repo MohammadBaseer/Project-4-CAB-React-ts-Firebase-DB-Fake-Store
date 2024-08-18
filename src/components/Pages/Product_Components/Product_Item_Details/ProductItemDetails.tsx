@@ -25,9 +25,8 @@ const ProductItemDetail = () => {
 
   useEffect(() => {
     getSingleProduct();
+    document.title = "Details";
   }, []);
-
-  //
 
   const cleanImageUrl = (imageURL: string): string => {
     const alternativeImage = "https://nayemdevs.com/wp-content/uploads/2020/03/default-product-image.png";

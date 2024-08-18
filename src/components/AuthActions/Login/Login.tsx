@@ -1,10 +1,11 @@
 import styles from "./Login.module.css";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Config/Firebase_Auth";
+
 import { UsersActionAuthContext } from "../../../Context/AuthAction_Context/UsersAuthContext";
 import toast, { Toaster } from "react-hot-toast";
+import { auth } from "../../Config/Firebase_Auth";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -64,6 +65,9 @@ const Login = () => {
     //TODO IF you have the time, it would be nice that you try that the Navigate takes you to the current location of the user (so if the user type "/login" in the url when they are in "/products", Navigate takes you to "/products")
     return <Navigate to="/" />;
   }
+  useEffect(() => {
+    document.title = "Login";
+  }, []);
   return (
     <>
       <div className={styles.main_box}>
