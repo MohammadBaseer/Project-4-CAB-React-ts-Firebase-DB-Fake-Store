@@ -3,7 +3,6 @@ import AddItemModal from "./AddItemModal";
 import styles from "./MyShop.module.css";
 import { db } from "../../../../Config/Firebase_Auth";
 import { ProductsType } from "../../../../../@Types/Type";
-import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const MyShop = () => {
@@ -65,10 +64,7 @@ const MyShop = () => {
                         <td>{productsData.category.name}</td>
                         <td>{productsData.description}</td>
                         <td>{productsData.price}-£</td>
-                        <td>
-                          {/* <Link to="">Del</Link> */}
-                          N/A
-                        </td>
+                        <td>N/A</td>
                       </tr>
                     );
                   })}
