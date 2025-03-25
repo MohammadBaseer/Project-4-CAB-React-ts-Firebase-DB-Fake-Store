@@ -2,10 +2,11 @@
   display: none;
 }
 .body_container {
-  width: 90%;
+  width: 100%;
   margin: auto !important;
   /* border: solid yellow; */
   padding: 20px;
+  background-color: #476a8d;
 }
 
 .nav_elements {
@@ -23,7 +24,8 @@ a {
 .nav_elements,
 a {
   text-decoration: none !important;
-  color: #476a8d;
+  /* color: #476a8d; */
+  color: #fff;
   list-style: none;
 }
 .nav_buttons {
@@ -48,7 +50,7 @@ li > a {
 }
 li > a:hover {
   background-color: #476a8d;
-  color: #fff;
+  color: rgb(207, 207, 202);
 }
 .active {
   background-color: #476a8d;

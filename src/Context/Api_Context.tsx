@@ -42,16 +42,21 @@ type childrenProps = {
   children: ReactNode;
 };
 
-export const ApiDataContext = createContext<ApiDataContextType>(ApiDataContextInit);
+export const ApiDataContext =
+  createContext<ApiDataContextType>(ApiDataContextInit);
 
 const ApiContextProvider = ({ children }: childrenProps) => {
   const [data, setData] = useState<ProductsMergeType[]>([]);
-  const [filteredData, setFilteredData] = useState<ProductsMergeType[] | null>(null);
+  const [filteredData, setFilteredData] = useState<ProductsMergeType[] | null>(
+    null
+  );
   const [categoryFilter, setCategoryFilter] = useState<string | number>("");
   const [searchFilter, setSearchFilter] = useState<string>("");
   const [errorHandle, setErrorHandle] = useState<string>("");
   const [mergeData, setMergeData] = useState<ProductsMergeType[]>([]);
-  const [getProductsData, setGetProductsData] = useState<ProductsMergeType[] | null>(null);
+  const [getProductsData, setGetProductsData] = useState<
+    ProductsMergeType[] | null
+  >(null);
 
   //! This si the Fetch Function to get the data from Firebase Store Database
   const getProductsRealTime = () => {
@@ -93,10 +98,14 @@ const ApiContextProvider = ({ children }: childrenProps) => {
     }
     if (categoryFilter !== "") {
       // filteredData = filteredData.filter((product) => Number(product.category.id) === Number(categoryFilter));
-      filteredData = filteredData.filter((product) => product.category.name === categoryFilter);
+      filteredData = filteredData.filter(
+        (product) => product.category.name === categoryFilter
+      );
     }
     if (searchFilter) {
-      filteredData = filteredData.filter((product) => product.title.toLowerCase().includes(searchFilter.toLowerCase()));
+      filteredData = filteredData.filter((product) =>
+        product.title.toLowerCase().includes(searchFilter.toLowerCase())
+      );
     }
     setFilteredData(filteredData);
     if (filteredData.length === 0) {
@@ -139,7 +148,24 @@ const ApiContextProvider = ({ children }: childrenProps) => {
     mergeProducts();
   }, [getProductsData, data]);
 
-  return <ApiDataContext.Provider value={{ getProducts, filterDataFun, data, filteredData, setCategoryFilter, setSearchFilter, errorHandle, searchFilter, categoryFilter, mergeData }}>{children}</ApiDataContext.Provider>;
+  return (
+    <ApiDataContext.Provider
+      value={{
+        getProducts,
+        filterDataFun,
+        data,
+        filteredData,
+        setCategoryFilter,
+        setSearchFilter,
+        errorHandle,
+        searchFilter,
+        categoryFilter,
+        mergeData,
+      }}
+    >
+      {children}
+    </ApiDataContext.Provider>
+  );
 };
 
 export default ApiContextProvider;

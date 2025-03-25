@@ -5,7 +5,15 @@ import { ApiDataContext } from "../../../../Context/Api_Context";
 const ProductFilters = () => {
   let pickCategoryFromApi: string[] = [];
 
-  const { getProducts, setCategoryFilter, setSearchFilter, filterDataFun, searchFilter, categoryFilter, mergeData } = useContext(ApiDataContext);
+  const {
+    getProducts,
+    setCategoryFilter,
+    setSearchFilter,
+    filterDataFun,
+    searchFilter,
+    categoryFilter,
+    mergeData,
+  } = useContext(ApiDataContext);
 
   useEffect(() => {
     getProducts();
@@ -39,15 +47,25 @@ const ProductFilters = () => {
       </div>
       <div className={styles.filter_container}>
         <NavLink to="#">
-          <button className={`${styles.filter_button} ${styles.filter_head}`} value="">
+          <button
+            className={`${styles.filter_button} ${styles.filter_head}`}
+            value=""
+          >
             <i className="pi pi-sort-amount-down">&nbsp;</i>Categories
           </button>
         </NavLink>
 
         {/* //! -------------------------------------------------------- */}
 
-        <div className={styles.select_container} data-placeholder="All Categories">
-          <select className={styles.select} value={categoryFilter} onChange={categoryHandel}>
+        <div
+          className={styles.select_container}
+          data-placeholder="All Categories"
+        >
+          <select
+            className={styles.select}
+            value={categoryFilter}
+            onChange={categoryHandel}
+          >
             <option value="">All Categories</option>
 
             {mergeData &&
@@ -58,9 +76,6 @@ const ProductFilters = () => {
                     <option key={index} value={itemCategory.category.name}>
                       {itemCategory.category.name}
                     </option>
-                    // <option key={index} value={itemCategory.category.id}>
-                    //   {itemCategory.category.name}
-                    // </option>
                   );
                 }
               })}
